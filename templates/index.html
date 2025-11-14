@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Smart To-Do (skjelett)</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <h1>Smart To-Do (skjelett)</h1>
+
+    <form action="/add" method="post" class="new-task">
+      <input name="title" placeholder="Hva skal gjøres?" required />
+      <select name="label">
+        <option>School</option>
+        <option>Work</option>
+        <option>Home</option>
+        <option>Health</option>
+        <option>Finance</option>
+        <option>Shopping</option>
+        <option>Other</option>
+      </select>
+      <select name="priority">
+        <option value="low">low</option>
+        <option value="medium">medium</option>
+        <option value="high">high</option>
+      </select>
+      <button type="submit">Legg til</button>
+    </form>
+
+    <ul class="tasks">
+      {% for t in tasks %}
+        <li class="{{ 'done' if t.is_done else '' }}">
+          <a href="/toggle/{{ t.id }}" title="Ferdig/Uferdig">[✓]</a>
+          <strong>{{ t.title }}</strong>
+          <small>— {{ t.label }} · {{ t.priority }}</small>
+        </li>
+      {% else %}
+        <li>Ingen oppgaver enda.</li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
