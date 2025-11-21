@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Smart To-Do (MVP)</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <h1>Smart To-Do (MVP)</h1>
+
+    <form action="/add" method="post" class="new-task">
+      <input name="title" placeholder="Hva skal gjøres?" required>
+      <select name="label">
+        <option>School</option>
+        <option>Work</option>
+        <option>Home</option>
+        <option>Health</option>
+        <option>Finance</option>
+        <option>Shopping</option>
+        <option>Other</option>
+      </select>
+      <input name="priority" type="number" min="1" max="5" value="3" style="width:4rem">
+      <button type="submit">Add</button>
+    </form>
+
+    <h2>Liste</h2>
+    <ul>
+      {% for t in tasks %}
+        <li>[p{{t.priority}}] {{t.label}} — {{t.title}}</li>
+      {% else %}
+        <li><em>Ingen oppgaver enda.</em></li>
+      {% endfor %}
+    </ul>
+
+    <form action="/clear" method="post">
+      <button type="submit">Tøm listen</button>
+    </form>
+  </body>
+</html>
