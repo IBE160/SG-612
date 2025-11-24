@@ -105,3 +105,15 @@ Students and beginners who want a fast, minimal task manager with intelligent as
 * The application remains functional (via fallback) if the AI service is disconnected.
 * Smart Lists accurately display filtered views of the data.
 * Code is well-structured and follows the defined timeline.
+
+## User Flows
+
+### Student / User Flow
+1. **Entry:** User opens the web application.
+2. **Dashboard View:** User sees the dashboard with "Smart Lists" (High Priority, Due This Week) and a list of current tasks.
+3. **Create Task:** User clicks "Add Task" button -> Opens Modal -> User types "Study for math".
+4. **AI Assistance:** User clicks "Magic Fill". System auto-selects Label: "School" and Priority: "High".
+5. **Review:** User confirms or edits the suggestion -> Clicks "Save".
+6. **Confirmation:** Modal closes, dashboard updates immediately with the new task sorted correctly.
+7. **Complete Task:** User checks the box next to the task -> Task moves to "Completed" state visually.
+8. **Exit:** User leaves the page (data is stored).
