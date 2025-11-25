@@ -25,6 +25,10 @@ workflow_status:
   - phase: 0
     name: "Discovery (Optional)"
     workflows:
+      - id: "research"
+        agent: "analyst"
+        command: "research"
+        status: "docs/research-technical-2025-11-25.md"
       - id: "product-brief"
         agent: "analyst"
         command: "product-brief"
