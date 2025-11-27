@@ -47,14 +47,6 @@ Students and beginners who want a fast, minimal task manager with intelligent as
 * **Web Framework:** Flask (Lightweight, perfect for this scope).
 * **Database:** SQLite via SQLAlchemy ORM.
 
-### Backend & Code Structure
-* **Language:** Python 3.x
-* **Web Framework:** Flask.
-* **Architecture Pattern:** Standard Modular Structure using **Flask Blueprints**.
-    * *Reasoning (Based on Technical Research):* We chose a standard modular structure over a monolithic design to ensure maintainability. Blueprints will allow us to separate the "Todo" logic from "Auth" logic, making the codebase scalable and easier to test.
-* **Database:** SQLite via SQLAlchemy ORM.
-* **Testing Strategy:** **Pytest** will be used for unit testing, supported by a modular folder structure that separates tests from application code.
-* **Security & Config:** Environment variables (e.g., API Keys) will be managed securely using `python-dotenv`.
 
 ### AI Integration & Fallback Logic
 * **Model:** **Google Gemini API** (Model: `gemini-1.5-flash`).
