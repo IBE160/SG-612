@@ -33,13 +33,7 @@ workflow_status:
         command: "brainstorm-project"
         included_by: "user_choice"
         status: "docs/brainstorming-session-results-2025-11-26.md"
-      - id: "research"
-        optional: true
-        agent: "analyst"
-        command: "research"
-        included_by: "user_choice"
-        note: "Can have multiple research workflows"
-        status: "pending"
+        status: "docs/bmm-research-technical-2025-11-26.md"
       - id: "product-brief"
         optional: true
         agent: "analyst"
