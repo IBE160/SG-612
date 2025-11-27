@@ -40,7 +40,7 @@ workflow_status:
         command: "product-brief"
         included_by: "user_choice"
         note: "Recommended for greenfield Method projects"
-        status: "pending"
+        status: "docs/product-brief-ibe160-2025-11-27.md"
   - phase: 1
     name: "Planning"
     required: true
