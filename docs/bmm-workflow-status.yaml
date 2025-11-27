@@ -56,7 +56,7 @@ workflow_status:
         agent: "pm"
         command: "prd"
         output: "Product Requirements Document with FRs and NFRs"
-        status: "pending"
+        status: "docs/prd.md"
       - id: "validate-prd"
         optional: true
         agent: "pm"
