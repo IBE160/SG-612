@@ -32,15 +32,21 @@ workflow_status:
         agent: "analyst"
         command: "brainstorm-project"
         included_by: "user_choice"
-        status: "docs/brainstorming-session-results-2025-11-26.md"
-        status: "docs/bmm-research-technical-2025-11-26.md"
+        status: "docs/fase-1-analysis/brainstorming.md"
+      - id: "research"
+        optional: true
+        agent: "analyst"
+        command: "research"
+        included_by: "user_choice"
+        note: "Can have multiple research workflows"
+        status: "docs/fase-1-analysis/research-technical.md"
       - id: "product-brief"
         optional: true
         agent: "analyst"
         command: "product-brief"
         included_by: "user_choice"
         note: "Recommended for greenfield Method projects"
-        status: "docs/product-brief-ibe160-2025-11-27.md"
+        status: "docs/product-brief.md"
   - phase: 1
     name: "Planning"
     required: true
