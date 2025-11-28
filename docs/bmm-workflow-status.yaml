@@ -85,7 +85,7 @@ workflow_status:
         agent: "pm"
         command: "create-epics-and-stories"
         note: "Required: Break down PRD into implementable epics and stories with full context (PRD + UX + Architecture)"
-        status: "pending"
+        status: "docs/epics.md"
       - id: "test-design"
         recommended: true
         agent: "tea"
