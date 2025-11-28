@@ -76,6 +76,14 @@ This project is classified as a general-purpose web application with low domain 
 *   **Automated Project Decomposition:** The ability for the AI to take a high-level goal (e.g., "launch a new blog") and automatically generate a complete project plan with milestones and individual tasks.
 *   **The True "Universal Inbox":** A fully integrated system that can connect to various services (email, calendars, messaging apps) to automatically capture commitments and turn them into actionable tasks, creating a single source of truth for all of a user's obligations.
 
+### Epic Breakdown Summary
+
+The features outlined in this PRD will be implemented across the following three epics. A more detailed breakdown of stories can be found in the [Epics](./epics.md) document.
+
+*   **Epic 1: Foundational Setup & Core Task Management:** Establishes the project foundation and implements core CRUD functionality for tasks.
+*   **Epic 2: AI-Powered Task Intelligence:** Integrates the Gemini AI to provide intelligent suggestions for task labels and priorities.
+*   **Epic 3: Smart Lists & Advanced Filtering:** Implements automated smart lists and user-controlled filtering and sorting.
+
 ---
 
 {{#if domain_considerations}}
@@ -235,6 +243,13 @@ _No specific non-functional requirements identified for this project type._
 
 ---
 
-_This PRD captures the essence of {{project_name}} - The Smart To-Do AI provides an AI-enhanced, minimalist task management experience that significantly reduces manual organizational effort, empowering students and busy individuals to focus on task completion rather than administration._
+_This PRD captures the essence of ibe160 - The Smart To-Do AI provides an AI-enhanced, minimalist task management experience that significantly reduces manual organizational effort, empowering students and busy individuals to focus on task completion rather than administration._
 
-_Created through collaborative discovery between {{user_name}} and AI facilitator._
+_Created through collaborative discovery between BIP and AI facilitator._
+
+---
+
+## References
+
+*   [Product Brief](./product-brief.md)
+*   [Project Proposal](./proposal_v2.md)
