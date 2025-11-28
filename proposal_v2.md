@@ -23,10 +23,13 @@ Students and beginners who want a fast, minimal task manager with intelligent as
 * **Smart Lists:** Auto-generated views for "High Priority" and "Due This Week".
 * **Filtering/Sorting:** Filter by specific label and sort by priority/date.
 
-### Nice to Have (Optional Extensions)
-* **Natural Language Date Parsing:** AI extracts dates from text (e.g., "submit report next friday").
-* **Export/Import:** Backup tasks to CSV/JSON.
-* **Dark Mode:** UI toggle for theme.
+### Nice to Have (Post-MVP Extensions)
+* **Gamified UI/UX:** Introduce rewarding visual feedback, such as celebratory animations and "streaks" for consecutive days of activity, and satisfying sounds effects.
+* **Shared Task Lists:** Allow users to create and collaborate on lists with others, including comments and notifications.
+* **AI-Generated Sub-tasks:** Let the AI suggest breaking down larger tasks into smaller, manageable sub-tasks.
+* **Simple Search:** Implement a basic text search to quickly find tasks.
+* **Export/Import:** Allow users to back up and restore their tasks to a local file (CSV/JSON).
+* **Dark Mode:** Provide a UI toggle for a dark-themed interface.
 
 ## Data Requirements
 * **Tasks:** `id`, `title`, `notes`, `due_date`, `label`, `priority`, `is_done`, `created_at`
@@ -44,17 +47,9 @@ Students and beginners who want a fast, minimal task manager with intelligent as
 
 ### Backend
 * **Language:** Python 3.x
-* **Web Framework:** Flask (Lightweight, perfect for this scope).
+* **Web Framework:** Flask. Lightweight and perfect for this scope. It was chosen for its simplicity and flexibility, which is ideal for a beginner-level team, as confirmed by a comparative framework analysis.
 * **Database:** SQLite via SQLAlchemy ORM.
 
-### Backend & Code Structure
-* **Language:** Python 3.x
-* **Web Framework:** Flask.
-* **Architecture Pattern:** Standard Modular Structure using **Flask Blueprints**.
-    * *Reasoning (Based on Technical Research):* We chose a standard modular structure over a monolithic design to ensure maintainability. Blueprints will allow us to separate the "Todo" logic from "Auth" logic, making the codebase scalable and easier to test.
-* **Database:** SQLite via SQLAlchemy ORM.
-* **Testing Strategy:** **Pytest** will be used for unit testing, supported by a modular folder structure that separates tests from application code.
-* **Security & Config:** Environment variables (e.g., API Keys) will be managed securely using `python-dotenv`.
 
 ### AI Integration & Fallback Logic
 * **Model:** **Google Gemini API** (Model: `gemini-1.5-flash`).
@@ -108,12 +103,21 @@ Students and beginners who want a fast, minimal task manager with intelligent as
     * Code cleanup and commenting.
     * Final project report/presentation preparation.
 
+## Future Vision: The AI-Powered Productivity Coach
+
+Beyond the initial implementation, the long-term vision for this project is to evolve from a simple task manager into a proactive, AI-powered productivity coach. This includes:
+
+*   **Hyper-Personalized AI Assistance:** An AI that learns from a user's habits to provide personalized advice, suggest optimal times to work on tasks, and help manage workload to prevent burnout.
+*   **Automated Project Decomposition:** The ability for the AI to take a high-level goal (e.g., "launch a new blog") and automatically generate a complete project plan with milestones and individual tasks.
+*   **The True "Universal Inbox":** A fully integrated system that can connect to various services (email, calendars, messaging apps) to automatically capture commitments and turn them into actionable tasks, creating a single source of truth for all of a user's obligations.
+
 ## Success Criteria
 * Users can complete the full task lifecycle (CRUD) via the web interface.
 * Gemini API correctly categorizes simple tasks (e.g., "Buy milk" -> Shopping).
 * The application remains functional (via fallback) if the AI service is disconnected.
 * Smart Lists accurately display filtered views of the data.
 * Code is well-structured and follows the defined timeline.
+* Project structure follows course requirements (e.g., planning documents in repo, runnable app).
 
 ## User Flows
 

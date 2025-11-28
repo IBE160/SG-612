@@ -15,66 +15,97 @@
 #   - {file-path}: File created/found (e.g., "docs/product-brief.md")
 #   - skipped: Optional/conditional workflow that was skipped
 
-generated: "2025-11-25"
+generated: "2025-11-26"
 project: "ibe160"
-project_type: "web-application"
+project_type: "{{project_type}}"
 selected_track: "method"
 field_type: "greenfield"
 workflow_path: ".bmad/bmm/workflows/workflow-status/paths/method-greenfield.yaml"
 workflow_status:
   - phase: 0
     name: "Discovery (Optional)"
+    optional: true
+    note: "User-selected during workflow-init"
     workflows:
-      - id: "research"
+      - id: "brainstorm-project"
+        optional: true
         agent: "analyst"
-        command: "research"
-        status: "docs/research-technical-2025-11-25.md"
+        command: "brainstorm-project"
+        included_by: "user_choice"
+        status: "docs/brainstorming-session-results-2025-11-26.md"
+        status: "docs/bmm-research-technical-2025-11-26.md"
       - id: "product-brief"
+        optional: true
         agent: "analyst"
         command: "product-brief"
-        status: "requested"
+        included_by: "user_choice"
+        note: "Recommended for greenfield Method projects"
+        status: "docs/product-brief-ibe160-2025-11-27.md"
   - phase: 1
     name: "Planning"
+    required: true
     workflows:
       - id: "prd"
+        required: true
         agent: "pm"
         command: "prd"
-        status: "required"
+        output: "Product Requirements Document with FRs and NFRs"
+        status: "pending"
       - id: "validate-prd"
+        optional: true
         agent: "pm"
         command: "validate-prd"
-        status: "optional"
+        note: "Quality check for PRD completeness"
+        status: "pending"
       - id: "create-design"
+        conditional: "if_has_ui"
         agent: "ux-designer"
         command: "create-design"
-        status: "conditional"
+        note: "Determined after PRD - user/agent decides if needed"
+        status: "pending"
   - phase: 2
     name: "Solutioning"
+    required: true
     workflows:
       - id: "create-architecture"
+        required: true
         agent: "architect"
         command: "create-architecture"
-        status: "required"
+        output: "System architecture document"
+        note: "Complete system design for greenfield projects"
+        status: "pending"
       - id: "create-epics-and-stories"
+        required: true
         agent: "pm"
         command: "create-epics-and-stories"
-        status: "required"
+        note: "Required: Break down PRD into implementable epics and stories with full context (PRD + UX + Architecture)"
+        status: "pending"
       - id: "test-design"
+        recommended: true
         agent: "tea"
         command: "test-design"
-        status: "recommended"
+        output: "System-level testability review"
+        note: "Testability assessment before gate check - auto-detects system-level mode"
+        status: "pending"
       - id: "validate-architecture"
+        optional: true
         agent: "architect"
         command: "validate-architecture"
-        status: "optional"
+        note: "Quality check for architecture completeness"
+        status: "pending"
       - id: "implementation-readiness"
+        required: true
         agent: "architect"
         command: "implementation-readiness"
-        status: "required"
+        note: "Validates PRD + UX + Architecture + Epics + Testability cohesion before implementation"
+        status: "pending"
   - phase: 3
     name: "Implementation"
+    required: true
     workflows:
       - id: "sprint-planning"
+        required: true
         agent: "sm"
         command: "sprint-planning"
-        status: "required"
+        note: "Creates sprint plan - subsequent work tracked there"
+        status: "pending"
