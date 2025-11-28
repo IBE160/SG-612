@@ -136,11 +136,11 @@ This structured timeline imposes significant pressure to adhere to the MVP scope
 
 ## Final Refinements
 
-All sections of this Product Brief have been meticulously crafted and refined based on the `proposal_v2.md`, the `bmm-research-technical-2025-11-26.md`, and the `brainstorming-session-results-2025-11-26.md`. Cross-referencing and synthesis of information from these documents have ensured consistency and completeness. The language and depth of detail have been adapted to the 'school project' context, emphasizing learning outcomes, practical implementation, and the innovative use of AI within defined project constraints. Special attention was paid to integrate the user's initial excitement and core vision throughout the document.
+All sections of this Product Brief have been meticulously crafted and refined based on the `proposal.md`, the `bmm-research-technical-2025-11-26.md`, and the `brainstorming-session-results-2025-11-26.md`. Cross-referencing and synthesis of information from these documents have ensured consistency and completeness. The language and depth of detail have been adapted to the 'school project' context, emphasizing learning outcomes, practical implementation, and the innovative use of AI within defined project constraints. Special attention was paid to integrate the user's initial excitement and core vision throughout the document.
 
 ## Supporting Materials
 
 This Product Brief is supported by and draws extensively from the following materials:
-*   **Project Proposal (proposal_v2.md):** Provided the foundational case title, background, purpose, target users, core functionality (MVP and Nice-to-Have), data requirements, technical architecture, user stories, timeline, future vision, and success criteria.
+*   **Project Proposal (proposal.md):** Provided the foundational case title, background, purpose, target users, core functionality (MVP and Nice-to-Have), data requirements, technical architecture, user stories, timeline, future vision, and success criteria.
 *   **Technical Research Report (bmm-research-technical-2025-11-26.md):** Offered a detailed comparative analysis of Python web frameworks (Flask, Django, FastAPI), leading to the strategic choice of Flask based on ease of learning, flexibility, and beginner-team suitability. It also highlighted risks and mitigation strategies related to framework choice.
 *   **Brainstorming Session Results (brainstorming-session-results-2025-11-26.md):** Expanded on 'Nice to Have' features, generating new ideas through techniques like SCAMPER, 'What If' scenarios, and analogical thinking, and categorized ideas into immediate opportunities, future innovations, and moonshots.

@@ -252,4 +252,4 @@ _Created through collaborative discovery between BIP and AI facilitator._
 ## References
 
 *   [Product Brief](./product-brief.md)
-*   [Project Proposal](./proposal_v2.md)
+*   [Project Proposal](./proposal.md)
