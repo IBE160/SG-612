@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UX Design Directions</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --secondary: #6b7280;
+            --background: #f3f4f6;
+            --surface: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --border-color: #e5e7eb;
+        }
+        body { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: var(--background); color: var(--text-primary); margin: 0; padding: 2rem; }
+        h1, h2, h3 { font-weight: 600; margin: 0 0 1rem 0; }
+        p { margin: 0 0 1rem 0; color: var(--text-secondary); font-size: 0.9rem; }
+        .showcase { display: flex; flex-direction: column; gap: 3rem; }
+        .direction { border: 1px solid var(--border-color); border-radius: 0.5rem; background-color: var(--surface); box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .direction-header { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border-color); }
+        .mockup-container { padding: 1.5rem; }
+        .mockup { width: 100%; height: 500px; border: 1px solid var(--border-color); border-radius: 0.25rem; display: flex; overflow: hidden; }
+
+        /* General Components */
+        .sidebar { background-color: #f9fafb; width: 220px; padding: 1.5rem; border-right: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 0.5rem; }
+        .sidebar h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); margin-bottom: 0.5rem; }
+        .sidebar a { text-decoration: none; color: var(--text-primary); padding: 0.5rem 0.75rem; border-radius: 0.25rem; font-size: 0.9rem; }
+        .sidebar a.active { background-color: var(--primary); color: white; font-weight: 500; }
+        .sidebar a:hover { background-color: #eef2ff; }
+        .main-content { flex: 1; padding: 2rem; overflow-y: auto; }
+        .main-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        .btn-primary { background-color: var(--primary); color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 0.25rem; font-weight: 500; cursor: pointer; }
+
+        /* Direction 1: Dense & Efficient */
+        .dir-1-main { display: flex; height: 100%; }
+        .dir-1-tasks { flex: 2; border-right: 1px solid var(--border-color); padding: 2rem; }
+        .dir-1-details { flex: 1; padding: 2rem; background-color: #f9fafb;}
+        .dir-1-tasks .task-item { display: flex; align-items: center; gap: 1rem; padding: 0.5rem; border-bottom: 1px solid var(--border-color); font-size: 0.9rem;}
+        .dir-1-tasks .task-item input { margin-right: 0.5rem; }
+
+        /* Direction 2: Spacious & Focused */
+        .dir-2-main { display: flex; height: 100%; }
+        .dir-2-tasks .task-card { background: var(--surface); border: 1px solid var(--border-color); border-radius: 0.375rem; padding: 1rem; margin-bottom: 1rem; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+        .dir-2-tasks .task-card h3 { font-size: 1rem; margin-bottom: 0.25rem; }
+        .dir-2-tasks .task-card p { font-size: 0.85rem; color: var(--text-secondary); }
+        
+        /* Direction 3: Card-Based Grid */
+        .dir-3-main { display: flex; height: 100%; }
+        .dir-3-tasks { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
+        .dir-3-tasks .task-card { background: var(--surface); border: 1px solid var(--border-color); border-radius: 0.375rem; padding: 1rem; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+
+    </style>
+</head>
+<body>
+
+    <h1>Design Direction Showcase</h1>
+
+    <div class="showcase">
+
+        <!-- Direction 1 -->
+        <div class="direction">
+            <div class="direction-header">
+                <h2>1. Dense & Efficient</h2>
+                <p>A multi-column layout for power users who want high information density and everything visible at once.</p>
+            </div>
+            <div class="mockup-container">
+                <div class="mockup">
+                    <div class="dir-1-main">
+                        <div class="sidebar">
+                            <h3>Smart Lists</h3>
+                            <a href="#">All Tasks</a>
+                            <a href="#" class="active">High Priority</a>
+                            <a href="#">Due This Week</a>
+                            <h3>Labels</h3>
+                            <a href="#">School</a>
+                            <a href="#">Shopping</a>
+                        </div>
+                        <div class="dir-1-tasks">
+                             <div class="main-header">
+                                <h2>High Priority</h2>
+                                <button class="btn-primary">Add Task</button>
+                            </div>
+                            <div class="task-item"><input type="checkbox"> Finish research paper draft</div>
+                            <div class="task-item"><input type="checkbox"> Schedule dentist appointment</div>
+                            <div class="task-item"><input type="checkbox"> Pay electricity bill</div>
+                        </div>
+                        <div class="dir-1-details">
+                            <h3>Task Details</h3>
+                            <p>Select a task to see details.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Direction 2 -->
+        <div class="direction">
+            <div class="direction-header">
+                <h2>2. Spacious & Focused (Chosen Direction)</h2>
+                <p>A clean, single-column list view with a sidebar that prioritizes white space and reduces clutter.</p>
+            </div>
+            <div class="mockup-container">
+                <div class="mockup">
+                    <div class="dir-2-main">
+                        <div class="sidebar">
+                             <h3>Smart Lists</h3>
+                            <a href="#">All Tasks</a>
+                            <a href="#" class="active">High Priority</a>
+                            <a href="#">Due This Week</a>
+                            <h3>Labels</h3>
+                            <a href="#">School</a>
+                            <a href="#">Shopping</a>
+                        </div>
+                        <div class="main-content dir-2-tasks">
+                            <div class="main-header">
+                                <h2>High Priority</h2>
+                                <button class="btn-primary">Add Task</button>
+                            </div>
+                            <div class="task-card">
+                                <h3>Finish research paper draft</h3>
+                                <p>Due: Tomorrow</p>
+                            </div>
+                             <div class="task-card">
+                                <h3>Schedule dentist appointment</h3>
+                                <p>Due: In 3 days</p>
+                            </div>
+                             <div class="task-card">
+                                <h3>Pay electricity bill</h3>
+                                <p>Due: Nov 30, 2025</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Direction 3 -->
+        <div class="direction">
+            <div class="direction-header">
+                <h2>3. Card-Based Grid</h2>
+                <p>A visual, grid-based layout where each task is a card, similar to a pinboard or Google Keep.</p>
+            </div>
+            <div class="mockup-container">
+                <div class="mockup">
+                     <div class="dir-3-main">
+                        <div class="sidebar">
+                            <h3>Smart Lists</h3>
+                            <a href="#">All Tasks</a>
+                            <a href="#" class="active">High Priority</a>
+                            <a href="#">Due This Week</a>
+                             <h3>Labels</h3>
+                            <a href="#">School</a>
+                            <a href="#">Shopping</a>
+                        </div>
+                        <div class="main-content dir-3-tasks">
+                             <div class="main-header" style="grid-column: 1 / -1;">
+                                <h2>High Priority</h2>
+                                <button class="btn-primary">Add Task</button>
+                            </div>
+                            <div class="task-card">
+                                <h3>Finish research paper draft</h3>
+                                <p>Due: Tomorrow</p>
+                            </div>
+                             <div class="task-card">
+                                <h3>Schedule dentist appointment</h3>
+                                <p>Due: In 3 days</p>
+                            </div>
+                             <div class="task-card">
+                                <h3>Pay electricity bill</h3>
+                                <p>Due: Nov 30, 2025</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

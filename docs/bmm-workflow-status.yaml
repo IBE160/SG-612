@@ -32,15 +32,21 @@ workflow_status:
         agent: "analyst"
         command: "brainstorm-project"
         included_by: "user_choice"
-        status: "docs/brainstorming-session-results-2025-11-26.md"
-        status: "docs/bmm-research-technical-2025-11-26.md"
+        status: "docs/fase-1-analysis/brainstorming.md"
+      - id: "research"
+        optional: true
+        agent: "analyst"
+        command: "research"
+        included_by: "user_choice"
+        note: "Can have multiple research workflows"
+        status: "docs/fase-1-analysis/research-technical.md"
       - id: "product-brief"
         optional: true
         agent: "analyst"
         command: "product-brief"
         included_by: "user_choice"
         note: "Recommended for greenfield Method projects"
-        status: "docs/product-brief-ibe160-2025-11-27.md"
+        status: "docs/product-brief.md"
   - phase: 1
     name: "Planning"
     required: true
@@ -50,7 +56,7 @@ workflow_status:
         agent: "pm"
         command: "prd"
         output: "Product Requirements Document with FRs and NFRs"
-        status: "pending"
+        status: "docs/prd.md"
       - id: "validate-prd"
         optional: true
         agent: "pm"
@@ -62,7 +68,7 @@ workflow_status:
         agent: "ux-designer"
         command: "create-design"
         note: "Determined after PRD - user/agent decides if needed"
-        status: "pending"
+        status: "docs/ux-design-specification.md"
   - phase: 2
     name: "Solutioning"
     required: true
@@ -79,7 +85,7 @@ workflow_status:
         agent: "pm"
         command: "create-epics-and-stories"
         note: "Required: Break down PRD into implementable epics and stories with full context (PRD + UX + Architecture)"
-        status: "pending"
+        status: "docs/epics.md"
       - id: "test-design"
         recommended: true
         agent: "tea"
