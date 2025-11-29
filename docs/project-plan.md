@@ -11,17 +11,13 @@
 - [x] /run-agent-task analyst *workflow-init
   - [x] File: bmm-workflow-status.yaml
 - [x] Brainstorming
-  - [x] /run-agent-task analyst *brainstorm "Root Cause Analysis and Solution Design for Player Inactivity"
-    - [x] File: brainstorming-session-results-date.md
-  - [x] /run-agent-task analyst *brainstorm "User Flow Deviations & Edge Cases"
-    - [x] File: brainstorming-session-results-date.md
-  - [x] /run-agent-task analyst *brainstorm "Brainstorm what it means to have a paid user"
-    - [x] File: brainstorming-session-results-date.md
-- [ ] Research
-  - [x] /run-agent-task analyst *research "Which AI library should we use for orchestrating LLM interactions?"
-    - [x] File: research-technical-date.md
+  - [x] /run-agent-task analyst *brainstorm "Expanding on "Nice to Have" features for the Smart To-Do AI project."
+    - [x] File: brainstorming.md
+- [x] Research
+  - [x] /run-agent-task analyst *research "Find the easist web framework choice for the project, considering the groups beginner level"
+    - [x] File: research-technical.md
 - [x] Product Brief
-  - [x] /run-agent-task analyst *product-brief "Read the two brainstorming sessions the research session and the @proposal.md file, and create a product brief for the project."
+  - [x] /run-agent-task analyst *product-brief "Read the brainstorming session the research session and the @proposal.md file, and create a product brief for the project."
     - [x] File: product-brief.md
 
 ## Fase 1
