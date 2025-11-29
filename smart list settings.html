@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Smart List Settings Modal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#3858fa",
+            "background-light": "#f5f6f8",
+            "background-dark": "#0f1323",
+          },
+          fontFamily: {
+            "display": ["Public Sans", "sans-serif"]
+          },
+          borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 24
+    }
+    .material-symbols-outlined.fill {
+      font-variation-settings:
+      'FILL' 1
+    }
+  </style>
+</head>
+<body class="font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden">
+<div class="flex flex-row w-full h-full">
+<aside class="w-64 flex-shrink-0 border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-background-dark/50">
+<div class="flex h-full min-h-[700px] flex-col justify-between p-4">
+<div class="flex flex-col gap-4">
+<div class="flex gap-3 items-center px-3 py-2">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAUFGogrB_ziNS0ZeLzoP8LEa1ztN0pBUEi1M3RVk-bttTydI2A597jR7qwKBhthXokAgSigdmN4OWCT2dfHC_7D0Y_u478BLSOG2pjsQiZ7W3z615Jpl3qqzWCtZ0lFciQi4appYQs1KFt75r3lS9dASxKns92axY6IdWkNEyLjs8MJuYFjfqz43EIJsV0wQB80IanLFIEQ2_kVJ-lefoZyYZKYmRIHdd4p8sD6boeUS2Ci-iTiRJIaTUZAhI9mlkByu6NG2qMAGc");'></div>
+<div class="flex flex-col">
+<h1 class="text-gray-900 dark:text-white text-base font-medium leading-normal">Alex Johnson</h1>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">alex.j@school.com</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2 mt-4">
+<a class="flex items-center gap-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/10 rounded-lg" href="#">
+<span class="material-symbols-outlined">home</span>
+<p class="text-sm font-medium leading-normal">Home</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/10 rounded-lg" href="#">
+<span class="material-symbols-outlined">check_box</span>
+<p class="text-sm font-medium leading-normal">My Tasks</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/10 rounded-lg" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<p class="text-sm font-medium leading-normal">Calendar</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary dark:bg-primary/20" href="#">
+<span class="material-symbols-outlined fill">settings</span>
+<p class="text-sm font-medium leading-normal">Settings</p>
+</a>
+</nav>
+</div>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">New Task</span>
+</button>
+</div>
+</aside>
+<main class="flex-1 p-8">
+<div class="max-w-3xl mx-auto">
+<header class="mb-8">
+<h1 class="text-gray-900 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">Dashboard</h1>
+<p class="text-gray-500 dark:text-gray-400 text-base font-normal leading-normal">Welcome back, Alex!</p>
+</header>
+<div class="w-full h-96 bg-white dark:bg-background-dark/50 rounded-xl border border-gray-200 dark:border-gray-800 flex items-center justify-center">
+<p class="text-gray-500 dark:text-gray-400">Main dashboard content would be here.</p>
+</div>
+</div>
+</main>
+</div>
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/40 backdrop-blur-sm">
+<div class="relative flex flex-col w-full max-w-3xl max-h-[90vh] bg-white dark:bg-gray-900 rounded-xl shadow-2xl m-4">
+<header class="flex items-start justify-between p-6 border-b border-gray-200 dark:border-gray-800 shrink-0">
+<div class="flex flex-col gap-1.5">
+<p class="text-gray-900 dark:text-white text-xl font-bold leading-tight tracking-[-0.015em]">Smart List Settings</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Customize how Smart To-Do AI automatically organizes your tasks.</p>
+</div>
+<button class="flex items-center justify-center rounded-lg size-8 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/10">
+<span class="material-symbols-outlined text-2xl">close</span>
+</button>
+</header>
+<div class="flex-1 p-6 overflow-y-auto">
+<div class="flex flex-col gap-8">
+<section>
+<h2 class="text-gray-900 dark:text-white text-lg font-bold leading-tight mb-4">AI Behavior</h2>
+<div class="flex flex-col gap-y-4">
+<div class="flex items-center gap-4 min-h-14 justify-between">
+<div class="flex items-center gap-4">
+<div class="text-gray-900 dark:text-white flex items-center justify-center rounded-lg bg-background-light dark:bg-white/10 shrink-0 size-10">
+<span class="material-symbols-outlined">auto_awesome</span>
+</div>
+<p class="text-gray-900 dark:text-white text-base font-normal leading-normal flex-1 truncate">Enable AI Suggestions</p>
+</div>
+<div class="shrink-0">
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-background-light dark:bg-white/10 p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary">
+<div class="h-full w-[27px] rounded-full bg-white dark:bg-gray-300" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 8px, rgba(0, 0, 0, 0.06) 0px 3px 1px;"></div>
+<input checked="" class="invisible absolute" type="checkbox"/>
+</label>
+</div>
+</div>
+<div class="flex items-center gap-4 min-h-14 justify-between">
+<div class="flex items-center gap-4">
+<div class="text-gray-900 dark:text-white flex items-center justify-center rounded-lg bg-background-light dark:bg-white/10 shrink-0 size-10">
+<span class="material-symbols-outlined">folder_managed</span>
+</div>
+<p class="text-gray-900 dark:text-white text-base font-normal leading-normal flex-1 truncate">Enable Auto-Categorization</p>
+</div>
+<div class="shrink-0">
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-background-light dark:bg-white/10 p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary">
+<div class="h-full w-[27px] rounded-full bg-white dark:bg-gray-300" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 8px, rgba(0, 0, 0, 0.06) 0px 3px 1px;"></div>
+<input checked="" class="invisible absolute" type="checkbox"/>
+</label>
+</div>
+</div>
+<div class="@container">
+<div class="relative flex w-full flex-col items-start justify-between gap-3 pt-4 @[480px]:flex-row @[480px]:items-center">
+<div class="flex w-full shrink-[3] items-center justify-between">
+<p class="text-gray-900 dark:text-white text-base font-medium leading-normal">AI Suggestion Sensitivity</p>
+<p class="text-gray-900 dark:text-white text-sm font-normal leading-normal @[480px]:hidden">Balanced</p>
+</div>
+<div class="flex h-4 w-full items-center gap-4">
+<div class="flex h-1.5 flex-1 rounded-full bg-gray-200 dark:bg-gray-700">
+<div class="h-full w-[50%] rounded-full bg-primary relative">
+<div class="absolute -right-2 -top-1.5 size-5 rounded-full bg-primary border-2 border-white dark:border-gray-300 shadow-md"></div>
+</div>
+</div>
+<p class="text-gray-900 dark:text-white text-sm font-normal leading-normal hidden @[480px]:block">Balanced</p>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-4">
+<p class="text-gray-900 dark:text-white text-base font-medium leading-normal">Default Sort Order</p>
+<div class="relative">
+<select class="w-48 appearance-none rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 py-2 pl-3 pr-8 text-gray-900 dark:text-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/50">
+<option>Priority</option>
+<option>Due Date</option>
+<option>Creation Date</option>
+<option>Alphabetical</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+</section>
+<section>
+<h2 class="text-gray-900 dark:text-white text-lg font-bold leading-tight mb-4">Smart List Rules</h2>
+<div class="space-y-4">
+<div class="rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+<p class="text-base font-medium text-gray-900 dark:text-white mb-3">High Priority</p>
+<div class="flex flex-col sm:flex-row gap-2 items-center">
+<p class="text-gray-500 dark:text-gray-400">If task</p>
+<select class="flex-1 w-full sm:w-auto rounded-lg border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/50">
+<option>title contains</option>
+<option>description contains</option>
+<option>has tag</option>
+</select>
+<input class="w-full sm:w-auto flex-grow-[2] rounded-lg border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/50" placeholder="e.g. urgent, important" type="text"/>
+</div>
+</div>
+<div class="rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+<p class="text-base font-medium text-gray-900 dark:text-white mb-3">Due This Week</p>
+<div class="flex flex-col sm:flex-row gap-2 items-center">
+<p class="text-gray-500 dark:text-gray-400">If task</p>
+<select class="flex-1 w-full sm:w-auto rounded-lg border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/50">
+<option>due date is within</option>
+<option>due date is after</option>
+<option>due date is before</option>
+</select>
+<select class="w-full sm:w-auto flex-grow-[2] rounded-lg border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/50">
+<option>the next 7 days</option>
+<option>the next 3 days</option>
+<option>today</option>
+</select>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<footer class="flex justify-end gap-4 p-6 border-t border-gray-200 dark:border-gray-800 shrink-0">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-transparent text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/10 text-sm font-bold leading-normal">
+<span class="truncate">Reset to Defaults</span>
+</button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] shadow-sm hover:bg-primary/90">
+<span class="truncate">Save Changes</span>
+</button>
+</footer>
+</div>
+</div>
+</div>
+
+</body></html>
