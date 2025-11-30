@@ -15,7 +15,7 @@ The **Smart To-Do AI (ibe160)** is envisioned as a minimalist, AI-enhanced web a
 
 ### 1.1 Design System Choice
 
-The **TailwindCSS** framework will serve as the core design system for the Smart To-Do AI application. This decision is based on the modern, utility-first approach demonstrated in the latest high-fidelity mockups, which allows for rapid, custom UI development.
+The **TailwindCSS (v3.4.1)** framework will serve as the core design system for the Smart To-Do AI application. This decision is based on the modern, utility-first approach demonstrated in the latest high-fidelity mockups, which allows for rapid, custom UI development.
 
 **Key Benefits of TailwindCSS:**
 
@@ -23,6 +23,36 @@ The **TailwindCSS** framework will serve as the core design system for the Smart
 *   **Highly Customizable:** The framework is easily configurable, allowing us to define a bespoke design system (colors, spacing, fonts) that perfectly matches our brand.
 *   **Performance:** By automatically removing unused CSS (purging), it produces highly optimized, small production files.
 *   **Rich Ecosystem:** Supported by a large community and integrated with modern tools, providing a great developer experience.
+
+### 1.2 TailwindCSS Configuration
+
+To ensure consistent application of the design system, the following `tailwind.config.js` snippet outlines the custom theme extensions for colors, typography, and border-radius.
+
+```javascript
+// tailwind.config.js
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        primary: "#607AFB", // From main dashboard.html
+        "background-light": "#f5f6f8",
+        "background-dark": "#0f1323",
+        // Semantic colors (Success, Warning, Error) will be applied directly via utility classes or custom components
+      },
+      fontFamily: {
+        display: ["Sora", "sans-serif"], // From main dashboard.html
+      },
+      borderRadius: {
+        DEFAULT: "0.5rem",
+        lg: "1rem",
+        xl: "1.5rem",
+        full: "9999px",
+      },
+    },
+  },
+  // ... other TailwindCSS configurations
+};
+```
 
 ---
 
@@ -138,6 +168,8 @@ The application will adopt a **"Spacious & Focused List"** design direction. Thi
 
 This journey is the most critical interaction in the application, as it delivers the core "smart" value proposition. The chosen approach is a **Single-Screen Modal Flow** for speed and to keep the user in the context of their main task list.
 
+*Note: Full coverage of all critical user journeys is dependent on cross-referencing with the Product Requirements Document (PRD). This specification currently details this primary flow.*
+
 *   **User Goal:** To add and categorize a new task as quickly as possible.
 *   **Entry Point:** User clicks the "Add Task" button on the main dashboard.
 
@@ -239,6 +271,16 @@ To ensure a cohesive and intuitive user experience, the following UX patterns wi
 *   **Confirmation Patterns:**
     *   Destructive actions, most notably deleting a task, will require explicit user confirmation through a modal dialog to prevent accidental data loss.
 
+*   **Search Patterns:**
+    *   **Specification:** Search inputs will feature a clear magnifying glass icon, a placeholder text (e.g., "Search tasks..."), and a clear button or 'X' icon to clear the search query.
+    *   **Usage Guidance:** Primarily used for filtering task lists or searching within specific data sets. Should be accessible and provide immediate feedback as the user types (live filtering).
+    *   **Examples:** Integrated search bar at the top of task lists, filter inputs within modals.
+
+*   **Date/Time Patterns:**
+    *   **Specification:** Date inputs will utilize a standardized date picker component (e.g., a calendar modal). Time inputs will use a 12-hour format with AM/PM selection, or a 24-hour format if preferred by the user in settings.
+    *   **Usage Guidance:** Used for setting due dates, reminders, or scheduling tasks. Defaults should be sensible (e.g., tomorrow for a new task due date).
+    *   **Examples:** Date input in the "Add/Edit Task" modal, calendar view for task scheduling.
+
 ---
 
 ## 8. Responsive Design & Accessibility
@@ -286,8 +328,7 @@ Excellent work! Your UX Design Specification is complete.
 
 **Your Deliverables:**
 -   UX Design Document: docs/ux-design-specification.md
--   Interactive Color Themes: docs/ux-color-themes.html
--   Design Direction Mockups: docs/ux-design-directions.html
+-   Interactive Mockups (Color Themes & Design Directions): docs/design_mockups/
 
 **What happens next:**
 -   Designers can create high-fidelity mockups from this foundation
@@ -310,15 +351,10 @@ You've made thoughtful choices through visual collaboration that will create a g
 
 This UX Design Specification was created through visual collaboration:
 
--   **Color Theme Visualizer**: `docs/ux-color-themes.html`
-    -   Interactive HTML showing all color theme options explored
-    -   Live UI component examples in each theme
-    -   Side-by-side comparison and semantic color usage
-
--   **Design Direction Mockups**: `docs/ux-design-directions.html`
-    -   Interactive HTML with 6-8 complete design approaches
-    -   Full-screen mockups of key screens
-    -   Design philosophy and rationale for each direction
+-   **Interactive Mockups**: `docs/design_mockups/`
+    -   Interactive HTML showing both color theme applications and design approaches.
+    -   Multiple HTML files represent different screens/modals, demonstrating color usage and design directions.
+    -   Side-by-side comparison of themes and approaches is implicit through viewing different files.
 
 ### Optional Enhancement Deliverables
 
