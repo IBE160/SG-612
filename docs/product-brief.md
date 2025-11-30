@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-The "Smart To-Do List App" project aims to develop a lightweight, AI-enhanced task manager designed to simplify task organization for students and busy users. Leveraging Google's Gemini AI, the application will automatically suggest labels and priorities for tasks, significantly reducing manual effort and maintaining focus on high-priority items. Developed as a school project, the initiative prioritizes practical application and learning outcomes while delivering a functional Minimum Viable Product (MVP) that includes core CRUD operations, user-controlled AI suggestions, smart lists, and filtering capabilities. The proposed technology stack features Flask for the backend, Bootstrap 5 for a responsive frontend, SQLite for data storage, and the Google Gemini API for intelligent task categorization.
+The "Smart To-Do List App" project aims to develop a lightweight, AI-enhanced task manager designed to simplify task organization for students and busy users. Leveraging Google's Gemini AI, the application will automatically suggest labels and priorities for tasks, significantly reducing manual effort and maintaining focus on high-priority items. Developed as a school project, the initiative prioritizes practical application and learning outcomes while delivering a functional Minimum Viable Product (MVP) that includes core CRUD operations, user-controlled AI suggestions, smart lists, and filtering capabilities. The proposed technology stack features Flask for the backend, Tailwind for a responsive frontend, SQLite for data storage, and the Google Gemini API for intelligent task categorization.
 
 ---
 
@@ -103,7 +103,7 @@ For this school project, financial considerations primarily revolve around the *
 ## Technical Preferences
 
 The technical preferences for the Smart To-Do List App are clearly defined and stem from a strategic choice balancing learning objectives, development efficiency, and future scalability.
-*   **Frontend (UI/UX):** HTML5, CSS3, Jinja2 (for Flask templating), with **Bootstrap 5** via CDN for a responsive and modern design. Key interface elements include a Dashboard with a card-based list view, a Task Modal with a 'Magic Fill' button for AI integration, and visual feedback like color-coded badges.
+*   **Frontend (UI/UX):** HTML5, CSS3, Jinja2 (for Flask templating), with **Tailwind** via CDN for a responsive and modern design. Key interface elements include a Dashboard with a card-based list view, a Task Modal with a 'Magic Fill' button for AI integration, and visual feedback like color-coded badges.
 *   **Backend:** Python 3.x, using the **Flask** web framework. Flask was chosen for its lightweight nature, simplicity, flexibility, and gentle learning curve, making it ideal for a beginner-level team.
 *   **Database:** **SQLite** via SQLAlchemy ORM, preferred for robust local storage.
 *   **AI Integration:** Google Gemini API (Model: `gemini-1.5-flash`). Chosen for fast inference speed, strong JSON formatting, and a developer-friendly free tier. The implementation includes sending task titles to Gemini with a system prompt for `label` and `priority` responses.

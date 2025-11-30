@@ -15,14 +15,14 @@ The **Smart To-Do AI (ibe160)** is envisioned as a minimalist, AI-enhanced web a
 
 ### 1.1 Design System Choice
 
-The **Bootstrap 5** framework will serve as the core design system for the Smart To-Do AI application. This decision is directly informed by its explicit mention in the project's technical specifications and its suitability for rapid development, responsive design, and beginner-friendly implementation.
+The **TailwindCSS** framework will serve as the core design system for the Smart To-Do AI application. This decision is based on the modern, utility-first approach demonstrated in the latest high-fidelity mockups, which allows for rapid, custom UI development.
 
-**Key Benefits of Bootstrap 5:**
+**Key Benefits of TailwindCSS:**
 
-*   **Comprehensive Components:** Provides a robust set of pre-designed components (forms, buttons, navigation, modals, etc.) that ensure consistency and accelerate development.
-*   **Responsive by Default:** Offers a powerful 12-column grid system and utility classes that simplify adapting the UI across various screen sizes (desktop, tablet, mobile).
-*   **Built-in Accessibility:** Integrates ARIA attributes and focus management to help ensure the application is usable by a broader audience.
-*   **Customization:** Highly customizable through Sass variables, allowing us to align the default styles with our brand personality and chosen visual theme.
+*   **Utility-First Workflow:** Build custom designs directly in the HTML without writing custom CSS, leading to faster development cycles.
+*   **Highly Customizable:** The framework is easily configurable, allowing us to define a bespoke design system (colors, spacing, fonts) that perfectly matches our brand.
+*   **Performance:** By automatically removing unused CSS (purging), it produces highly optimized, small production files.
+*   **Rich Ecosystem:** Supported by a large community and integrated with modern tools, providing a great developer experience.
 
 ---
 
@@ -83,10 +83,10 @@ The application will adopt the **Modern & Focused** color theme, centered around
     *   **Error:** Red
 *   **Neutral Grayscale:** A range of grays will be used for text, backgrounds, and borders to create a clean, minimalist, and readable interface.
 
-**Interactive Visualizations:**
+**High-Fidelity Mockups:**
 
-- Color Theme Explorer: [ux-color-themes.html](./ux-color-themes.html)
-  *(This file provides an interactive preview of the chosen theme and the other options explored).*
+- High-Fidelity Mockups: [design_mockups/](./design_mockups/)
+  *(This directory contains the final design mockups where the color system is applied).*
 
 ### 3.2 Typography System
 
@@ -125,10 +125,10 @@ The application will adopt a **"Spacious & Focused List"** design direction. Thi
 
 **Rationale:** This direction is optimal for our target users (students and beginners) as it avoids the intimidating density of power-user interfaces while providing more structure than a simple grid. It promotes a calm, focused, and efficient user experience.
 
-**Interactive Mockups:**
+**High-Fidelity Mockups:**
 
-- **Design Direction Showcase:** [ux-design-directions.html](./ux-design-directions.html)
-  *(This file provides an interactive preview of the chosen design direction and the other options explored).*
+- **High-Fidelity Mockups:** [design_mockups/](./design_mockups/)
+  *(This directory contains the final design mockups that define the chosen design direction).*
 
 ---
 
@@ -174,35 +174,36 @@ graph TD
 
 ### 6.1 Component Strategy
 
-The component library strategy will prioritize the extensive use of **Bootstrap 5's** native components and utility classes to ensure design consistency, responsiveness, and rapid development. For elements critical to the application's unique value proposition, custom components will be designed, leveraging Bootstrap's styling foundation.
+The component library strategy will be utility-first, leveraging **TailwindCSS** to build custom components. This ensures that every component is built consistently from the same design primitives (color palette, spacing scale, etc.) defined in the `tailwind.config.js` file.
 
-**Key Components from Bootstrap 5:**
+While Tailwind provides the building blocks, we will define a set of core, reusable application components.
 
-*   **Layout:** Grid system (rows, columns), containers, offcanvas (for potential responsive sidebar).
-*   **Navigation:** Navs (for building the sidebar menu and Smart List selection).
-*   **Forms:** Text inputs, select dropdowns (for `Label` and `Priority` selection), checkboxes.
-*   **Buttons:** Primary action buttons ("Add Task," "Save"), secondary buttons, and icon buttons ("Magic Fill," Edit, Delete).
-*   **Modals:** For the "Add Task" and "Edit Task" forms.
-*   **Indicators:** Badges (for displaying `Label` and `Priority`), Spinners (for loading states).
-*   **Feedback:** Alerts and Toasts (for success/error messages).
+**Key Application Components (to be built with TailwindCSS):**
+
+*   **Layout:** A two-column layout with a fixed sidebar and main content area.
+*   **Navigation:** Sidebar navigation links.
+*   **Forms:** Text inputs, select dropdowns, and date pickers as seen in the `edit-taskboard.html` mockup.
+*   **Buttons:** Primary, secondary, and tertiary buttons with clear visual hierarchy.
+*   **Modals:** A standardized modal structure for adding/editing tasks, managing settings, and creating labels.
+*   **Indicators:** Badges for labels and priority levels.
+*   **Feedback:** Toast notifications for success/error messages.
 
 **Custom Components:**
 
 The core custom component will be the **Task Card**, which will encapsulate a single task's visual representation and interaction points.
 
 *   **Component Name:** Task Card
-*   **Purpose:** To clearly display task information and provide direct interaction for task management within the main task list.
+*   **Purpose:** To clearly display task information and provide direct interaction for task management within the main task list, as seen in `design_mockups/main-dashboard.html`.
 *   **Anatomy:**
-    *   **Completion Checkbox:** Left-aligned, allows users to mark tasks as complete.
-    *   **Task Title:** Prominently displayed.
-    *   **Labels/Priority:** Displayed as color-coded badges, easily scannable.
-    *   **Due Date:** Clear and concise display.
-    *   **Action Icons:** Subtle icons (e.g., edit pencil, trash can) for secondary actions like editing or deleting the task.
+    *   **Completion Checkbox:** A large, circular checkbox on the left.
+    *   **Task Title & Due Date:** A stacked text block with the title given more prominence.
+    *   **Labels/Priority:** Displayed on the right as styled, pill-shaped badges.
+    *   **Action Icons:** Hidden by default. A `pencil` (edit) and `trash can` (delete) icon appear on the far right when the user hovers over the card.
 *   **States:**
-    *   **Default:** Standard presentation.
-    *   **Hover:** Slight visual feedback (e.g., subtle shadow or background change) to indicate interactivity.
-    *   **Completed:** Visual distinction (e.g., strikethrough on title, faded text/colors) to show completion status.
-*   **Behavior:** Clicking the main body of the card or an explicit edit icon will trigger the "Edit Task" modal. Clicking the delete icon will prompt for confirmation.
+    *   **Default:** Clean, card-based presentation.
+    *   **Hover:** The card border becomes slightly more prominent, and the action icons fade into view.
+    *   **Completed:** The checkbox is filled, and the title and due date text have a strikethrough effect and a muted color.
+*   **Behavior:** Clicking anywhere on the card (except the action icons) will trigger the "Edit Task" modal. Clicking the delete icon will prompt for confirmation.
 *   **Accessibility:** Will include appropriate ARIA roles and keyboard navigation support to ensure usability for all.
 
 ---
@@ -244,7 +245,7 @@ To ensure a cohesive and intuitive user experience, the following UX patterns wi
 
 ### 8.1 Responsive Strategy
 
-The application will implement a robust responsive design, adapting its layout and interaction patterns to provide an optimal experience across desktop, tablet, and mobile devices, leveraging Bootstrap 5's breakpoint system.
+The application will implement a robust responsive design, adapting its layout and interaction patterns to provide an optimal experience across desktop, tablet, and mobile devices, leveraging Tailwind's breakpoint system.
 
 *   **Desktop (Large Screens):** The primary two-column layout will feature a persistent sidebar for navigation and Smart Lists, with the main content area displaying tasks in a spacious, card-based list.
 *   **Tablet (Medium Screens):** The sidebar will collapse into an **offcanvas menu**, accessible via a hamburger icon, maximizing the content area for task viewing. Task cards will adapt to fill the wider viewport.
@@ -275,7 +276,7 @@ Excellent work! Your UX Design Specification is complete.
 
 **What we created together:**
 
--   **Design System:** Bootstrap 5 with custom Task Card component
+-   **Design System:** Tailwind with custom Task Card component
 -   **Visual Foundation:** Modern & Focused (Blue/Indigo) color theme with Bootstrap defaults typography and spacing system
 -   **Design Direction:** Spacious & Focused List - two-column layout with sidebar and card-based tasks - This direction fosters a minimalist, clean, and intuitive user experience by providing a clear visual hierarchy and ample whitespace, while effectively organizing tasks in a scannable, card-based list.
 -   **User Journeys:** 1 critical flow designed with clear navigation paths

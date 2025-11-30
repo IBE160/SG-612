@@ -53,8 +53,7 @@ template: "{installed_path}/ux-design-template.md"
 
 # Output configuration - Progressive saves throughout workflow
 default_output_file: "{output_folder}/ux-design-specification.md"
-color_themes_html: "{output_folder}/ux-color-themes.html"
-design_directions_html: "{output_folder}/ux-design-directions.html"
+high_fidelity_mockups_html: "{output_folder}/design_mockups/index.html"
 
 standalone: true
 

@@ -39,7 +39,7 @@ Students and beginners who want a fast, minimal task manager with intelligent as
 
 ### Frontend (UI/UX)
 * **Technology:** HTML5, CSS3, Jinja2 (Flask Templating).
-* **Framework:** **Bootstrap 5** (via CDN). This ensures a responsive, modern design without writing complex custom CSS.
+* **Framework:** **Tailwind** (via CDN). This ensures a responsive, modern design without writing complex custom CSS.
 * **Key Interface Elements:**
     * **Dashboard:** A clean card-based list view with a sidebar for Smart Lists.
     * **Task Modal:** A form for adding tasks. Includes a "Magic Fill" button that triggers the Gemini API to pre-fill fields.
@@ -81,7 +81,7 @@ Students and beginners who want a fast, minimal task manager with intelligent as
     * *Deliverable:* A Python script that takes text input and prints categorized JSON output.
 
 * **Week 3: Frontend Implementation**
-    * Integrate Bootstrap 5 templates.
+    * Integrate Tailwind templates.
     * Build the Main Dashboard (Task List) and Add/Edit Task Forms.
     * Connect Jinja2 templates to Flask routes.
     * *Deliverable:* A functional web interface showing tasks from the database.

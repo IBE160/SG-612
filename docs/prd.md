@@ -114,7 +114,7 @@ The primary validation will involve user testing to gather feedback on the accur
 
 <h2>{{project_type}} Specific Requirements</h2>
 
-This web application is designed as a multi-page application (MPA) with interactive elements, primarily focusing on CRUD operations for task management. It utilizes standard web technologies and Bootstrap 5 for the frontend, ensuring compatibility with modern web browsers. Given its purpose as a personal productivity tool for students and individuals, extensive SEO is not an initial requirement for the MVP. While future features may include real-time capabilities for shared lists and notifications, the MVP will not incorporate real-time updates. Standard web accessibility practices will be followed to ensure usability for a broad audience.
+This web application is designed as a multi-page application (MPA) with interactive elements, primarily focusing on CRUD operations for task management. It utilizes standard web technologies and Tailwind for the frontend, ensuring compatibility with modern web browsers. Given its purpose as a personal productivity tool for students and individuals, extensive SEO is not an initial requirement for the MVP. While future features may include real-time capabilities for shared lists and notifications, the MVP will not incorporate real-time updates. Standard web accessibility practices will be followed to ensure usability for a broad audience.
 
 {{#if endpoint_specification}}
 
