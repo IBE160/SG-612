@@ -65,7 +65,35 @@ As a developer, I want to set up the initial Flask project structure, database m
 
 **Prerequisites:** None
 
-**Technical Notes:** This story covers the initial setup as outlined in Week 1 of the project timeline.
+**Technical Notes:** This story covers the initial setup as outlined in Week 1 of the project timeline. The project structure should adhere to:
+
+```
+/
+|-- app.py                  # Main Flask application, routes, and API logic
+|-- ai_service.py           # Module for Gemini API calls
+|-- .gitignore
+|-- package.json
+|-- tailwind.config.js      # Configured with primary: '#607AFB', fontFamily: { display: ['Sora', 'sans-serif'] }
+|-- postcss.config.js
+|-- requirements.txt        # Python dependencies (Flask, SQLAlchemy)
+|-- venv/                     # Virtual environment
+|-- static/
+|   |-- src/
+|   |   |-- input.css       # TailwindCSS input
+|   |-- dist/
+|       |-- output.css      # Compiled CSS
+|-- templates/
+|   |-- base.html           # Base layout template
+|   |-- index.html          # Main dashboard view
+|   |-- ... (other views)
+|-- instance/
+|   |-- tasks.db            # SQLite database file
+|-- tests/                    # Tests for the application
+    |-- test_api.py
+    |-- test_app.py
+```
+
+The SQLAlchemy `Task` model should define `id`, `title`, `notes`, `due_date`, `label`, `priority`, `is_done`, `created_at` with snake_case column names.
 
 ### Story 1.2: Create New Task
 
@@ -74,16 +102,18 @@ As a user, I want to create a new task with a title, notes, and due date, so tha
 **Acceptance Criteria:**
 
 **Given** I am on the main dashboard
-**When** I click the "Add Task" button
+**When** I click the "Add Task" button (a primary button with color `#607AFB`)
 **Then** a modal appears with a form to add a new task.
 **And** the form includes fields for title (required), notes, and due date.
+**And** the modal can be dismissed by pressing the `Escape` key or clicking the backdrop.
 **When** I fill out the form and click "Save"
 **Then** the new task is saved to the database.
 **And** the modal closes and the dashboard updates to show the new task.
+**And** upon success, a non-blocking toast notification confirms "Task created."
 
 **Prerequisites:** Story 1.1
 
-**Technical Notes:** This covers the "Create" part of the CRUD operations.
+**Technical Notes:** This covers the "Create" part of the CRUD operations. The frontend will call `POST /api/tasks` with a JSON body containing the task details.
 
 ### Story 1.3: View and Update Tasks
 
@@ -92,8 +122,8 @@ As a user, I want to view the details of my tasks and update them, so that I can
 **Acceptance Criteria:**
 
 **Given** I am on the main dashboard
-**When** I view my task list
-**Then** I can see the title, due date, label, and priority for each task.
+**When** I view my task list (a 'Spacious & Focused List' of `Task Card` components)
+**Then** I can see the title, due date, label, and priority for each task. Each card shows a completion checkbox, task title, due date, and pill-shaped badges for label/priority. Edit/delete icons appear on hover.
 **When** I click on a task to edit it
 **Then** a modal appears with the task's details pre-filled.
 **And** I can modify the title, notes, due date, label, and priority.
@@ -102,7 +132,7 @@ As a user, I want to view the details of my tasks and update them, so that I can
 
 **Prerequisites:** Story 1.2
 
-**Technical Notes:** This covers the "Read" and "Update" parts of the CRUD operations.
+**Technical Notes:** This covers the "Read" and "Update" parts of the CRUD operations. The task list is populated by calling `GET /api/tasks`, and updates to tasks are sent to `PUT /api/tasks/<id>`.
 
 ### Story 1.4: Delete and Complete Tasks
 
@@ -111,16 +141,16 @@ As a user, I want to delete tasks I no longer need and mark tasks as complete, s
 **Acceptance Criteria:**
 
 **Given** I am on the main dashboard
-**When** I click a "Delete" button on a task
+**When** I click a "Delete" button (an icon that appears on `Task Card` hover) on a task
 **Then** I am prompted for confirmation.
 **And** upon confirmation, the task is permanently removed from the database.
 **When** I check a checkbox on a task
 **Then** the task is marked as complete (`is_done` = true).
-**And** the completed task is visually distinguished from active tasks (e.g., strikethrough, grayed out).
+**And** the completed task is visually distinguished from active tasks (e.g., strikethrough, grayed out). When a task is marked complete, the title text receives a strikethrough effect and a muted color.
 
 **Prerequisites:** Story 1.2
 
-**Technical Notes:** This covers the "Delete" part of the CRUD operations and task completion.
+**Technical Notes:** This covers the "Delete" part of the CRUD operations and task completion. Deleting a task calls `DELETE /api/tasks/<id>`, and marking a task as complete calls `PUT /api/tasks/<id>` with `is_done: true`.
 
 ---
 
@@ -142,23 +172,24 @@ As a developer, I want to integrate the Google Gemini API with the backend, so t
 
 **Prerequisites:** Story 1.1
 
-**Technical Notes:** This covers the backend integration work outlined in Week 2 of the project timeline.
+**Technical Notes:** This covers the backend integration work outlined in Week 2 of the project timeline. Integration will be done in `ai_service.py` using the `google-genai` Python library. The API key must not be exposed to the frontend.
 
 ### Story 2.2: "Magic Fill" AI Suggestions
 
 As a user, when creating or editing a task, I want to click a "Magic Fill" button to get AI-powered suggestions for the label and priority, so that I can organize tasks faster.
 
-**Acceptance Criteria:**
+**Acceptance Criteria:** (This story is linked to the 'AI-Suggestion Flow')
 
 **Given** I am in the "Add Task" or "Edit Task" modal
 **When** I click the "Magic Fill" button
 **Then** the task description is sent to the backend AI service.
+**And** a subtle loading indicator appears on the button until the `label` and `priority` fields are populated.
 **And** the `label` and `priority` fields in the form are populated with the suggestions returned by the AI.
 **And** I can then accept or edit these suggestions before saving.
 
 **Prerequisites:** Story 1.2, Story 1.3, Story 2.1
 
-**Technical Notes:** This story connects the frontend UI to the backend AI service.
+**Technical Notes:** This story connects the frontend UI to the backend AI service. The "Magic Fill" button triggers a `POST /api/suggest` call to the backend.
 
 ### Story 2.3: Rule-Based Fallback Mechanism
 
@@ -171,11 +202,11 @@ As a developer, I want to implement a rule-based fallback mechanism, so that the
 **Then** the fallback mechanism is triggered.
 **And** the fallback uses keyword matching to suggest a label (e.g., "buy" -> "Shopping").
 **And** if no keyword matches, the fallback suggests "Other" for the label and "Low" for the priority.
-**And** the UI indicates that the suggestions are from the fallback system, not the AI.
+**And** the UI must subtly indicate that the suggestions are from the fallback system (e.g., a toast notification saying "AI unavailable, used fallback suggestions").
 
 **Prerequisites:** Story 2.2
 
-**Technical Notes:** This ensures application robustness, a key success criterion.
+**Technical Notes:** This ensures application robustness, a key success criterion. The fallback logic will be triggered within `ai_service.py` if the Gemini API call fails.
 
 ---
 
@@ -197,7 +228,7 @@ As a user, I want to see a "High Priority" smart list, so that I can immediately
 
 **Prerequisites:** Story 1.3
 
-**Technical Notes:** This involves adding a specific query to the backend to filter tasks.
+**Technical Notes:** This involves adding a specific query to the backend to filter tasks using `GET /api/tasks?priority=High`. The sidebar containing the smart lists will collapse into an offcanvas menu on tablet and mobile screens, and the active list should have a visual indicator as per the design system.
 
 ### Story 3.2: "Due This Week" Smart List
 
@@ -213,7 +244,7 @@ As a user, I want to see a "Due This Week" smart list, so that I can plan my upc
 
 **Prerequisites:** Story 1.3
 
-**Technical Notes:** This requires a date-based query on the task list.
+**Technical Notes:** This requires a date-based query on the task list using `GET /api/tasks?due_before=<today+7days>`. The sidebar containing the smart lists will collapse into an offcanvas menu on tablet and mobile screens, and the active list should have a visual indicator as per the design system.
 
 ### Story 3.3: Manual Filtering and Sorting
 
@@ -222,7 +253,7 @@ As a user, I want to be able to manually filter my tasks by label and sort them 
 **Acceptance Criteria:**
 
 **Given** I am viewing my tasks
-**When** I select a label from a dropdown
+**When** I select a label from a "Filter by Label" dropdown
 **Then** the task list is filtered to show only tasks with that label.
 **When** I choose to sort by priority
 **Then** the tasks are ordered from High to Low.
@@ -231,7 +262,7 @@ As a user, I want to be able to manually filter my tasks by label and sort them 
 
 **Prerequisites:** Story 1.3
 
-**Technical Notes:** This implements the final filtering and sorting requirements from the PRD.
+**Technical Notes:** This implements the final filtering and sorting requirements from the PRD. UI controls for filtering and sorting will map to API parameters, e.g., `GET /api/tasks?label=Work&sort_by=priority`.
 
 ---
 
