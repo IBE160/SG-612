@@ -1,7 +1,7 @@
 # System-Level Test Design
 
-**Date:** {date}
-**Author:** {user_name}
+**Date:** 2025-11-30
+**Author:** BIP
 **Status:** Draft
 
 ---
@@ -11,12 +11,12 @@
 ### Controllability
 - **State Control**: **PASS**. The architecture's use of a simple SQLite database and a clear REST API for data manipulation allows for excellent state control. Test data can be seeded via API calls (e.g., `POST /api/tasks`) before tests run, ensuring predictable states.
 - **Dependency Mocking**: **PASS**. The primary external dependency (Google Gemini API) is well-isolated in `ai_service.py`. This allows it to be easily mocked or stubbed, enabling tests to run without incurring API costs or dealing with network instability.
-- **Error Injection**: **CONCERNS**. The architecture does not specify a mechanism for injecting errors or simulating failures (e.g., failed API calls, database connection issues). This makes it difficult to test the system's resilience and fallback logic (like the keyword-based fallback for AI suggestions) under adverse conditions.
+- **Error Injection**: **PARTIAL**. The architecture now explicitly defines the triggers for the AI service's fallback mechanism (e.g., API errors, timeouts, malformed data). This improves testability by clarifying what conditions need to be mocked. However, it still lacks a dedicated mechanism for forcing these failures, meaning tests must rely entirely on mocking the `ai_service.py` module's downstream dependencies.
 
 ### Observability
 - **State Inspection**: **PASS**. The REST API provides clear endpoints (`GET /api/tasks`, `GET /api/tasks/<id>`) for inspecting system state, which is sufficient for validation in tests.
 - **Result Determinism**: **PASS**. The architecture encourages practices that support determinism, such as API-based data seeding. The risk of front-end race conditions is standard and can be mitigated with network-first interception patterns during test implementation.
-- **NFR Validation**: **CONCERNS**. The PRD specifies performance NFRs (e.g., "load within 1-2 seconds"). However, the architecture only includes basic logging and lacks dedicated observability tools (e.g., metrics endpoints, integration with Prometheus/Grafana) to measure and validate these requirements under load.
+- **NFR Validation**: **PARTIAL**. The architecture was updated to include a structured JSON logging format. This provides a consistent data source for observing behavior but is not a substitute for dedicated metrics tooling for performance validation. Validating performance NFRs under load remains challenging without proper instrumentation.
 
 ### Reliability
 - **Test Isolation**: **PASS**. The file-based SQLite database makes it trivial to provide a clean, isolated database for each test run, preventing state pollution and enabling parallel execution.
@@ -94,8 +94,8 @@
 <template-output>
 | Concern ID | Concern Description | Impact | Recommendation |
 |------------|---------------------|--------|----------------|
-| C-01 | **No built-in error injection mechanism.** The architecture lacks a defined way to simulate failures (e.g., Gemini API outage, database errors), making it difficult to test system resilience. | Medium | Implement a simple mechanism (e.g., via environment variables or special API headers) to force failure modes in the `ai_service.py` and database connection logic for testing purposes. |
-| C-02 | **No dedicated observability tooling.** The architecture relies on basic logging. This makes it difficult to validate performance NFRs (e.g., "1-2 second response time") under load. | Medium | Instrument the Flask application with Prometheus metrics. Expose a `/metrics` endpoint that can be scraped to monitor API latency and error rates during performance tests. |
+| C-01 | **No built-in error injection mechanism.** The architecture now defines the conditions for the AI service fallback, which is an improvement. However, it still lacks a defined way to *force* these failures during testing, requiring direct mocking of downstream modules. | Low-Medium | Implement a simple mechanism (e.g., via environment variables or special API headers) to force failure modes in the `ai_service.py` and database connection logic for testing purposes. |
+| C-02 | **No dedicated observability tooling.** The architecture was improved with structured JSON logging, which helps with debugging. However, logs are not a substitute for metrics. It remains difficult to validate performance NFRs (e.g., "1-2 second response time") under load. | Medium | Instrument the Flask application with Prometheus metrics. Expose a `/metrics` endpoint that can be scraped to monitor API latency and error rates during performance tests. |
 </template-output>
 
 ---

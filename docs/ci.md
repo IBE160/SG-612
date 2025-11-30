@@ -93,9 +93,11 @@ Refer to `docs/ci-secrets-checklist.md` for a list of secrets required by the pi
 
 ### Lint Stage
 
-*   **Purpose**: Ensure code quality, style consistency, and early detection of syntax errors.
-*   **Tools**: ESLint, Prettier (if configured), Python linters (e.g., Ruff, Black if `npm run lint` script runs them).
-*   **Failure Impact**: Blocks subsequent stages.
+*   **Purpose**: Ensure code quality, style consistency, and early detection of syntax errors across the entire codebase.
+*   **Tools**:
+    *   **Python**: `ruff` for fast linting and `black` for code formatting. These are run directly in the CI pipeline.
+    *   **JavaScript/TypeScript**: If applicable, tools like ESLint and Prettier would be configured and run via a script like `npm run lint`.
+*   **Failure Impact**: Blocks subsequent stages to ensure no low-quality code is tested or merged.
 
 ### Test Stage (Parallel Sharding)
 

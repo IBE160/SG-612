@@ -9,3 +9,9 @@ playwright-report/
 
 # Environment variables
 .env
+
+# Python
+venv/
+instance/
+__pycache__/
+*.pyc

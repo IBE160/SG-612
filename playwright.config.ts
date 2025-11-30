@@ -5,7 +5,8 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  // Removed explicit workers setting to allow Playwright to optimize based on CPU cores,
+  // especially important for parallel execution within CI shards.
 
   timeout: 60 * 1000, // Test timeout: 60s
   expect: {
@@ -13,7 +14,7 @@ export default defineConfig({
   },
 
   use: {
-    baseURL: process.env.BASE_URL || 'http://localhost:3000',
+    baseURL: process.env.BASE_URL || 'http://localhost:5000', // Updated to Flask's default port
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',

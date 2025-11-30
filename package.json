@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "build:css": "tailwindcss -i ./static/css/input.css -o ./static/dist/output.css --watch"
   },
   "repository": {
     "type": "git",
@@ -22,7 +23,10 @@
   },
   "homepage": "https://github.com/IBE160/SG-612#readme",
   "devDependencies": {
-    "@playwright/test": "^1.40.1",
-    "@faker-js/faker": "^8.3.1"
+    "@faker-js/faker": "8.4.1",
+    "@playwright/test": "1.57.0",
+    "autoprefixer": "^10.4.22",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.17"
   }
 }
