@@ -64,6 +64,7 @@ workflow_status:
         status: "docs/validation-prd.md"
       - id: "create-design"
         conditional: "if_has_ui"
+        optional: true
         agent: "ux-designer"
         command: "create-design"
         note: "Determined after PRD - user/agent decides if needed"

@@ -43,13 +43,17 @@
 
 ## Fase 2
 
-- [ ] Solutioning
-  - [ ] /run-agent-task architect *create-architecture {prompt / user-input-file}
-    - [ ] File: architecture.md
-  - [ ] /run-agent-task pm *create-epics-and-stories {prompt / user-input-file}
-    - [ ] File: epics.md
-  - [ ] /run-agent-task tea *test-design {prompt / user-input-file}
-  - [ ] /run-agent-task architect *solutioning-gate-check {prompt / user-input-file}
+- [x] Solutioning
+  - [x] /run-agent-task architect *create-architecture
+    - [x] File: architecture.md
+  - [x] /run-agent-task pm *create-epics-and-stories
+    - [x] File: epics.md
+  - [x] /run-agent-task tea *test-design
+    - [x] File: test-design-system.md
+    - [x] File: ci.md
+    - [x] File: ci-secrets-checklist.md
+  - [x] /run-agent-task architect *solutioning-gate-check
+    - [x] File: implementation-readiness-report-{{date}}.md
 
 ## Fase 3
 
