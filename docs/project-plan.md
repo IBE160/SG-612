@@ -22,26 +22,38 @@
 
 ## Fase 1
 
-- [ ] Planning
-  - [x] /run-agent-task pm *prd
-    - [x] File: PRD.md
-  - [x] /run-agent-task pm *validate-prd
-    - [x] File: validation-report-date.md
-  - [ ] /run-agent-task ux-designer *create-ux-design {prompt / user-input-file}
-    - [ ] File: ux-design-specification.md
-    - [ ] File: ux-color-themes.html
-    - [ ] File: ux-design-directions.html
-  - [ ] /run-agent-task ux-designer *validate-ux-design {prompt / user-input-file}
+- [x] Planning
+- [x] PRD
+  - [x] /run-agent-task pm *prd "Create a Product Requirements Document (PRD) for the Smart To-Do AI project based on the product brief, brainstorming session, and research findings."
+    - [x] File: prd.md
+  - [x] /run-agent-task pm *validate-prd "Validate the PRD created in the previous task."
+    - [x] File: validation-prd.md
+  - [x] UX Design  
+    - [x] /run-agent-task ux-designer *create-ux-design "Create a UX design for the project based"
+      - [x] File: ux-design-specification.md
+      - [x] File: main dashboard.html
+      - [x] File: edit taskboard.html
+      - [x] File: new label.html
+      - [x] File: settings menu.html 
+      - [x] File: notification pref.html
+      - [x] File: smart list settings.html
+    - [x] /run-agent-task ux-designer *validate-ux-design "Validate the UX design created in the previous task"
+    - [x] File: validation-uxdesign.md
+
 
 ## Fase 2
 
-- [ ] Solutioning
-  - [ ] /run-agent-task architect *create-architecture {prompt / user-input-file}
-    - [ ] File: architecture.md
-  - [ ] /run-agent-task pm *create-epics-and-stories {prompt / user-input-file}
-    - [ ] File: epics.md
-  - [ ] /run-agent-task tea *test-design {prompt / user-input-file}
-  - [ ] /run-agent-task architect *solutioning-gate-check {prompt / user-input-file}
+- [x] Solutioning
+  - [x] /run-agent-task architect *create-architecture
+    - [x] File: architecture.md
+  - [x] /run-agent-task pm *create-epics-and-stories
+    - [x] File: epics.md
+  - [x] /run-agent-task tea *test-design
+    - [x] File: test-design-system.md
+    - [x] File: ci.md
+    - [x] File: ci-secrets-checklist.md
+  - [x] /run-agent-task architect *solutioning-gate-check
+    - [x] File: implementation-readiness-report-{{date}}.md
 
 ## Fase 3
 

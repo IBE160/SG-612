@@ -61,10 +61,10 @@ workflow_status:
         optional: true
         agent: "pm"
         command: "validate-prd"
-        note: "Quality check for PRD completeness"
-        status: "pending"
+        status: "docs/validation-prd.md"
       - id: "create-design"
         conditional: "if_has_ui"
+        optional: true
         agent: "ux-designer"
         command: "create-design"
         note: "Determined after PRD - user/agent decides if needed"
@@ -78,8 +78,7 @@ workflow_status:
         agent: "architect"
         command: "create-architecture"
         output: "System architecture document"
-        note: "Complete system design for greenfield projects"
-        status: "pending"
+        status: "docs/architecture.md"
       - id: "create-epics-and-stories"
         required: true
         agent: "pm"
@@ -92,19 +91,13 @@ workflow_status:
         command: "test-design"
         output: "System-level testability review"
         note: "Testability assessment before gate check - auto-detects system-level mode"
-        status: "pending"
-      - id: "validate-architecture"
-        optional: true
-        agent: "architect"
-        command: "validate-architecture"
-        note: "Quality check for architecture completeness"
-        status: "pending"
+        status: "docs/test-design-system.md"
       - id: "implementation-readiness"
         required: true
         agent: "architect"
         command: "implementation-readiness"
-        note: "Validates PRD + UX + Architecture + Epics + Testability cohesion before implementation"
-        status: "pending"
+        note: "Final readiness check before implementation phase" 
+        status: "docs/implementation-readiness-report-2025-11-30.md"
   - phase: 3
     name: "Implementation"
     required: true

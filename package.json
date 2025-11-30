@@ -1,0 +1,33 @@
+{
+  "name": "sg-612",
+  "version": "1.0.0",
+  "description": "Repository for SG-612 - IBE160 Programmering med KI.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:e2e": "playwright test",
+    "build:css": "tailwindcss -i ./static/css/input.css -o ./static/dist/output.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IBE160/SG-612.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IBE160/SG-612/issues"
+  },
+  "homepage": "https://github.com/IBE160/SG-612#readme",
+  "devDependencies": {
+    "@faker-js/faker": "8.4.1",
+    "@playwright/test": "1.57.0",
+    "@types/node": "^24.10.1",
+    "autoprefixer": "^10.4.22",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.17"
+  }
+}
