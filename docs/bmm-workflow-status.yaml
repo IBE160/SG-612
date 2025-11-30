@@ -90,18 +90,13 @@ workflow_status:
         command: "test-design"
         output: "System-level testability review"
         note: "Testability assessment before gate check - auto-detects system-level mode"
-        status: "pending"
-      - id: "validate-architecture"
-        optional: true
-        agent: "architect"
-        command: "validate-architecture"
-        note: "Quality check for architecture completeness"
-        status: "pending"
+        status: "docs/test-design-system.md"
       - id: "implementation-readiness"
         required: true
         agent: "architect"
         command: "implementation-readiness"
-status: "docs/implementation-readiness-report-2025-11-30.md"
+        note: "Final readiness check before implementation phase" 
+        status: "docs/implementation-readiness-report-2025-11-30.md"
   - phase: 3
     name: "Implementation"
     required: true
