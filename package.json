@@ -10,6 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "test:e2e": "playwright test",
     "build:css": "tailwindcss -i ./static/css/input.css -o ./static/dist/output.css --watch"
+    ,"lint": "echo \"No linting configured yet\""
   },
   "repository": {
     "type": "git",
