@@ -32,13 +32,11 @@
 # - SM typically drafts next story ONLY after previous one is 'done' to incorporate learnings
 # - Dev moves story to 'review', dev reviews, then Dev moves to 'done'
 
-# EXAMPLE STRUCTURE (your actual epics/stories will replace these):
-
-generated: 05-06-2-2025 21:30
-project: My Awesome Project
+generated: mandag 1. desember 2025
+project: ibe160
 project_key: jira-1234
 tracking_system: file-system
-story_location: "{story_location}"
+story_location: docs/sprint-artifacts
 
 development_status:
   epic-1: contexted
@@ -48,8 +46,14 @@ development_status:
   1-4-delete-and-complete-tasks: ready-for-dev
   epic-1-retrospective: optional
 
-  epic-2: backlog
-  2-1-gemini-api-integration: drafted
+  epic-2: contexted
+  2-1-gemini-api-integration: ready-for-dev
   2-2-magic-fill-ai-suggestions: ready-for-dev
   2-3-rule-based-fallback-mechanism: ready-for-dev
   epic-2-retrospective: optional
+
+  epic-3: contexted
+  3-1-high-priority-smart-list: ready-for-dev
+  3-2-due-this-week-smart-list: backlog
+  3-3-manual-filtering-and-sorting: backlog
+  epic-3-retrospective: optional
