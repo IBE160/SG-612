@@ -1,0 +1,177 @@
+<story-context id="{bmad_folder}/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>Epic 1</epicId>
+    <storyId>1.4</storyId>
+    <title>Delete and Complete Tasks</title>
+    <status>drafted</status>
+    <generatedAt>2025-12-01</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>C:\Users\PC\OneDrive\Documents\SG-612\docs\sprint-artifacts\1-4-delete-and-complete-tasks.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>As a user</asA>
+    <iWant>I want to delete tasks I no longer need and mark tasks as complete</iWant>
+    <soThat>so that I can manage my task list effectively</soThat>
+    <tasks>
+  <task>
+    <title>1. Frontend Implementation (Delete Tasks):</title>
+    <subtask>- Implement a confirmation dialog when the delete icon on a `Task Card` is clicked.</subtask>
+    <subtask>- On confirmation, send a `DELETE /api/tasks/<id>` request to the backend.</subtask>
+    <subtask>- On successful deletion, remove the task from the dashboard UI.</subtask>
+  </task>
+  <task>
+    <title>2. Frontend Implementation (Complete Tasks):</title>
+    <subtask>- Implement the checkbox on the `Task Card`.</subtask>
+    <subtask>- On checkbox click, send a `PUT /api/tasks/<id>` request with `is_done: true`.</subtask>
+    <subtask>- On successful update, apply visual distinction (strikethrough, muted color) to the completed task on the UI.</subtask>
+  </task>
+  <task>
+    <title>3. Backend API Endpoint:</title>
+    <subtask>- Create `DELETE /api/tasks/<id>` endpoint in `app.py`.</subtask>
+    <subtask>- Delete the `Task` object from the database using `Flask-SQLAlchemy`.</subtask>
+    <subtask>- Return `204 No Content` on successful deletion.</subtask>
+    <subtask>- Modify `PUT /api/tasks/<id>` endpoint to handle `is_done` field updates.</subtask>
+  </task>
+</tasks>
+  </story>
+
+  <acceptanceCriteria>
+  <ac>
+    **Given** I am on the main dashboard
+    **When** I click a "Delete" button (an icon that appears on `Task Card` hover) on a task
+    **Then** I am prompted for confirmation.
+    **And** upon confirmation, the task is permanently removed from the database.
+    **When** I check a checkbox on a task
+    **Then** the task is marked as complete (`is_done` = true).
+    **And** the completed task is visually distinguished from active tasks (e.g., strikethrough, grayed out). When a task is marked complete, the title text receives a strikethrough effect and a muted color.
+  </ac>
+</acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/product-brief.md</path>
+        <title>Product Brief: Smart-To-Do-List App</title>
+        <section>MVP Scope - Core Features</section>
+        <snippet>The Minimum Viable Product (MVP) of the Smart To-Do List App will focus on delivering the essential functionalities that validate its core value proposition. These include: CRUD Operations: Full capability to Create, Read, Update, and Delete tasks.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-3-solutioning/architecture.md</path>
+        <title>Architecture</title>
+        <section>API Pattern</section>
+        <snippet>Standard, well-understood pattern for web apps and a core strength of Flask. REST API for `DELETE /api/tasks/&lt;id&gt;` and `PUT /api/tasks/&lt;id&gt;`.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-3-solutioning/architecture.md</path>
+        <title>Architecture</title>
+        <section>Data Models - `Task` Model</section>
+        <snippet>This model represents a single to-do item in the application. Contains the `is_done` field which will be updated for completion.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-3-solutioning/architecture.md</path>
+        <title>Architecture</title>
+        <section>API Contracts</section>
+        <snippet>Type: RESTful JSON API. Endpoints: `DELETE /api/tasks/&lt;id&gt;` deletes a task. `PUT /api/tasks/&lt;id&gt;` updates an existing task (including marking as complete). Success Response: `204 No Content` for delete, `200 OK` for update.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-2-planning/ux-design-specification.md</path>
+        <title>ibe160 UX Design Specification</title>
+        <section>Component Library - Custom Components</section>
+        <snippet>The core custom component will be the Task Card, which will encapsulate a single task's visual representation and interaction points. It has a Completion Checkbox and a `trash can` (delete) icon that appears on hover.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-2-planning/ux-design-specification.md</path>
+        <title>ibe160 UX Design Specification</title>
+        <section>UX Pattern Decisions - Confirmation Patterns</section>
+        <snippet>Destructive actions, most notably deleting a task, will require explicit user confirmation through a modal dialog to prevent accidental data loss.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-1.md</path>
+        <title>Epic Technical Specification: Foundational Setup &amp; Core Task Management</title>
+        <section>Objectives and Scope</section>
+        <snippet>In-Scope: Implementing the UI and API for creating, viewing, updating, and deleting tasks. Implementing the ability to mark tasks as complete.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-1.md</path>
+        <title>Epic Technical Specification: Foundational Setup &amp; Core Task Management</title>
+        <section>APIs and Interfaces</section>
+        <snippet>This epic will establish the foundational REST API for task management. `DELETE /api/tasks/&lt;id&gt;`: Deletes a task. `PUT /api/tasks/&lt;id&gt;`: Updates an existing task (including marking as complete).</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-1.md</path>
+        <title>Epic Technical Specification: Foundational Setup &amp; Core Task Management</title>
+        <section>Workflows and Sequencing - Delete Task Workflow</section>
+        <snippet>User clicks a "Delete" affordance on a task -&gt; A confirmation dialog appears -&gt; On confirmation, frontend sends a `DELETE` request to `/api/tasks/&lt;id&gt;` -&gt; On success, the task is removed from the UI.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-1.md</path>
+        <title>Epic Technical Specification: Foundational Setup &amp; Core Task Management</title>
+        <section>Workflows and Sequencing - Complete Task Workflow</section>
+        <snippet>User clicks the checkbox on a task -&gt; Frontend sends a `PUT` request to `/api/tasks/&lt;id&gt;` with `is_done: true` -&gt; The UI updates to visually reflect the completed state (e.g., strikethrough).</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>app.py</path>
+        <kind>Flask Application</kind>
+        <symbol>Task</symbol>
+        <reason>Defines the SQLAlchemy model for tasks to be deleted or updated (completion status).</reason>
+      </artifact>
+      <artifact>
+        <path>app.py</path>
+        <kind>Flask Application</kind>
+        <symbol>delete_task, update_task</symbol>
+        <reason>Implements the API endpoints for deleting (`DELETE /api/tasks/&lt;id&gt;`) and updating (`PUT /api/tasks/&lt;id&gt;`) task completion status.</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <python>
+        <package name="Flask" />
+        <package name="Flask-SQLAlchemy" />
+      </python>
+      <nodejs>
+        <package name="@faker-js/faker" version="8.4.1" type="dev" />
+        <package name="@playwright/test" version="1.57.0" type="dev" />
+        <package name="@types/node" version="^24.10.1" type="dev" />
+        <package name="autoprefixer" version="^10.4.22" type="dev" />
+        <package name="postcss" version="^8.5.6" type="dev" />
+        <package name="tailwindcss" version="^4.1.17" type="dev" />
+      </nodejs>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>API Pattern: REST API for deleting (`DELETE /api/tasks/&lt;id&gt;`) and updating (`PUT /api/tasks/&lt;id&gt;`) task status.</constraint>
+    <constraint>Data Model: Use the existing `Task` SQLAlchemy model in `app.py`, specifically updating the `is_done` field.</constraint>
+    <constraint>Frontend UI: `Task Card` component will handle delete icon and completion checkbox. Visual distinction for completed tasks.</constraint>
+    <constraint>Confirmation Pattern: Implement a confirmation dialog for destructive actions (deletion).</constraint>
+    <constraint>Implementation: Adhere to Python/Flask implementation patterns.</constraint>
+  </constraints>
+  <interfaces>
+    <interface>
+      <name>Task Management API</name>
+      <kind>REST endpoint</kind>
+      <signature>DELETE /api/tasks/&lt;id&gt;, PUT /api/tasks/&lt;id&gt;</signature>
+      <path>app.py</path>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>
+      <standard>API/Integration Tests: Cover `DELETE /api/tasks/&lt;id&gt;` and `PUT /api/tasks/&lt;id&gt;` (for `is_done`) endpoints.</standard>
+      <standard>E2E Tests: Test the full user flow of deleting a task with confirmation, marking a task as complete, and verifying visual changes.</standard>
+    </standards>
+    <locations>
+      <location>tests/</location>
+      <location>playwright.config.ts</location>
+    </locations>
+    <ideas>
+      <idea>E2E Test: Verify confirmation dialog appears on delete icon click.</idea>
+      <idea>API Test: `DELETE /api/tasks/&lt;id&gt;` returns `204 No Content` and removes the task from the DB.</idea>
+      <idea>E2E Test: Verify task is removed from UI after confirming deletion.</idea>
+      <idea>API Test: `PUT /api/tasks/&lt;id&gt;` with `is_done: true` updates the task and returns `200 OK`.</idea>
+      <idea>E2E Test: Verify clicking checkbox sends the correct API request.</idea>
+      <idea>E2E Test: Verify completed task has strikethrough and muted color.</idea>
+    </ideas>
+  </tests>
+</story-context>

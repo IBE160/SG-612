@@ -1,0 +1,232 @@
+<story-context id="{bmad_folder}/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>Epic 1</epicId>
+    <storyId>1.1</storyId>
+    <title>Project Foundation &amp; Database Setup</title>
+    <status>drafted</status>
+    <generatedAt>2025-12-01</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>C:\Users\PC\OneDrive\Documents\SG-612\docs\sprint-artifacts\1-1-project-foundation-database-setup.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>As a developer</asA>
+    <iWant>I want to set up the initial Flask project structure, database model, and dependencies</iWant>
+    <soThat>so that I have a foundation for building the application</soThat>
+    <tasks>
+  <task>
+    <title>1. Project Initialization:</title>
+    <subtask>- Initialize Python virtual environment.</subtask>
+    <subtask>- Install Python dependencies: `Flask==3.1.2`, `Flask-SQLAlchemy==3.1.2`.</subtask>
+    <subtask>- Create `requirements.txt` based on installed Python packages.</subtask>
+    <subtask>- Initialize Node.js project (`npm init -y`).</subtask>
+    <subtask>- Install Node.js dev dependencies: `tailwindcss@^4.1.17`, `postcss@^8.5.6`, `autoprefixer@^10.4.22`.</subtask>
+    <subtask>- Initialize Tailwind CSS (`npx tailwindcss init -p`).</subtask>
+  </task>
+  <task>
+    <title>2. Project Structure Creation:</title>
+    <subtask>- Create core directories: `instance/`, `static/`, `static/css/`, `static/dist/`, `templates/`.</subtask>
+    <subtask>- Create an empty `app.py` file.</subtask>
+    <subtask>- Create `static/css/input.css` with `@tailwind base; @tailwind components; @tailwind utilities;`.</subtask>
+  </task>
+  <task>
+    <title>3. Configuration Files Setup:</title>
+    <subtask>- Configure `tailwind.config.js` to match the UX design specification for `primary` color (`#607AFB`), `display` font family (`Sora`), and `borderRadius` values.</subtask>
+    <subtask>- Update `.gitignore` to include `venv/`, `__pycache__/`, `instance/*.db`, `node_modules/`, and `static/dist/`, `.env`, `.env.local`.</subtask>
+  </task>
+  <task>
+    <title>4. Database Model Definition:</title>
+    <subtask>- Define the `Task` SQLAlchemy model in `app.py` (or a dedicated `models.py` file if preferred, ensuring proper import into `app.py`).</subtask>
+    <subtask>- Add basic Flask-SQLAlchemy initialization and database creation (`db.create_all()`) logic to `app.py` for setup.</subtask>
+  </task>
+  <task>
+    <title>5. Verification & Testing:</title>
+    <subtask>- **Unit Test**: Verify `Task` model fields and types.</subtask>
+    <subtask>- **Manual Test**: Run the Flask app's initialization script to confirm `tasks.db` is created and the directory structure is correct.</subtask>
+    <subtask>- **Manual Test**: Verify TailwindCSS compilation works by running `npm run build:css` (or equivalent) and checking `static/dist/output.css`.</subtask>
+  </task>
+</tasks>
+  </story>
+
+  <acceptanceCriteria>
+  <ac id="AC1">The project structure adheres to the layout specified in the Architecture Document, including `app.py`, `instance/`, `static/`, `templates/`.</ac>
+  <ac id="AC2">A Python virtual environment is initialized, and `Flask`, `Flask-SQLAlchemy` are installed and listed in `requirements.txt`.</ac>
+  <ac id="AC3">Frontend build tools (`npm`, `tailwindcss`, `postcss`, `autoprefixer`) are installed, and `tailwind.config.js` is initialized and configured with the specified theme extensions (primary color, font family, border-radius).</ac>
+  <ac id="AC4">The `Task` SQLAlchemy model is defined with `id`, `title`, `notes`, `due_date`, `priority`, `label`, `is_done`, and `created_at` fields, as detailed in the Architecture Document.</ac>
+  <ac id="AC5">An empty `tasks.db` SQLite database file can be created within the `instance/` directory using the application's setup logic.</ac>
+  <ac id="AC6">The `.gitignore` file is updated to correctly ignore generated files and directories suchs as `venv/`, `__pycache__/`, `instance/*.db`, `node_modules/`, and `static/dist/`, `.env`, `.env.local`.</ac>
+</acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/product-brief.md</path>
+        <title>Product Brief: Smart-To-Do-List App</title>
+        <section>Technical Preferences</section>
+        <snippet>The technical preferences for the Smart To-Do List App are clearly defined and stem from a strategic choice balancing learning objectives, development efficiency, and future scalability. Frontend (UI/UX): HTML5, CSS3, Jinja2 (for Flask templating), with Tailwind via CDN for a responsive and modern design. Backend: Python 3.x, using the Flask web framework. Database: SQLite via SQLAlchemy ORM, preferred for robust local storage.</snippet>
+      </doc>
+      <doc>
+        <path>docs/product-brief.md</path>
+        <title>Product Brief: Smart-To-Do-List App</title>
+        <section>MVP Scope - Core Features</section>
+        <snippet>The Minimum Viable Product (MVP) of the Smart To-Do List App will focus on delivering the essential functionalities that validate its core value proposition. These include: CRUD Operations: Full capability to Create, Read, Update, and Delete tasks. Each task will require a title, with optional fields for notes and a due date.</snippet>
+      </doc>
+      <doc>
+        <path>docs/product-brief.md</path>
+        <title>Product Brief: Smart-To-Do-List App</title>
+        <section>Timeline</section>
+        <snippet>The project is constrained by a 6-week timeline with defined weekly milestones, typical for an academic project. Week 1: Foundation & Database (Flask setup, SQLite/SQLAlchemy, basic CRUD API).</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-3-solutioning/architecture.md</path>
+        <title>Architecture</title>
+        <section>Project Initialization</section>
+        <snippet>First implementation story should execute the manual setup for a Flask with TailwindCSS starter: `mkdir flask_tailwind_app`... This establishes the base architecture with these decisions: Language: Python (Flask), Styling solution: TailwindCSS, Build tooling: npm scripts for TailwindCSS compilation, Project structure: Standard Flask application layout.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-3-solutioning/architecture.md</path>
+        <title>Architecture</title>
+        <section>Decision Summary</section>
+        <snippet>Language: Python 3.14, Backend Framework: Flask 3.1.2, ORM: Flask-SQLAlchemy 3.1.2, Frontend Styling: TailwindCSS 4.1.17, JS Runtime / Build Tooling: Node.js 24.11.1, Data Persistence: SQLite 3.45.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-3-solutioning/architecture.md</path>
+        <title>Architecture</title>
+        <section>Project Structure</section>
+        <snippet>Illustrates the directory structure including `app.py`, `ai_service.py`, `package.json`, `requirements.txt`, `instance/tasks.db`, `static/`, `templates/`, `tests/`.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-3-solutioning/architecture.md</path>
+        <title>Architecture</title>
+        <section>Epic to Architecture Mapping</section>
+        <snippet>Epic 1: Foundational Setup &amp; Core Task Mgmt maps to `app.py`, `templates/`, `instance/tasks.db`.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-3-solutioning/architecture.md</path>
+        <title>Architecture</title>
+        <section>Technology Stack Details - Core Technologies</section>
+        <snippet>Python 3.14 (Backend Language), Flask 3.1.2 (Backend Framework), Flask-SQLAlchemy 3.1.2 (ORM), Node.js 24.11.1 (JS Runtime / Build Tooling), TailwindCSS 4.1.17 (Frontend Styling), SQLite 3.45 (Data Persistence).</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-3-solutioning/architecture.md</path>
+        <title>Architecture</title>
+        <section>Data Models - `Task` Model</section>
+        <snippet>This model represents a single to-do item in the application. Defines columns `id`, `title`, `notes`, `due_date`, `priority`, `label`, `is_done`, `created_at` with their types and constraints.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-3-solutioning/architecture.md</path>
+        <title>Architecture</title>
+        <section>Development Environment - Setup Commands</section>
+        <snippet>Setup commands including `python -m venv venv`, `pip install Flask Flask-SQLAlchemy`, `npm init -y`, `npm install -D tailwindcss postcss autoprefixer`, `npx tailwindcss init -p`.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-2-planning/ux-design-specification.md</path>
+        <title>ibe160 UX Design Specification</title>
+        <section>Design System Foundation - TailwindCSS Configuration</section>
+        <snippet>Outlines the `tailwind.config.js` snippet for custom theme extensions: `colors: {primary: '#607AFB', ...}, fontFamily: {display: ['Sora', 'sans-serif']}, borderRadius: {DEFAULT: '0.5rem', ...}`.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-1.md</path>
+        <title>Epic Technical Specification: Foundational Setup &amp; Core Task Management</title>
+        <section>Objectives and Scope</section>
+        <snippet>*In-Scope:* Setting up the Flask project structure, including the virtual environment, dependencies, and database. Defining the `Task` data model. Implementing the UI and API for creating, viewing, updating, and deleting tasks.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-1.md</path>
+        <title>Epic Technical Specification: Foundational Setup &amp; Core Task Management</title>
+        <section>System Architecture Alignment</section>
+        <snippet>This epic directly implements the foundational components outlined in the architecture document. It will create the main `app.py`, the `Task` model in `instance/tasks.db` as defined by the SQLAlchemy ORM, and the basic HTML templates in the `templates/` directory styled with TailwindCSS.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-1.md</path>
+        <title>Epic Technical Specification: Foundational Setup &amp; Core Task Management</title>
+        <section>Data Models and Contracts</section>
+        <snippet>The core data model for this epic is the `Task` model, as defined in the architecture. Details columns `id`, `title`, `notes`, `due_date`, `priority`, `label`, `is_done`, `created_at`.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-1.md</path>
+        <title>Epic Technical Specification: Foundational Setup &amp; Core Task Management</title>
+        <section>Dependencies and Integrations</section>
+        <snippet>Frontend / Build: `tailwindcss`: `^4.1.17`, `postcss`: `^8.5.6`, `autoprefixer`: `^10.4.22`. Backend: `Flask`: The core backend framework. `Flask-SQLAlchemy`: ORM for database interaction.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-1.md</path>
+        <title>Epic Technical Specification: Foundational Setup &amp; Core Task Management</title>
+        <section>Acceptance Criteria (Authoritative)</section>
+        <snippet>1. The project structure must be created as defined in the architecture document. 2. A SQLite database file (`tasks.db`) must be created within the `instance/` directory. 3. The `Task` model must be defined in SQLAlchemy with all specified fields (`id`, `title`, `notes`, `due_date`, `priority`, `label`, `is_done`, `created_at`).</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>app.py</path>
+        <kind>Flask Application</kind>
+        <symbol>Task</symbol>
+        <reason>Defines the SQLAlchemy model for tasks and initializes the Flask application and database.</reason>
+      </artifact>
+      <artifact>
+        <path>app.py</path>
+        <kind>Flask Application</kind>
+        <symbol>create_task, get_tasks, update_task, delete_task, handle_suggestions</symbol>
+        <reason>Core API endpoints for task management and AI integration.</reason>
+      </artifact>
+      <artifact>
+        <path>package.json</path>
+        <kind>Node.js Package Manifest</kind>
+        <reason>Defines frontend build dependencies (`tailwindcss`, `postcss`, `autoprefixer`) and testing dependencies (`@playwright/test`, `@faker-js/faker`).</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <python>
+        <package name="Flask" version="3.1.2" />
+        <package name="Flask-SQLAlchemy" version="3.1.2" />
+      </python>
+      <nodejs>
+        <package name="@faker-js/faker" version="8.4.1" type="dev" />
+        <package name="@playwright/test" version="1.57.0" type="dev" />
+        <package name="@types/node" version="^24.10.1" type="dev" />
+        <package name="autoprefixer" version="^10.4.22" type="dev" />
+        <package name="postcss" version="^8.5.6" type="dev" />
+        <package name="tailwindcss" version="^4.1.17" type="dev" />
+      </nodejs>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Python virtual environment setup (AC2).</constraint>
+    <constraint>SQLite database in `instance/tasks.db` (AC5).</constraint>
+    <constraint>Specific Flask (3.1.2) and Flask-SQLAlchemy (3.1.2) versions (AC2).</constraint>
+    <constraint>Specific TailwindCSS (^4.1.17), PostCSS (^8.5.6), Autoprefixer (^10.4.22) versions (AC3).</constraint>
+    <constraint>`.gitignore` configuration for `venv/`, `__pycache__/`, `instance/*.db`, `node_modules/`, `static/dist/`, `.env`, `.env.local` (AC6).</constraint>
+    <constraint>`tailwind.config.js` configuration for `primary` color (#607AFB), `display` font family (Sora), and `borderRadius` values (AC3).</constraint>
+    <constraint>`Task` model fields and types (AC4).</constraint>
+  </constraints>
+  <interfaces>
+    <interface>
+      <name>Task Management API</name>
+      <kind>REST endpoint</kind>
+      <signature>POST /api/tasks, GET /api/tasks, PUT /api/tasks/&lt;id&gt;, DELETE /api/tasks/&lt;id&gt;</signature>
+      <path>app.py</path>
+    </interface>
+    <interface>
+      <name>AI Suggestion API</name>
+      <kind>REST endpoint</kind>
+      <signature>POST /api/suggest</signature>
+      <path>app.py</path>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>The test strategy follows a pyramid approach: Unit Tests for the SQLAlchemy Task model, API/Integration Tests (using pytest) for CRUD operations on the /api/tasks endpoint, and E2E Tests (using Playwright) for critical user flows like task creation and completion.</standards>
+    <locations>
+      <location>tests/</location>
+      <location>playwright.config.ts (for E2E tests)</location>
+    </locations>
+    <ideas>
+      <idea ac_id="AC1">Manual verification: Check project structure (app.py, instance/, static/, templates/).</idea>
+      <idea ac_id="AC2">Manual verification: Inspect `requirements.txt` for Flask and Flask-SQLAlchemy versions.</idea>
+      <idea ac_id="AC3">Manual verification: Check `tailwind.config.js` for theme extensions. Run `build:css` and verify `static/dist/output.css`.</idea>
+      <idea ac_id="AC4">Unit Test: Verify `Task` model fields and types (id, title, notes, due_date, priority, label, is_done, created_at).</idea>
+      <idea ac_id="AC5">Manual Test: Run `flask init-db` command and verify `instance/tasks.db` is created.</idea>
+      <idea ac_id="AC6">Manual verification: Inspect `.gitignore` for `venv/`, `__pycache__/`, `instance/*.db`, `node_modules/`, `static/dist/`, `.env`, `.env.local` entries.</idea>
+    </ideas>
+  </tests>
+</story-context>

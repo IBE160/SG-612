@@ -1,10 +1,28 @@
 # User Story: Story 1.1: Project Foundation & Database Setup
 
+Status: ready-for-dev
+
+## Dev Agent Record
+
+### Context Reference
+- [1-1-project-foundation-database-setup.context.xml](1-1-project-foundation-database-setup.context.xml)
+
 As a developer, I want to set up the initial Flask project structure, database model, and dependencies, so that I have a foundation for building the application.
 
 ## Requirements Context
 
 This story is foundational to Epic 1: "Foundational Setup & Core Task Management". It directly addresses the initial project setup, database schema definition, and dependency management as detailed in the Architecture Document (`docs/fase-3-solutioning/architecture.md`) and elaborated in the Epic Tech Spec for Epic 1 (`docs/sprint-artifacts/tech-spec-epic-1.md`). The PRD implicitly requires this setup to support all subsequent functional requirements. The UX Design Specification's reliance on a Flask/TailwindCSS frontend also necessitates this setup.
+
+## Project Structure Alignment
+
+This story is responsible for establishing the core project structure as defined in `docs/fase-3-solutioning/architecture.md`. Key elements include:
+*   **Python Virtual Environment**: Creation of `venv/` and installation of core Python dependencies.
+*   **Main Flask Application**: `app.py` as the entry point for the Flask application.
+*   **Database**: Initialization of `instance/tasks.db` for SQLite.
+*   **Frontend Assets**: Setting up `static/` (with `input.css` and `dist/output.css`) and `templates/` directories.
+*   **Configuration Files**: `requirements.txt` (to be created), `package.json`, `tailwind.config.js`, `postcss.config.js`.
+
+This story ensures strict adherence to the planned directory layout and naming conventions from the architecture.
 
 ## Acceptance Criteria
 
@@ -30,7 +48,7 @@ This story is foundational to Epic 1: "Foundational Setup & Core Task Management
     *   [ ] Create `static/css/input.css` with `@tailwind base; @tailwind components; @tailwind utilities;`.
 *   **3. Configuration Files Setup:**
     *   [ ] Configure `tailwind.config.js` to match the UX design specification for `primary` color (`#607AFB`), `display` font family (`Sora`), and `borderRadius` values.
-    *   [ ] Update `.gitignore` to include `venv/`, `__pycache__/`, `instance/*.db`, `node_modules/`, `static/dist/`, `.env`, `.env.local`.
+    *   [ ] Update `.gitignore` to include `venv/`, `__pycache__/`, `instance/*.db`, `node_modules/`, and `static/dist/`, `.env`, `.env.local`.
 *   **4. Database Model Definition:**
     *   [ ] Define the `Task` SQLAlchemy model in `app.py` (or a dedicated `models.py` file if preferred, ensuring proper import into `app.py`).
     *   [ ] Add basic Flask-SQLAlchemy initialization and database creation (`db.create_all()`) logic to `app.py` for setup.
@@ -38,40 +56,3 @@ This story is foundational to Epic 1: "Foundational Setup & Core Task Management
     *   [ ] **Unit Test**: Verify `Task` model fields and types.
     *   [ ] **Manual Test**: Run the Flask app's initialization script to confirm `tasks.db` is created and the directory structure is correct.
     *   [ ] **Manual Test**: Verify TailwindCSS compilation works by running `npm run build:css` (or equivalent) and checking `static/dist/output.css`.
-
-## Dev Notes
-
-- Relevant architecture patterns and constraints
-- Source tree components to touch
-- Testing standards summary
-
-## Project Structure Alignment
-
-This story is responsible for establishing the core project structure as defined in `docs/fase-3-solutioning/architecture.md`. Key elements include:
-*   **Python Virtual Environment**: Creation of `venv/` and installation of core Python dependencies.
-*   **Main Flask Application**: `app.py` as the entry point for the Flask application.
-*   **Database**: Initialization of `instance/tasks.db` for SQLite.
-*   **Frontend Assets**: Setting up `static/` (with `input.css` and `dist/output.css`) and `templates/` directories.
-*   **Configuration Files**: `requirements.txt` (to be created), `package.json`, `tailwind.config.js`, `postcss.config.js`.
-
-This story ensures strict adherence to the planned directory layout and naming conventions from the architecture.
-
-### References
-
-- Cite all technical details with source paths and sections, e.g. [Source: docs/<file>.md#Section]
-
-## Dev Agent Record
-
-### Context Reference
-
-<!-- Path(s) to story context XML will be added here by context workflow -->
-
-### Agent Model Used
-
-{{agent_model_name_version}}
-
-### Debug Log References
-
-### Completion Notes List
-
-### File List

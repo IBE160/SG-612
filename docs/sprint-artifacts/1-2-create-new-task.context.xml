@@ -1,0 +1,228 @@
+<story-context id="{bmad_folder}/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>Epic 1</epicId>
+    <storyId>1.2</storyId>
+    <title>Create New Task</title>
+    <status>drafted</status>
+    <generatedAt>2025-12-01</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>C:\Users\PC\OneDrive\Documents\SG-612\docs\sprint-artifacts\1-2-create-new-task.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>As a user</asA>
+    <iWant>I want to create a new task with a title, notes, and due date</iWant>
+    <soThat>so that I can add items to my to-do list</soThat>
+    <tasks>
+  <task>
+    <title>1. Frontend Implementation:</title>
+    <subtask>- Create "Add Task" button on the dashboard (primary button style).</subtask>
+    <subtask>- Implement "Add Task" modal with form fields for title (required input), notes (textarea), and due date (date input).</subtask>
+    <subtask>- Ensure modal can be dismissed via Escape key and backdrop click.</subtask>
+    <subtask>- Implement client-side validation for the title field (required).</subtask>
+    <subtask>- Implement success toast notification for task creation.</subtask>
+    <subtask>- Update dashboard task list upon successful task creation.</subtask>
+  </task>
+  <task>
+    <title>2. Backend API Endpoint:</title>
+    <subtask>- Create `POST /api/tasks` endpoint in `app.py`.</subtask>
+    <subtask>- Handle incoming JSON request body with `title`, `notes`, `due_date`.</subtask>
+    <subtask>- Implement server-side validation for `title`.</subtask>
+    <subtask>- Save new `Task` object to the database using `Flask-SQLAlchemy`.</subtask>
+    <subtask>- Return `201 Created` status with the new task object.</subtask>
+  </task>
+</tasks>
+  </story>
+
+  <acceptanceCriteria>
+  <ac>
+    **Given** I am on the main dashboard
+    **When** I click the "Add Task" button (a primary button with color `#607AFB`)
+    **Then** a modal appears with a form to add a new task.
+    **And** the form includes fields for title (required), notes, and due date.
+    **And** the modal can be dismissed by pressing the `Escape` key or clicking the backdrop.
+    **When** I fill out the form and click "Save"
+    **Then** the new task is saved to the database.
+    **And** the modal closes and the dashboard updates to show the new task.
+    **And** upon success, a non-blocking toast notification confirms "Task created."
+  </ac>
+</acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/product-brief.md</path>
+        <title>Product Brief: Smart-To-Do-List App</title>
+        <section>MVP Scope - Core Features</section>
+        <snippet>The Minimum Viable Product (MVP) of the Smart To-Do List App will focus on delivering the essential functionalities that validate its core value proposition. These include: CRUD Operations: Full capability to Create, Read, Update, and Delete tasks. Each task will require a title, with optional fields for notes and a due date.</snippet>
+      </doc>
+      <doc>
+        <path>docs/product-brief.md</path>
+        <title>Product Brief: Smart-To-Do-List App</title>
+        <section>User Journey</section>
+        <snippet>The typical user journey for the Smart To-Do List App, exemplified by a student, begins with Entry by opening the web application. ... To add a new task, they Create Task by clicking 'Add Task', opening a modal, and typing a description like 'Study for math'.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-3-solutioning/architecture.md</path>
+        <title>Architecture</title>
+        <section>API Pattern</section>
+        <snippet>Standard, well-understood pattern for web apps and a core strength of Flask. REST API for `POST /api/tasks`.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-3-solutioning/architecture.md</path>
+        <title>Architecture</title>
+        <section>Epic to Architecture Mapping</section>
+        <snippet>Epic 1: Foundational Setup &amp; Core Task Mgmt maps to `app.py`, `templates/`.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-3-solutioning/architecture.md</path>
+        <title>Architecture</title>
+        <section>Data Models - `Task` Model</section>
+        <snippet>This model represents a single to-do item in the application. Defines columns `id`, `title`, `notes`, `due_date`, `priority`, `label`, `is_done`, `created_at` with their types and constraints.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-3-solutioning/architecture.md</path>
+        <title>Architecture</title>
+        <section>API Contracts</section>
+        <snippet>Type: RESTful JSON API. Endpoints: `POST /api/tasks` creates a new task. Success Response: `201 Created` with `{ "data": { ...task object... } }`.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-3-solutioning/architecture.md</path>
+        <title>Architecture</title>
+        <section>Implementation Patterns</section>
+        <snippet>Naming: Snake_case for Python/DB, Kebab-case for CSS, Plural Kebab-case for API. Structure: Flask standard with `ai_service.py`, `templates/`, `static/`, `tests/`.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-3-solutioning/architecture.md</path>
+        <title>Architecture</title>
+        <section>Lifecycle Patterns</section>
+        <snippet>Loading State: When fetching data, display a visual indicator. Error State: When an operation fails, display a non-intrusive notification. Empty State: When a list is empty, display a helpful message and call-to-action.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-2-planning/ux-design-specification.md</path>
+        <title>ibe160 UX Design Specification</title>
+        <section>Core User Experience - Established Pattern (CRUD)</section>
+        <snippet>The application is built upon a standard and universally understood CRUD (Create, Read, Update, Delete) pattern for task management. This ensures a low learning curve for fundamental operations.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-2-planning/ux-design-specification.md</path>
+        <title>ibe160 UX Design Specification</title>
+        <section>Visual Foundation - Color System</section>
+        <snippet>The application will adopt the Modern &amp; Focused color theme, centered around shades of blue and indigo. Primary Color: A strong blue/indigo will be used for primary calls-to-action, active navigation elements, and key interactive components.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-2-planning/ux-design-specification.md</path>
+        <title>ibe160 UX Design Specification</title>
+        <section>User Journey Flows - Creating a New Task with AI Assistance</section>
+        <snippet>The primary user path for creating a new task uses a Single-Screen Modal Flow. User clicks "Add Task", modal appears, user inputs title, clicks "Magic Fill", fields populate, user reviews and saves, modal closes, task appears, toast confirms "Task created."</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-2-planning/ux-design-specification.md</path>
+        <title>ibe160 UX Design Specification</title>
+        <section>Component Library - Key Application Components (to be built with TailwindCSS)</section>
+        <snippet>Key Application Components: Modals (standardized for adding/editing tasks), Buttons (primary, secondary, destructive), Feedback (toast notifications for success/error messages).</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-2-planning/ux-design-specification.md</path>
+        <title>ibe160 UX Design Specification</title>
+        <section>UX Pattern Decisions - Modal Patterns</section>
+        <snippet>Modals for adding or editing tasks can be dismissed by clicking a "Cancel" button, pressing the `Escape` key, or clicking the modal backdrop.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-2-planning/ux-design-specification.md</path>
+        <title>ibe160 UX Design Specification</title>
+        <section>UX Pattern Decisions - System Feedback (Notifications)</section>
+        <snippet>Non-blocking, auto-dismissing "toast" notifications will be used for success, error, and informational messages.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-1.md</path>
+        <title>Epic Technical Specification: Foundational Setup &amp; Core Task Management</title>
+        <section>Objectives and Scope</section>
+        <snippet>In-Scope: Implementing the UI and API for creating, viewing, updating, and deleting tasks.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-1.md</path>
+        <title>Epic Technical Specification: Foundational Setup &amp; Core Task Management</title>
+        <section>APIs and Interfaces</section>
+        <snippet>This epic will establish the foundational REST API for task management. `POST /api/tasks`: Creates a new task. Request Body: `{ "title": "...", "notes": "...", "due_date": "..." }`. Success Response: `201 Created` with `{ "data": { ...task object... } }`.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-1.md</path>
+        <title>Epic Technical Specification: Foundational Setup &amp; Core Task Management</title>
+        <section>Workflows and Sequencing - Create Task Workflow</section>
+        <snippet>User clicks "Add Task" button -&gt; A UI modal appears -&gt; User fills the form and submits -&gt; Frontend sends a `POST` request to `/api/tasks` -&gt; On success, the modal closes and the task list UI is updated.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-1.md</path>
+        <title>Epic Technical Specification: Foundational Setup &amp; Core Task Management</title>
+        <section>Acceptance Criteria (Authoritative)</section>
+        <snippet>A user can create a new task via the UI, which calls `POST /api/tasks` and receives a `201 Created` response. The "Add Task" modal can be dismissed with the Escape key or by clicking the modal backdrop.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>app.py</path>
+        <kind>Flask Application</kind>
+        <symbol>Task</symbol>
+        <reason>Defines the SQLAlchemy model used for new tasks.</reason>
+      </artifact>
+      <artifact>
+        <path>app.py</path>
+        <kind>Flask Application</kind>
+        <symbol>create_task</symbol>
+        <reason>Implements the API endpoint for creating new tasks (`POST /api/tasks`).</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <python>
+        <package name="Flask" />
+        <package name="Flask-SQLAlchemy" />
+      </python>
+      <nodejs>
+        <package name="@faker-js/faker" version="8.4.1" type="dev" />
+        <package name="@playwright/test" version="1.57.0" type="dev" />
+        <package name="@types/node" version="^24.10.1" type="dev" />
+        <package name="autoprefixer" version="^10.4.22" type="dev" />
+        <package name="postcss" version="^8.5.6" type="dev" />
+        <package name="tailwindcss" version="^4.1.17" type="dev" />
+      </nodejs>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>API Pattern: REST API for task creation (`POST /api/tasks`).</constraint>
+    <constraint>Data Model: Use the existing `Task` SQLAlchemy model in `app.py` for saving tasks.</constraint>
+    <constraint>Frontend UI: Implement using TailwindCSS. Use a modal component for the "Add Task" form. Buttons should adhere to the defined primary button style (`#607AFB`).</constraint>
+    <constraint>Modal Behavior: Dismissal via Escape key and backdrop click.</constraint>
+    <constraint>Feedback: Use non-blocking toast notifications for success messages.</constraint>
+    <constraint>Implementation: Adhere to Python/Flask implementation patterns (naming, structure, etc.).</constraint>
+  </constraints>
+  <interfaces>
+    <interface>
+      <name>Task Creation API</name>
+      <kind>REST endpoint</kind>
+      <signature>POST /api/tasks</signature>
+      <path>app.py</path>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>
+      <standard>API/Integration Tests: Cover `POST /api/tasks` for task creation, including validation and successful response.</standard>
+      <standard>E2E Tests: Test the full user flow of clicking "Add Task", filling the form, saving, and verifying the new task appears on the dashboard.</standard>
+    </standards>
+    <locations>
+      <location>tests/</location>
+      <location>playwright.config.ts</location>
+    </locations>
+    <ideas>
+      <idea>E2E Test: Verify "Add Task" button click opens modal.</idea>
+      <idea>E2E Test: Verify modal contains title, notes, and due date fields.</idea>
+      <idea>E2E Test: Verify modal closes on Escape key press.</idea>
+      <idea>E2E Test: Verify modal closes on backdrop click.</idea>
+      <idea>API Test: `POST /api/tasks` with valid data returns `201 Created` and saves to DB.</idea>
+      <idea>API Test: `POST /api/tasks` with missing title returns `400 Bad Request`.</idea>
+      <idea>E2E Test: Verify modal closes and new task appears on dashboard after saving.</idea>
+      <idea>E2E Test: Verify toast notification "Task created." appears on successful save.</idea>
+    </ideas>
+  </tests>
+</story-context>

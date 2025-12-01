@@ -1,0 +1,98 @@
+# User Story: Story 1.2: Create New Task
+
+Status: drafted
+
+As a user, I want to create a new task with a title, notes, and due date, so that I can add items to my to-do list.
+
+## Requirements Context
+
+This story directly implements the "Create" functionality for tasks as defined in the Product Brief's MVP Core Features and the "Create Task Workflow" in Epic 1 Technical Specification. It aligns with the REST API pattern outlined in the Architecture Document for `POST /api/tasks`. The UI interaction for adding a task is detailed in the UX Design Specification's "Creating a New Task with AI Assistance" user journey, including modal behavior and success notifications.
+
+## Acceptance Criteria
+
+**Given** I am on the main dashboard
+**When** I click the "Add Task" button (a primary button with color `#607AFB`)
+**Then** a modal appears with a form to add a new task.
+**And** the form includes fields for title (required), notes, and due date.
+**And** the modal can be dismissed by pressing the `Escape` key or clicking the backdrop.
+**When** I fill out the form and click "Save"
+**Then** the new task is saved to the database.
+**And** the modal closes and the dashboard updates to show the new task.
+**And** upon success, a non-blocking toast notification confirms "Task created."
+
+## Tasks / Subtasks
+
+*   **1. Frontend Implementation:**
+    *   [ ] Create "Add Task" button on the dashboard (primary button style).
+    *   [ ] Implement "Add Task" modal with form fields for title (required input), notes (textarea), and due date (date input).
+    *   [ ] Ensure modal can be dismissed via Escape key and backdrop click.
+    *   [ ] Implement client-side validation for the title field (required).
+    *   [ ] Implement success toast notification for task creation.
+    *   [ ] Update dashboard task list upon successful task creation.
+*   **2. Backend API Endpoint:**
+    *   [ ] Create `POST /api/tasks` endpoint in `app.py`.
+    *   [ ] Handle incoming JSON request body with `title`, `notes`, `due_date`.
+    *   [ ] Implement server-side validation for `title`.
+    *   [ ] Save new `Task` object to the database using `Flask-SQLAlchemy`.
+    *   [ ] Return `201 Created` status with the new task object.
+
+## Dev Notes
+
+### Constraints & Patterns:
+- **API Pattern:** REST API for task creation (`POST /api/tasks`). [Source: docs/fase-3-solutioning/architecture.md#API Pattern]
+- **Data Model:** Use the existing `Task` SQLAlchemy model in `app.py` for saving tasks. [Source: docs/fase-3-solutioning/architecture.md#Data Models]
+- **Frontend UI:** Implement using TailwindCSS. Use a modal component for the "Add Task" form. Buttons should adhere to the defined primary button style (`#607AFB`). [Source: docs/fase-2-planning/ux-design-specification.md#Visual Foundation]
+- **Modal Behavior:** Dismissal via Escape key and backdrop click. [Source: docs/fase-2-planning/ux-design-specification.md#UX Pattern Decisions]
+- **Feedback:** Use non-blocking toast notifications for success messages. [Source: docs/fase-2-planning/ux-design-specification.md#UX Pattern Decisions]
+- **Implementation:** Adhere to Python/Flask implementation patterns (naming, structure, etc.). [Source: docs/fase-3-solutioning/architecture.md#Implementation Patterns]
+
+### Source Tree Components to Touch:
+- `app.py`: For the `POST /api/tasks` endpoint. [Source: docs/fase-3-solutioning/architecture.md#Epic to Architecture Mapping]
+- `templates/`: For the main dashboard and the "Add Task" modal HTML. [Source: docs/fase-3-solutioning/architecture.md#Epic to Architecture Mapping]
+- `static/css/input.css` and `static/dist/output.css`: For styling the button and modal.
+
+### Testing Standards Summary:
+- **API/Integration Tests:** Cover `POST /api/tasks` for task creation, including validation and successful response. [Source: docs/sprint-artifacts/tech-spec-epic-1.md#Test Strategy Summary]
+- **E2E Tests:** Test the full user flow of clicking "Add Task", filling the form, saving, and verifying the new task appears on the dashboard. [Source: docs/sprint-artifacts/tech-spec-epic-1.md#Test Strategy Summary]
+
+## Project Structure Alignment
+
+This story aligns with the established Flask project structure by extending `app.py` with a new API endpoint, and adding/modifying HTML templates in `templates/` and CSS in `static/` to support the UI components.
+
+### References
+
+- [Source: docs/product-brief.md#MVP Scope]
+- [Source: docs/product-brief.md#Technical Preferences]
+- [Source: docs/product-brief.md#User Journey]
+- [Source: docs/fase-3-solutioning/architecture.md#API Pattern]
+- [Source: docs/fase-3-solutioning/architecture.md#Epic to Architecture Mapping]
+- [Source: docs/fase-3-solutioning/architecture.md#Data Models]
+- [Source: docs/fase-3-solutioning/architecture.md#API Contracts]
+- [Source: docs/fase-3-solutioning/architecture.md#Implementation Patterns]
+- [Source: docs/fase-3-solutioning/architecture.md#Lifecycle Patterns]
+- [Source: docs/fase-2-planning/ux-design-specification.md#Core User Experience]
+- [Source: docs/fase-2-planning/ux-design-specification.md#Visual Foundation]
+- [Source: docs/fase-2-planning/ux-design-specification.md#User Journey Flows]
+- [Source: docs/fase-2-planning/ux-design-specification.md#Component Library]
+- [Source: docs/fase-2-planning/ux-design-specification.md#UX Pattern Decisions]
+- [Source: docs/sprint-artifacts/tech-spec-epic-1.md#Objectives and Scope]
+- [Source: docs/sprint-artifacts/tech-spec-epic-1.md#APIs and Interfaces]
+- [Source: docs/sprint-artifacts/tech-spec-epic-1.md#Workflows and Sequencing]
+- [Source: docs/sprint-artifacts/tech-spec-epic-1.md#Acceptance Criteria (Authoritative)]
+
+Status: ready-for-dev
+
+## Dev Agent Record
+
+### Context Reference
+- [1-2-create-new-task.context.xml](1-2-create-new-task.context.xml)
+
+### Agent Model Used
+
+gemini-1.5-pro
+
+### Debug Log References
+
+### Completion Notes List
+
+### File List

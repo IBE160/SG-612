@@ -1,0 +1,138 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>2</epicId>
+    <storyId>2.2</storyId>
+    <title>"Magic Fill" AI Suggestions</title>
+    <status>drafted</status>
+    <generatedAt>2025-12-01</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts/2-2-magic-fill-ai-suggestions.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>a user</asA>
+    <iWant>to click a "Magic Fill" button to get AI-powered suggestions for the label and priority</iWant>
+    <soThat>I can organize tasks faster</soThat>
+    <tasks>
+*   **1. Frontend Implementation (templates/index.html & custom JS):**
+    *   [ ] Add a "Magic Fill" button to the "Add Task" and "Edit Task" modals.
+    *   [ ] Implement a JavaScript function to handle the button click.
+    *   [ ] The function should trigger a `POST` request to the `/api/suggest` endpoint with the task title.
+    *   [ ] Implement UI logic to show a loading state on the button during the API call.
+    *   [ ] On successful response, populate the 'label' and 'priority' form fields with the returned data.
+    *   [ ] Handle API errors gracefully (e.g., show a toast notification).
+*   **2. Backend API Endpoint (app.py):**
+    *   [ ] Create a new Flask route `/api/suggest` that accepts `POST` requests.
+    *   [ ] In the route handler, extract the `title` from the incoming JSON request.
+    *   [ ] Call the `get_ai_suggestions(title)` function from the `ai_service` module.
+    *   [ ] Return the result from the `ai_service` as a JSON response.
+*   **3. Verification & Testing:**
+    *   [ ] **E2E Test**: Write a test using Playwright to simulate a user clicking the "Magic Fill" button and verify that the form fields are populated with mock data.
+    *   [ ] **Integration Test**: Write a test for the `/api/suggest` endpoint that mocks the `ai_service.get_ai_suggestions` function to ensure the endpoint correctly proxies the request and response.
+    *   [ ] **Manual Test**: Manually test the full flow in a running application to confirm the frontend and backend are correctly integrated.
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1.  **AC1**: Given the user is in the "Add Task" or "Edit Task" modal, when they click the "Magic Fill" button, the task description is sent to the backend AI service via a `POST` request to `/api/suggest`.
+2.  **AC2**: A subtle loading indicator appears on the "Magic Fill" button until a response is received from the backend.
+3.  **AC3**: The `label` and `priority` fields in the form are populated with the suggestions returned by the AI service.
+4.  **AC4**: The user can then accept, override, or edit these suggestions before saving the task.
+5.  **AC5**: The interaction follows the "AI-Suggestion Flow" as defined in the architecture, ensuring a seamless user experience.
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/fase-3-solutioning/architecture.md</path>
+        <title>Architecture</title>
+        <section>Novel Pattern Designs: AI-Suggestion Flow (Magic Fill)</section>
+        <snippet>This section details the data flow and implementation guide for the "Magic Fill" feature, including the frontend trigger, backend API request, AI service logic, and response handling.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-2.md</path>
+        <title>Epic Technical Specification: AI-Powered Task Intelligence</title>
+        <section>Detailed Design: APIs and Interfaces - POST /api/suggest</section>
+        <snippet>This section provides the full contract for the `/api/suggest` endpoint, including the request and response body formats.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-2-planning/prd.md</path>
+        <title>Product Requirements Document</title>
+        <section>Functional Requirements: AI-Enhanced Task Categorization</section>
+        <snippet>This section outlines the functional requirements (FR7-FR10) that this story implements, covering AI suggestions for labels and priorities, and user control over them.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <file>
+        <path>app.py</path>
+        <kind>controller</kind>
+        <symbol>/api/suggest</symbol>
+        <reason>This is the new API endpoint that will be created to handle the AI suggestion requests from the frontend.</reason>
+      </file>
+      <file>
+        <path>ai_service.py</path>
+        <kind>service</kind>
+        <symbol>get_ai_suggestions</symbol>
+        <reason>This existing function will be called by the new API endpoint to get the AI suggestions.</reason>
+      </file>
+      <file>
+        <path>templates/index.html</path>
+        <kind>view</kind>
+        <symbol>Magic Fill button</symbol>
+        <reason>The UI for triggering the AI suggestion flow will be added to this file.</reason>
+      </file>
+    </code>
+    <dependencies>
+      <ecosystem>
+        <name>Node.js</name>
+        <manifest>package.json</manifest>
+        <packages>
+          <package name="@faker-js/faker" version="8.4.1" />
+          <package name="@playwright/test" version="1.57.0" />
+          <package name="@types/node" version="^24.10.1" />
+          <package name="autoprefixer" version="^10.4.22" />
+          <package name="postcss" version="^8.5.6" />
+          <package name="tailwindcss" version="^4.1.17" />
+        </packages>
+      </ecosystem>
+      <ecosystem>
+        <name>Python</name>
+        <manifest>requirements.txt</manifest>
+        <packages>
+            <!-- requirements.txt not found -->
+        </packages>
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    - The Google Gemini API key must be handled securely on the backend and not exposed to the client.
+    - The application should use Flask session-based authentication.
+  </constraints>
+  <interfaces>
+    <interface>
+      <name>/api/suggest</name>
+      <kind>REST endpoint</kind>
+      <signature>POST /api/suggest</signature>
+      <path>app.py</path>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>
+The test strategy follows a test pyramid approach with a mix of unit, integration, and E2E tests.
+- Unit Tests: `pytest`
+- Integration/API Tests: `pytest` with `pytest-mock`
+- E2E Tests: `Playwright`
+    </standards>
+    <locations>
+- `tests/`
+- `tests/test_api.py`
+- `tests/test_app.py`
+    </locations>
+    <ideas>
+- **E2E Test**: User clicks Magic Fill, fields populate, user can edit. (AC1, AC2, AC3, AC4)
+- **Integration Test**: Mock Gemini API failure, verify fallback suggestions and UI message. (AC5)
+- **Unit Test**: Test the `ai_service.py` logic directly, mocking the Gemini API.
+    </ideas>
+  </tests>
+</story-context>
