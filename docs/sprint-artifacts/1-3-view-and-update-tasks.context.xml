@@ -1,0 +1,184 @@
+<story-context id="{bmad_folder}/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>Epic 1</epicId>
+    <storyId>1.3</storyId>
+    <title>View and Update Tasks</title>
+    <status>drafted</status>
+    <generatedAt>2025-12-01</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>C:\Users\PC\OneDrive\Documents\SG-612\docs\sprint-artifacts\1-3-view-and-update-tasks.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>As a user</asA>
+    <iWant>I want to view the details of my tasks and update them</iWant>
+    <soThat>so that I can keep my task list accurate</soThat>
+    <tasks>
+  <task>
+    <title>1. Frontend Implementation (View Tasks):</title>
+    <subtask>- On dashboard load, fetch all tasks by calling `GET /api/tasks`.</subtask>
+    <subtask>- Implement the "Spacious & Focused List" layout using TailwindCSS.</subtask>
+    <subtask>- Create the `Task Card` component to display individual tasks.</subtask>
+    <subtask>- Each `Task Card` should display `title`, `due_date`, `label` (badge), and `priority` (badge).</subtask>
+    <subtask>- Implement hover effect to show edit and delete icons on the `Task Card`.</subtask>
+  </task>
+  <task>
+    <title>2. Frontend Implementation (Update Tasks):</title>
+    <subtask>- Clicking a `Task Card` opens an "Edit Task" modal.</subtask>
+    <subtask>- Pre-fill the modal form with the selected task's data.</subtask>
+    <subtask>- On form submission, send a `PUT /api/tasks/<id>` request with the updated data.</subtask>
+    <subtask>- On successful update, close the modal and refresh the task list on the dashboard.</subtask>
+  </task>
+  <task>
+    <title>3. Backend API Endpoint:</title>
+    <subtask>- Create `GET /api/tasks` endpoint in `app.py` to retrieve all tasks.</subtask>
+    <subtask>- Create `PUT /api/tasks/<id>` endpoint in `app.py` to update a specific task.</subtask>
+    <subtask>- Handle incoming JSON request body for task updates.</subtask>
+    <subtask>- Update the `Task` object in the database using `Flask-SQLAlchemy`.</subtask>
+    <subtask>- Return the updated task object.</subtask>
+  </task>
+</tasks>
+  </story>
+
+  <acceptanceCriteria>
+  <ac>
+    **Given** I am on the main dashboard
+    **When** I view my task list (a 'Spacious & Focused List' of `Task Card` components)
+    **Then** I can see the title, due date, label, and priority for each task. Each card shows a completion checkbox, task title, due date, and pill-shaped badges for label/priority. Edit/delete icons appear on hover.
+    **When** I click on a task to edit it
+    **Then** a modal appears with the task's details pre-filled.
+    **And** I can modify the title, notes, due date, label, and priority.
+    **When** I save my changes
+    **Then** the task is updated in the database and the dashboard reflects the changes.
+  </ac>
+</acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/product-brief.md</path>
+        <title>Product Brief: Smart-To-Do-List App</title>
+        <section>MVP Scope - Core Features</section>
+        <snippet>The Minimum Viable Product (MVP) of the Smart To-Do List App will focus on delivering the essential functionalities that validate its core value proposition. These include: CRUD Operations: Full capability to Create, Read, Update, and Delete tasks.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-3-solutioning/architecture.md</path>
+        <title>Architecture</title>
+        <section>API Pattern</section>
+        <snippet>Standard, well-understood pattern for web apps and a core strength of Flask. REST API for `GET /api/tasks` and `PUT /api/tasks/&lt;id&gt;`.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-3-solutioning/architecture.md</path>
+        <title>Architecture</title>
+        <section>Data Models - `Task` Model</section>
+        <snippet>This model represents a single to-do item in the application. Defines columns `id`, `title`, `notes`, `due_date`, `priority`, `label`, `is_done`, `created_at` with their types and constraints.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-3-solutioning/architecture.md</path>
+        <title>Architecture</title>
+        <section>API Contracts</section>
+        <snippet>Type: RESTful JSON API. Endpoints: `GET /api/tasks` retrieves a list of all tasks. `PUT /api/tasks/&lt;id&gt;` updates an existing task. Success Response: `200 OK` with `{ "data": ... }`.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-2-planning/ux-design-specification.md</path>
+        <title>ibe160 UX Design Specification</title>
+        <section>Design Direction</section>
+        <snippet>The application will adopt a "Spacious & Focused List" design direction. This approach was selected because it best embodies the core principles of minimalism, clarity, and focus, and directly aligns with the PRD's description of a "Clean card-based list view with a sidebar for Smart Lists."</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-2-planning/ux-design-specification.md</path>
+        <title>ibe160 UX Design Specification</title>
+        <section>Component Library - Custom Components</section>
+        <snippet>The core custom component will be the Task Card, which will encapsulate a single task's visual representation and interaction points. It will display title, due date, labels, and priority, with edit/delete icons on hover.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-1.md</path>
+        <title>Epic Technical Specification: Foundational Setup &amp; Core Task Management</title>
+        <section>Objectives and Scope</section>
+        <snippet>In-Scope: Implementing the UI and API for creating, viewing, updating, and deleting tasks.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-1.md</path>
+        <title>Epic Technical Specification: Foundational Setup &amp; Core Task Management</title>
+        <section>APIs and Interfaces</section>
+        <snippet>This epic will establish the foundational REST API for task management. `GET /api/tasks`: Retrieves a list of all tasks. `PUT /api/tasks/&lt;id&gt;`: Updates an existing task.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-1.md</path>
+        <title>Epic Technical Specification: Foundational Setup &amp; Core Task Management</title>
+        <section>Workflows and Sequencing - View Tasks Workflow</section>
+        <snippet>On initial application load -&gt; Frontend sends a `GET` request to `/api/tasks` -&gt; The list of tasks is rendered in the main view.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-1.md</path>
+        <title>Epic Technical Specification: Foundational Setup &amp; Core Task Management</title>
+        <section>Workflows and Sequencing - Update Task Workflow</section>
+        <snippet>User clicks an "Edit" affordance on a task -&gt; A UI modal appears pre-filled with task data -&gt; User modifies the form and submits -&gt; Frontend sends a `PUT` request to `/api/tasks/&lt;id&gt;` -&gt; On success, the modal closes and the task list UI is updated.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>app.py</path>
+        <kind>Flask Application</kind>
+        <symbol>Task</symbol>
+        <reason>Defines the SQLAlchemy model for tasks to be viewed and updated.</reason>
+      </artifact>
+      <artifact>
+        <path>app.py</path>
+        <kind>Flask Application</kind>
+        <symbol>get_tasks, update_task</symbol>
+        <reason>Implements the API endpoints for retrieving (`GET /api/tasks`) and updating (`PUT /api/tasks/&lt;id&gt;`) tasks.</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <python>
+        <package name="Flask" version="3.1.2" />
+        <package name="Flask-SQLAlchemy" version="3.1.2" />
+      </python>
+      <nodejs>
+        <package name="@faker-js/faker" version="8.4.1" type="dev" />
+        <package name="@playwright/test" version="1.57.0" type="dev" />
+        <package name="@types/node" version="^24.10.1" type="dev" />
+        <package name="autoprefixer" version="^10.4.22" type="dev" />
+        <package name="postcss" version="^8.5.6" type="dev" />
+        <package name="tailwindcss" version="^4.1.17" type="dev" />
+      </nodejs>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>API Pattern: REST API for reading (`GET /api/tasks`) and updating (`PUT /api/tasks/&lt;id&gt;`) tasks.</constraint>
+    <constraint>Data Model: Use the existing `Task` SQLAlchemy model in `app.py`.</constraint>
+    <constraint>Frontend UI: Implement the "Spacious & Focused List" layout and `Task Card` component using TailwindCSS.</constraint>
+    <constraint>Modal Behavior: Use a standard modal for editing tasks.</constraint>
+    <constraint>Implementation: Adhere to Python/Flask implementation patterns.</constraint>
+  </constraints>
+  <interfaces>
+    <interface>
+      <name>Task Management API</name>
+      <kind>REST endpoint</kind>
+      <signature>GET /api/tasks, PUT /api/tasks/&lt;id&gt;</signature>
+      <path>app.py</path>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>
+      <standard>API/Integration Tests: Cover `GET /api/tasks` and `PUT /api/tasks/&lt;id&gt;` endpoints.</standard>
+      <standard>E2E Tests: Test the full user flow of viewing the task list, opening the edit modal, updating a task, and verifying the change on the dashboard.</standard>
+    </standards>
+    <locations>
+      <location>tests/</location>
+      <location>playwright.config.ts</location>
+    </locations>
+    <ideas>
+      <idea>E2E Test: Verify task list is displayed on dashboard load.</idea>
+      <idea>E2E Test: Verify each task card contains title, due date, label, and priority.</idea>
+      <idea>E2E Test: Verify `Task Card` components have checkbox, title, date, badges, and that edit/delete icons appear on hover.</idea>
+      <idea>E2E Test: Verify clicking a task card opens the edit modal with pre-filled data.</idea>
+      <idea>E2E Test: Verify form fields in edit modal are editable.</idea>
+      <idea>API Test: `GET /api/tasks` returns a list of tasks.</idea>
+      <idea>API Test: `PUT /api/tasks/&lt;id&gt;` with valid data updates the task and returns `200 OK`.</idea>
+      <idea>E2E Test: Verify submitting the edit modal updates the task on the dashboard.</idea>
+    </ideas>
+  </tests>
+</story-context>

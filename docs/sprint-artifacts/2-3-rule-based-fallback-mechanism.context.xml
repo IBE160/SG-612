@@ -1,0 +1,139 @@
+<story-context id="{bmad_folder}/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>2</epicId>
+    <storyId>2.3</storyId>
+    <title>Rule-Based Fallback Mechanism</title>
+    <status>drafted</status>
+    <generatedAt>2025-12-03</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts/2-3-rule-based-fallback-mechanism.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>As a developer</asA>
+    <iWant>I want to implement a rule-based fallback mechanism</iWant>
+    <soThat>so that the application can still suggest labels and priorities if the AI service is unavailable</soThat>
+    <tasks>
+      <task>
+        <title>1. AI Service Implementation (`ai_service.py`):</title>
+        <subtask>- In the `get_ai_suggestions` function, add error handling (e.g., a `try...except` block) around the Gemini API call. (AC: #1)</subtask>
+        <subtask>- In the `except` block, implement the rule-based fallback logic. (AC: #1, #2)</subtask>
+        <subtask>- The logic should check for keywords in the task title and return a corresponding label and priority. (AC: #2)</subtask>
+        <subtask>- Implement the default suggestion ("Other", "Low") if no keywords match. (AC: #3)</subtask>
+      </task>
+      <task>
+        <title>2. Frontend Implementation (templates/index.html &amp; custom JS):</title>
+        <subtask>- Modify the JavaScript function that calls `/api/suggest` to handle a new flag in the response (e.g., `{"fallback": true}`). (AC: #4)</subtask>
+        <subtask>- If the `fallback` flag is true, trigger a toast notification with the message "AI unavailable, used fallback suggestions." (AC: #4)</subtask>
+      </task>
+      <task>
+        <title>3. Backend API Endpoint (app.py):</title>
+        <subtask>- Modify the `/api/suggest` endpoint to include the `fallback` flag in its response if the AI service indicates that the fallback was used. (AC: #4)</subtask>
+      </task>
+      <task>
+        <title>4. Verification &amp; Testing:</title>
+        <subtask>- **Unit Test**: Write a unit test for the `get_ai_suggestions` function in `ai_service.py` that specifically tests the fallback logic by mocking a failed API call. (AC: #1, #2, #3)</subtask>
+        <subtask>- **Integration Test**: Write a test for the `/api/suggest` endpoint that simulates a failure in the `ai_service` and verifies that the endpoint returns the fallback suggestions with the `fallback: true` flag. (AC: #4)</subtask>
+        <subtask>- **E2E Test**: Write a test using Playwright that mocks the `/api/suggest` endpoint to return a fallback response, and verifies that the toast notification appears on the UI. (AC: #4)</subtask>
+      </task>
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <ac id="AC1">Given the AI service call fails (e.g., returns an error, times out, or provides a malformed response), the `ai_service.py` module triggers the internal fallback mechanism.</ac>
+    <ac id="AC2">The fallback mechanism uses keyword matching against the task title to suggest a `label` and `priority`.</ac>
+    <ac id="AC3">If no keywords match, the fallback defaults to suggesting "Other" for the label and "Low" for the priority.</ac>
+    <ac id="AC4">The frontend UI provides a subtle, non-blocking notification (e.g., a toast) to the user indicating that fallback suggestions were used (e.g., "AI unavailable, used fallback suggestions").</ac>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/fase-3-solutioning/architecture.md</path>
+        <title>Architecture</title>
+        <section>Novel Pattern Designs: AI-Suggestion Flow (Magic Fill) - Edge Cases and Fallback Mechanism</section>
+        <snippet>This section details the triggers for the fallback mechanism (non-200 status, empty/invalid JSON, timeout) and the keyword-based logic to be used (e.g., "report" -> "Planning", "fix" -> "Engineering", default -> "General").</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-2.md</path>
+        <title>Epic Technical Specification: AI-Powered Task Intelligence</title>
+        <section>Workflows and Sequencing: AI-Suggestion Flow ("Magic Fill")</section>
+        <snippet>Describes the condition for triggering the fallback: "If Gemini API call fails (error, timeout, malformed response): Triggers the Rule-Based Fallback Mechanism".</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-2-planning/prd.md</path>
+        <title>Product Requirements Document</title>
+        <section>Functional Requirements</section>
+        <snippet>FR11: The system provides a rule-based fallback for label and priority suggestions if the AI service is unavailable or exceeds quota.</snippet>
+      </doc>
+       <doc>
+        <path>docs/fase-2-planning/ux-design-specification.md</path>
+        <title>ibe160 UX Design Specification</title>
+        <section>UX Pattern Decisions - System Feedback (Notifications)</section>
+        <snippet>Non-blocking, auto-dismissing "toast" notifications will be used for success, error, and informational messages.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>ai_service.py</path>
+        <kind>Python Module</kind>
+        <symbol>get_ai_suggestions</symbol>
+        <reason>The fallback logic will be implemented within this function, likely in a try...except block.</reason>
+      </artifact>
+      <artifact>
+        <path>app.py</path>
+        <kind>Flask Application</kind>
+        <symbol>/api/suggest</symbol>
+        <reason>This existing endpoint will be modified to include a 'fallback: true' flag in its response when the fallback is used.</reason>
+      </artifact>
+      <artifact>
+        <path>templates/index.html</path>
+        <kind>HTML Template</kind>
+        <symbol>Toast Notification Logic</symbol>
+        <reason>The UI will be updated to display a notification when the API response indicates the fallback was used.</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <python>
+        <package name="Flask" version="3.1.2" />
+        <package name="Flask-SQLAlchemy" version="3.1.2" />
+        <package name="google-generativeai" version="Not specified" />
+      </python>
+      <nodejs>
+        <package name="@faker-js/faker" version="8.4.1" type="dev" />
+        <package name="@playwright/test" version="1.57.0" type="dev" />
+        <package name="@types/node" version="^24.10.1" type="dev" />
+        <package name="autoprefixer" version="^10.4.22" type="dev" />
+        <package name="postcss" version="^8.5.6" type="dev" />
+        <package name="tailwindcss" version="^4.1.17" type="dev" />
+      </nodejs>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>The fallback logic must be implemented inside a `try...except` block in the `get_ai_suggestions` function.</constraint>
+    <constraint>The API response from `/api/suggest` must be modified to include a boolean `fallback` flag.</constraint>
+    <constraint>The frontend notification must be non-blocking (a toast, not a modal).</constraint>
+  </constraints>
+  <interfaces>
+      <interface>
+        <name>/api/suggest response</name>
+        <kind>REST endpoint</kind>
+        <signature>{"priority": "...", "label": "...", "fallback": true/false}</signature>
+        <path>app.py</path>
+      </interface>
+  </interfaces>
+  <tests>
+    <standards>Testing is crucial for this story. Unit tests must specifically target the fallback logic within `ai_service.py` by mocking an API failure. An integration test must verify the `/api/suggest` endpoint correctly returns the `fallback: true` flag. An E2E test should mock the API response to confirm the frontend displays the required toast notification.</standards>
+    <locations>
+      <location>tests/</location>
+    </locations>
+    <ideas>
+      <idea ac_id="AC1">Unit Test: Mock a failed Gemini API call and verify the fallback logic in `ai_service.py` is triggered.</idea>
+      <idea ac_id="AC2">Unit Test: Provide various task titles and assert that the keyword-based rules return the correct label/priority.</idea>
+      <idea ac_id="AC3">Unit Test: Provide a task title with no keywords and assert the default "Other"/"Low" suggestion is returned.</idea>
+      <idea ac_id="AC4">Integration Test: Mock the `ai_service` to simulate a fallback and verify the `/api/suggest` endpoint returns the `fallback: true` flag.</idea>
+      <idea ac_id="AC4">E2E Test: Mock the `/api/suggest` endpoint to return a fallback response and verify the toast notification appears in the UI.</idea>
+    </ideas>
+  </tests>
+</story-context>

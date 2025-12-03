@@ -1,0 +1,136 @@
+<story-context id="{bmad_folder}/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>3</epicId>
+    <storyId>3.3</storyId>
+    <title>Manual Filtering and Sorting</title>
+    <status>drafted</status>
+    <generatedAt>2025-12-03</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts/3-3-manual-filtering-and-sorting.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>As a user</asA>
+    <iWant>flexible manual filtering and sorting options for my tasks</iWant>
+    <soThat>so that I can easily customize my task view and maintain full control over my workload</soThat>
+    <tasks>
+      <task>
+        <title>1. Backend Implementation:</title>
+        <subtask>- Modify existing `GET /api/tasks` Flask route in `app.py` to accept optional `label`, `sort_by`, and `order` query parameters. (AC: #1, #2, #3)</subtask>
+        <subtask>- Implement logic in `app.py` to filter tasks from the `Task` model by the `label` field. (AC: #1)</subtask>
+        <subtask>- Implement logic in `app.py` to sort tasks from the `Task` model by `priority` (High to Low by default) and `due_date` (soonest first by default), respecting the `order` parameter. (AC: #2, #3)</subtask>
+      </task>
+      <task>
+        <title>2. Frontend Implementation:</title>
+        <subtask>- Implement a "Filter by Label" dropdown in `templates/index.html` (or relevant template), populating options from available labels. (AC: #1)</subtask>
+        <subtask>- Implement "Sort by" controls (e.g., dropdown or buttons) for `Priority` and `Due Date` in `templates/index.html`. (AC: #2, #3)</subtask>
+        <subtask>- Implement JavaScript event handlers for filter and sort controls that send an API request to `GET /api/tasks` with the appropriate `label`, `sort_by`, and `order` query parameters. (AC: #1, #2, #3)</subtask>
+        <subtask>- Update the main task list display based on the filtered and sorted response from the API. (AC: #1, #2, #3)</subtask>
+      </task>
+      <task>
+        <title>3. Testing:</title>
+        <subtask>- **Unit Test**: Verify the database query logic correctly filters tasks by label. (AC: #1)</subtask>
+        <subtask>- **Unit Test**: Verify the database query logic correctly sorts tasks by priority (ASC/DESC). (AC: #2)</subtask>
+        <subtask>- **Unit Test**: Verify the database query logic correctly sorts tasks by due date (ASC/DESC). (AC: #3)</subtask>
+        <subtask>- **Integration Test**: Verify the `GET /api/tasks` endpoint returns tasks filtered by label and sorted by priority/due date. (AC: #1, #2, #3)</subtask>
+        <subtask>- **E2E Test**: Using Playwright, simulate user interactions with filter and sort controls and verify that the task list updates correctly. (AC: #1, #2, #3)</subtask>
+      </task>
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <ac id="AC1">Given I am viewing my tasks, when I select a label from a "Filter by Label" dropdown, then the task list is filtered to show only tasks with that label.</ac>
+    <ac id="AC2">When I choose to sort by priority, then the tasks are ordered from High to Low.</ac>
+    <ac id="AC3">When I choose to sort by due date, then the tasks are ordered with the soonest due date first.</ac>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+        <doc>
+            <path>docs/fase-2-planning/prd.md</path>
+            <title>Product Requirements Document</title>
+            <section>Functional Requirements</section>
+            <snippet>FR14: Users can filter tasks by a specific label. FR15: Users can sort tasks by priority. FR16: Users can sort tasks by due date.</snippet>
+        </doc>
+        <doc>
+            <path>docs/sprint-artifacts/tech-spec-epic-3.md</path>
+            <title>Epic Technical Specification: Smart lists &amp; advanced filtering</title>
+            <section>APIs and Interfaces</section>
+            <snippet>GET /api/tasks: Retrieves a list of tasks, with options for filtering and sorting. Query Parameters: `label`, `sort_by`, `order`.</snippet>
+        </doc>
+        <doc>
+            <path>docs/sprint-artifacts/tech-spec-epic-3.md</path>
+            <title>Epic Technical Specification: Smart lists &amp; advanced filtering</title>
+            <section>Workflows and Sequencing</section>
+            <snippet>User selects a label from a "Filter by Label" dropdown. Frontend sends GET /api/tasks?label=Work... User selects "Priority" from a "Sort by" dropdown... Frontend sends GET /api/tasks?sort_by=priority&amp;order=desc.</snippet>
+        </doc>
+        <doc>
+            <path>docs/fase-3-solutioning/architecture.md</path>
+            <title>Architecture</title>
+            <section>Data Models</section>
+            <snippet>Task Model: `label` | `String(50)`, `priority` | `String(20)`, `due_date` | `Date`</snippet>
+        </doc>
+        <doc>
+            <path>docs/fase-2-planning/ux-design-specification.md</path>
+            <title>ibe160 UX Design Specification</title>
+            <section>UX Pattern Decisions</section>
+            <snippet>Search Patterns: Search inputs will feature a clear magnifying glass icon, a placeholder text (e.g., "Search tasks..."), and a clear button or 'X' icon to clear the search query.</snippet>
+        </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>app.py</path>
+        <kind>Flask Application</kind>
+        <symbol>GET /api/tasks</symbol>
+        <reason>Endpoint to be extended for label filtering and priority/due_date sorting.</reason>
+      </artifact>
+      <artifact>
+        <path>templates/index.html</path>
+        <kind>Frontend Template</kind>
+        <reason>Needs modification to add filter by label dropdown and sort by controls.</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <python>
+        <package name="Flask" version="3.1.2" />
+        <package name="Flask-SQLAlchemy" version="3.1.2" />
+      </python>
+      <nodejs>
+        <package name="@faker-js/faker" version="8.4.1" type="dev" />
+        <package name="@playwright/test" version="1.57.0" type="dev" />
+        <package name="@types/node" version="^24.10.1" type="dev" />
+        <package name="autoprefixer" version="^10.4.22" type="dev" />
+        <package name="postcss" version="^8.5.6" type="dev" />
+        <package name="tailwindcss" version="^4.1.17" type="dev" />
+      </nodejs>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Backend implementation must use Python/Flask and Flask-SQLAlchemy for database interaction, handling filtering by label and sorting by priority/due_date.</constraint>
+    <constraint>Frontend UI must use TailwindCSS for styling and adhere to UX Design Specification regarding filter/sort controls.</constraint>
+    <constraint>Consider adding database indexes to the 'label', 'priority', and 'due_date' columns in the Task table for performance optimization.</constraint>
+    <constraint>Address the open questions regarding "Filtering Combinations" and "Default Sort Order" during implementation and UI design.</constraint>
+  </constraints>
+  <interfaces>
+    <interface>
+      <name>Task Management API (Filter &amp; Sort)</name>
+      <kind>REST Endpoint</kind>
+      <signature>GET /api/tasks?label=&lt;label&gt;&amp;sort_by=&lt;field&gt;&amp;order=&lt;asc/desc&gt;</signature>
+      <path>app.py</path>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>The test strategy follows a pyramid approach: Unit Tests for filtering/sorting logic, Integration/API Tests for the endpoint, and E2E Tests for the UI.</standards>
+    <locations>
+      <location>tests/</location>
+      <location>playwright.config.ts</location>
+    </locations>
+    <ideas>
+      <idea ac_id="AC1">E2E Test: User selects a label from the dropdown, verifies only tasks with that label are displayed.</idea>
+      <idea ac_id="AC2">E2E Test: User sorts by priority (High to Low), verifies tasks are correctly ordered.</idea>
+      <idea ac_id="AC3">E2E Test: User sorts by due date (soonest first), verifies tasks are correctly ordered.</idea>
+      <idea ac_id="AC1,AC2,AC3">Integration Test: Call `GET /api/tasks` with various combinations of `label`, `sort_by`, and `order` and assert correct results.</idea>
+    </ideas>
+  </tests>
+</story-context>

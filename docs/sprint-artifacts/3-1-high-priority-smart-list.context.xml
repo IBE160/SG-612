@@ -1,0 +1,136 @@
+<story-context id="{bmad_folder}/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>3</epicId>
+    <storyId>3.1</storyId>
+    <title>"High Priority" Smart List</title>
+    <status>drafted</status>
+    <generatedAt>2025-12-03</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts/3-1-high-priority-smart-list.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>As a user</asA>
+    <iWant>to easily access a "High Priority" smart list from the dashboard</iWant>
+    <soThat>so that I can quickly identify and focus on my most critical tasks</soThat>
+    <tasks>
+      <task>
+        <title>1. Backend Implementation:</title>
+        <subtask>- Modify existing `GET /api/tasks` Flask route in `app.py` to accept an optional `priority` query parameter. (AC: #2)</subtask>
+        <subtask>- Implement logic in `app.py` to filter tasks from the `Task` model where `priority` is 'High' when the `priority=High` parameter is present. (AC: #2)</subtask>
+      </task>
+      <task>
+        <title>2. Frontend Implementation:</title>
+        <subtask>- Add a "High Priority" list item to the sidebar navigation in `templates/index.html` (or relevant template). (AC: #1)</subtask>
+        <subtask>- Implement a JavaScript click handler for the "High Priority" sidebar option that sends an API request to `GET /api/tasks?priority=High`. (AC: #2)</subtask>
+        <subtask>- Update the main task list display based on the filtered response from the API. (AC: #2)</subtask>
+      </task>
+      <task>
+        <title>3. Testing:</title>
+        <subtask>- **Unit Test**: Verify the database query logic correctly filters tasks by 'High' priority. (AC: #2)</subtask>
+        <subtask>- **Integration Test**: Verify the `GET /api/tasks?priority=High` endpoint returns only high-priority tasks. (AC: #2)</subtask>
+        <subtask>- **E2E Test**: Using Playwright, simulate a user clicking the "High Priority" smart list in the sidebar and verify that only high-priority tasks are displayed on the dashboard. (AC: #1, #2)</subtask>
+      </task>
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <ac id="AC1">Given I am on the main dashboard, when I view the sidebar, then I see a "High Priority" smart list option.</ac>
+    <ac id="AC2">When I click the "High Priority" smart list, then the main task view is filtered to show only tasks with a "High" priority.</ac>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/fase-2-planning/prd.md</path>
+        <title>Product Requirements Document</title>
+        <section>Functional Requirements</section>
+        <snippet>FR12: The system can automatically generate "High Priority" smart lists.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-3-solutioning/architecture.md</path>
+        <title>Architecture</title>
+        <section>Epic to Architecture Mapping</section>
+        <snippet>Epic 3: Smart Lists &amp; Advanced Filtering maps to `app.py`, `templates/`, `instance/tasks.db`.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-3-solutioning/architecture.md</path>
+        <title>Architecture</title>
+        <section>Data Models</section>
+        <snippet>Task Model: `priority` | `String(20)` | `Not Nullable, Default='Medium'` | Priority level (e.g., Low, Medium, High).</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-3.md</path>
+        <title>Epic Technical Specification: Smart lists &amp; advanced filtering</title>
+        <section>APIs and Interfaces</section>
+        <snippet>GET /api/tasks: Retrieves a list of tasks, with options for filtering and sorting. Query Parameter: `priority`: (Optional) `String` - Filters tasks by priority (e.g., "High").</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-3.md</path>
+        <title>Epic Technical Specification: Smart lists &amp; advanced filtering</title>
+        <section>Workflows and Sequencing</section>
+        <snippet>User clicks on "High Priority" smart list in the sidebar. Frontend sends `GET /api/tasks?priority=High` to the backend. Displays only high-priority tasks.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-2-planning/ux-design-specification.md</path>
+        <title>ibe160 UX Design Specification</title>
+        <section>Design Direction</section>
+        <snippet>A two-column layout featuring: A permanent sidebar on the left for primary navigation and "Smart Lists" (e.g., High Priority, Due This Week).</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>app.py</path>
+        <kind>Flask Application</kind>
+        <symbol>GET /api/tasks</symbol>
+        <reason>Endpoint to be extended for priority filtering.</reason>
+      </artifact>
+      <artifact>
+        <path>templates/index.html</path>
+        <kind>Frontend Template</kind>
+        <reason>Needs modification to add sidebar navigation for "High Priority" smart list and display filtered tasks.</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <python>
+        <package name="Flask" version="3.1.2" />
+        <package name="Flask-SQLAlchemy" version="3.1.2" />
+      </python>
+      <nodejs>
+        <package name="@faker-js/faker" version="8.4.1" type="dev" />
+        <package name="@playwright/test" version="1.57.0" type="dev" />
+        <package name="@types/node" version="^24.10.1" type="dev" />
+        <package name="autoprefixer" version="^10.4.22" type="dev" />
+        <package name="postcss" version="^8.5.6" type="dev" />
+        <package name="tailwindcss" version="^4.1.17" type="dev" />
+      </nodejs>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Backend implementation must use Python/Flask and Flask-SQLAlchemy for database interaction.</constraint>
+    <constraint>Frontend UI must use TailwindCSS for styling and adhere to UX Design Specification regarding sidebar and task list display.</constraint>
+    <constraint>Consider adding a database index to the 'priority' column in the Task table for performance optimization.</constraint>
+    <constraint>Ensure all API calls are authenticated as per existing Flask session-based authentication.</constraint>
+  </constraints>
+  <interfaces>
+    <interface>
+      <name>Task Management API (Filter by Priority)</name>
+      <kind>REST Endpoint</kind>
+      <signature>GET /api/tasks?priority=High</signature>
+      <path>app.py</path>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>The test strategy follows a pyramid approach: Unit Tests for core logic (e.g., query filtering), Integration/API Tests for `GET /api/tasks?priority=High` endpoint validation, and End-to-End (E2E) Tests for UI interaction and functional verification using Playwright.</standards>
+    <locations>
+      <location>tests/</location>
+      <location>playwright.config.ts</location>
+    </locations>
+    <ideas>
+      <idea ac_id="AC1,AC2">E2E Test: Simulate user navigation to dashboard, click 'High Priority' in sidebar, verify displayed tasks are only high priority.</idea>
+      <idea ac_id="AC2">Integration Test: Call `GET /api/tasks?priority=High` and assert that the response contains only tasks with 'High' priority and no other tasks.</idea>
+      <idea ac_id="AC2">Unit Test: Test the Flask-SQLAlchemy query logic in `app.py` for filtering by `priority='High'` in isolation.</idea>
+    </ideas>
+  </tests>
+</story-context>

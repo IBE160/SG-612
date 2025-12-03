@@ -17,7 +17,7 @@
 
 generated: "2025-11-26"
 project: "ibe160"
-project_type: "{{project_type}}"
+project_type: "software"
 selected_track: "method"
 field_type: "greenfield"
 workflow_path: ".bmad/bmm/workflows/workflow-status/paths/method-greenfield.yaml"
@@ -61,14 +61,14 @@ workflow_status:
         optional: true
         agent: "pm"
         command: "validate-prd"
-        status: "docs/validation-prd.md"
+        status: "docs/fase-2-planning/validation-prd.md"
       - id: "create-design"
         conditional: "if_has_ui"
         optional: true
         agent: "ux-designer"
         command: "create-design"
         note: "Determined after PRD - user/agent decides if needed"
-        status: "docs/ux-design-specification.md"
+        status: "docs/fase-2-planning/ux-design-specification.md"
   - phase: 2
     name: "Solutioning"
     required: true
@@ -78,26 +78,26 @@ workflow_status:
         agent: "architect"
         command: "create-architecture"
         output: "System architecture document"
-        status: "docs/architecture.md"
+        status: "docs/fase-3-solutioning/architecture.md"
       - id: "create-epics-and-stories"
         required: true
         agent: "pm"
         command: "create-epics-and-stories"
         note: "Required: Break down PRD into implementable epics and stories with full context (PRD + UX + Architecture)"
-        status: "docs/epics.md"
+        status: "docs/fase-3-solutioning/epics.md"
       - id: "test-design"
         recommended: true
         agent: "tea"
         command: "test-design"
         output: "System-level testability review"
         note: "Testability assessment before gate check - auto-detects system-level mode"
-        status: "docs/test-design-system.md"
+        status: "docs/fase-3-solutioning/test-design-system.md"
       - id: "implementation-readiness"
         required: true
         agent: "architect"
         command: "implementation-readiness"
         note: "Final readiness check before implementation phase" 
-        status: "docs/implementation-readiness-report-2025-11-30.md"
+        status: "docs/fase-3-solutioning/implementation-readiness-report-2025-11-30.md"
   - phase: 3
     name: "Implementation"
     required: true

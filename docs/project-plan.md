@@ -57,21 +57,64 @@
 
 ## Fase 3
 
-- [ ] Implementation
-  - [ ] /run-agent-task sm *sprint-planning {prompt / user-input-file}
-    - [ ] File: sprint-artifacts/sprint-status.yaml
+- [x] Implementation
+  - [x] /run-agent-task sm *sprint-planning {prompt / user-input-file}
+    - [x] File: sprint-artifacts/sprint-status.yaml
   - foreach epic in sprint planning:
-    - [ ] /run-agent-task sm create-epic-tech-context {prompt / user-input-file}
-      - [ ] File: sprint-artifacts/tech-spec-epic-{{epic_id}}.md
-    - [ ] /run-agent-task sm validate-epic-tech-context {prompt / user-input-file}
+    - [x] /run-agent-task sm create-epic-tech-context {prompt / user-input-file}
+      - [x] File: sprint-artifacts/tech-spec-epic-1.md
+      - [x] File: sprint-artifacts/tech-spec-epic-2.md
+      - [x] File: sprint-artifacts/tech-spec-epic-3.md
+    - [x] /run-agent-task sm validate-epic-tech-context {prompt / user-input-file}
+      - [x] File: sprint-artifacts/validation-report-tech-spec-epic-1.md
+      - [x] File: sprint-artifacts/validation-report-tech-spec-epic-2.md
+      - [x] File: sprint-artifacts/validation-report-tech-spec-epic-3.md
     - foreach story in epic:
-      - [ ] /run-agent-task sm *create-story {prompt / user-input-file}
-        - [ ] File: sprint-artifacts/{{story_key}}.md
-      - [ ] /run-agent-task sm *validate-create-story {prompt / user-input-file}
-      - [ ] /run-agent-task sm *create-story-context {prompt / user-input-file}
-        - [ ] File: sprint-artifacts/{{story_key}}.context.xml
-      - [ ] /run-agent-task sm *validate-story-context {prompt / user-input-file}
-      - [ ] /run-agent-task sm *story-ready-for-dev {prompt / user-input-file}
+      - [x] /run-agent-task sm *create-story {prompt / user-input-file}
+        - [x] File: sprint-artifacts/1-1-project-foundation-database-setup.md
+        - [x] File: sprint-artifacts/1-2-create-new-task.md
+        - [x] File: sprint-artifacts/1-3-view-and-update-tasks.md
+        - [x] File: sprint-artifacts/1-4-delete-and-complete-tasks.md
+        - [x] File: sprint-artifacts/2-1-gemini-api-integration.md
+        - [x] File: sprint-artifacts/2-2-magic-fill-ai-suggestions.md
+        - [x] File: sprint-artifacts/2-3-rule-based-fallback-mechanism.md
+        - [x] File: sprint-artifacts/3-1-high-priority-smart-list.md
+        - [x] File: sprint-artifacts/3-2-due-this-week-smart-list.md
+        - [x] File: sprint-artifacts/3-3-manual-filtering-and-sorting.md
+      - [x] /run-agent-task sm *validate-create-story {prompt / user-input-file}
+        - [x] File: sprint-artifacts/validation-report-1-1-project-foundation-database-setup.md
+        - [x] File: sprint-artifacts/validation-report-1-2-create-new-task.md
+        - [x] File: sprint-artifacts/validation-report-1-3-view-and-update-tasks.md
+        - [x] File: sprint-artifacts/validation-report-1-4-delete-and-complete-tasks.md
+        - [x] File: sprint-artifacts/validation-report-2-1-gemini-api-integration.md
+        - [x] File: sprint-artifacts/validation-report-2-2-magic-fill-ai-suggestions.md
+        - [x] File: sprint-artifacts/validation-report-2-3-rule-based-fallback-mechanism.md
+        - [x] File: sprint-artifacts/validation-report-3-1-high-priority-smart-list.md
+        - [x] File: sprint-artifacts/validation-report-3-2-due-this-week-smart-list.md
+        - [x] File: sprint-artifacts/validation-report-3-3-manual-filtering-and-sorting.md
+      - [x] /run-agent-task sm *create-story-context {prompt / user-input-file}
+        - [x] File: sprint-artifacts/1-1-project-foundation-database-setup.context.xml
+        - [x] File: sprint-artifacts/1-2-create-new-task.context.xml
+        - [x] File: sprint-artifacts/1-3-view-and-update-tasks.context.xml
+        - [x] File: sprint-artifacts/1-4-delete-and-complete-tasks.context.xml
+        - [x] File: sprint-artifacts/2-1-gemini-api-integration.context.xml
+        - [x] File: sprint-artifacts/2-2-magic-fill-ai-suggestions.context.xml
+        - [x] File: sprint-artifacts/2-3-rule-based-fallback-mechanism.context.xml
+        - [x] File: sprint-artifacts/3-1-high-priority-smart-list.context.xml
+        - [x] File: sprint-artifacts/3-2-due-this-week-smart-list.context.xml
+        - [x] File: sprint-artifacts/3-3-manual-filtering-and-sorting.context.xml
+      - [x] /run-agent-task sm *validate-story-context {prompt / user-input-file}
+        - [x] File: sprint-artifacts/validation-report-1-1-project-foundation-database-setup.context.md
+        - [x] File: sprint-artifacts/validation-report-1-2-create-new-task.context.md
+        - [x] File: sprint-artifacts/validation-report-1-3-view-and-update-tasks.context.md
+        - [x] File: sprint-artifacts/validation-report-1-4-delete-and-complete-tasks.context.md
+        - [x] File: sprint-artifacts/validation-report-2-1-gemini-api-integration.context.md
+        - [x] File: sprint-artifacts/validation-report-2-2-magic-fill-ai-suggestions.context.md
+        - [x] File: sprint-artifacts/validation-report-2-3-rule-based-fallback-mechanism.context.md
+        - [x] File: sprint-artifacts/validation-report-3-1-high-priority-smart-list.context.md
+        - [x] File: sprint-artifacts/validation-report-3-2-due-this-week-smart-list.context.md
+        - [x] File: sprint-artifacts/validation-report-3-3-manual-filtering-and-sorting.context.md
+      - [x] /run-agent-task sm *story-ready-for-dev {prompt / user-input-file}
       while code-review != approved:
         - [ ] /run-agent-task dev *develop-story {prompt / user-input-file}
         - [ ] /run-agent-task dev *code-review {prompt / user-input-file}
