@@ -1,5 +1,7 @@
 # User Story: Story 2.1: Gemini API Integration
 
+Status: ready-for-dev
+
 As a developer, I want to integrate the Google Gemini API with the backend, so that the application can send task descriptions for analysis.
 
 ## Requirements Context
@@ -16,26 +18,38 @@ This story is the first step in implementing Epic 2: "AI-Powered Task Intelligen
 ## Tasks / Subtasks
 
 *   **1. Setup & Configuration:**
-    *   [ ] Add `google-generativeai` to `requirements.txt`.
-    *   [ ] Add `GEMINI_API_KEY` to `.env.example` and ensure `.env` is in `.gitignore`.
-    *   [ ] Create the `ai_service.py` file.
+    *   [ ] Add `google-generativeai` to `requirements.txt`. (AC: #1)
+    *   [ ] Add `GEMINI_API_KEY` to `.env.example` and ensure `.env` is in `.gitignore`. (AC: #2)
+    *   [ ] Create the `ai_service.py` file. (AC: #4)
 *   **2. AI Service Implementation (`ai_service.py`):**
-    *   [ ] Implement a function `get_ai_suggestions(title: str) -> dict`.
-    *   [ ] Inside the function, retrieve the `GEMINI_API_KEY` from environment variables.
-    *   [ ] Configure and initialize the `google.generativeai` client.
-    *   [ ] Construct a precise prompt for the Gemini model, instructing it to return ONLY a JSON object with "priority" and "label" keys.
-    *   [ ] Implement the API call to the Gemini model.
-    *   [ ] Parse the response and return the `priority` and `label` as a dictionary.
+    *   [ ] Implement a function `get_ai_suggestions(title: str) -> dict`. (AC: #4)
+    *   [ ] Inside the function, retrieve the `GEMINI_API_KEY` from environment variables. (AC: #2)
+    *   [ ] Configure and initialize the `google.generativeai` client. (AC: #1)
+    *   [ ] Construct a precise prompt for the Gemini model, instructing it to return ONLY a JSON object with "priority" and "label" keys. (AC: #1, #3)
+    *   [ ] Implement the API call to the Gemini model. (AC: #1)
+    *   [ ] Parse the response and return the `priority` and `label` as a dictionary. (AC: #3)
 *   **3. Verification & Testing:**
-    *   [ ] **Unit Test**: Create a unit test for `get_ai_suggestions` that mocks the `google.generativeai` client and verifies that the function correctly parses a simulated successful response.
-    *   [ ] **Unit Test**: Create a unit test for `get_ai_suggestions` that simulates an API error and verifies the function handles it gracefully (e.g., raises an exception or returns a specific error state).
-    *   [ ] **Manual Test**: Run the function directly with a valid API key and a sample task title to confirm a successful API call and response.
+    *   [ ] **Unit Test**: Create a unit test for `get_ai_suggestions` that mocks the `google.generativeai` client and verifies that the function correctly parses a simulated successful response. (AC: #3)
+    *   [ ] **Unit Test**: Create a unit test for `get_ai_suggestions` that simulates an API error and verifies the function handles it gracefully (e.g., raises an exception or returns a specific error state). (AC: #1, #3)
+    *   [ ] **Manual Test**: Run the function directly with a valid API key and a sample task title to confirm a successful API call and response. (AC: #1, #2, #3)
 
 ## Dev Notes
 
-- Relevant architecture patterns and constraints
-- Source tree components to touch
-- Testing standards summary
+### Architecture patterns and constraints
+The implementation must adhere to the backend service pattern defined in the architecture, where the `ai_service.py` module acts as a secure and isolated interface to the Gemini API. All API communication must happen server-to-server; the client-side application must not have direct access to the API key or service.
+
+### Source tree components to touch
+- **`ai_service.py`**: New file to be created in the project root.
+- **`requirements.txt`**: Modified to add the `google-generativeai` dependency.
+- **`.env.example`**: Modified to include `GEMINI_API_KEY`.
+- **`tests/`**: A new unit test file will be added to cover the `ai_service.py` module.
+
+### Testing standards summary
+Unit tests are required for the new `ai_service.py` module. Tests should mock the external API call to ensure a fast, isolated, and deterministic test run. The tests must cover both successful responses and potential API error states.
+
+### References
+- [Source: docs/fase-3-solutioning/architecture.md#Services]
+- [Source: docs/sprint-artifacts/tech-spec-epic-2.md#Detailed-Design]
 
 ## Project Structure Alignment
 
@@ -47,15 +61,10 @@ And modify one existing file:
 
 This aligns with the project's modular approach of separating concerns, with AI-specific logic being encapsulated within its own service file.
 
-### References
-
-- Cite all technical details with source paths and sections, e.g. [Source: docs/<file>.md#Section]
-
 ## Dev Agent Record
 
 ### Context Reference
-
-<!-- Path(s) to story context XML will be added here by context workflow -->
+- `docs/sprint-artifacts/2-1-gemini-api-integration.context.xml`
 
 ### Agent Model Used
 

@@ -1,34 +1,132 @@
 <story-context id="{bmad_folder}/bmm/workflows/4-implementation/story-context/template" v="1.0">
   <metadata>
-    <epicId>{{epic_id}}</epicId>
-    <storyId>{{story_id}}</storyId>
-    <title>{{story_title}}</title>
-    <status>{{story_status}}</status>
-    <generatedAt>{{date}}</generatedAt>
+    <epicId>2</epicId>
+    <storyId>2.1</storyId>
+    <title>Gemini API Integration</title>
+    <status>drafted</status>
+    <generatedAt>2025-12-03</generatedAt>
     <generator>BMAD Story Context Workflow</generator>
-    <sourceStoryPath>{{story_path}}</sourceStoryPath>
+    <sourceStoryPath>docs/sprint-artifacts/2-1-gemini-api-integration.md</sourceStoryPath>
   </metadata>
 
   <story>
-    <asA>{{as_a}}</asA>
-    <iWant>{{i_want}}</iWant>
-    <soThat>{{so_that}}</soThat>
-    <tasks>{{story_tasks}}</tasks>
+    <asA>As a developer</asA>
+    <iWant>I want to integrate the Google Gemini API with the backend</iWant>
+    <soThat>so that the application can send task descriptions for analysis</soThat>
+    <tasks>
+      *   **1. Setup &amp; Configuration:**
+          *   [ ] Add `google-generativeai` to `requirements.txt`. (AC: #1)
+          *   [ ] Add `GEMINI_API_KEY` to `.env.example` and ensure `.env` is in `.gitignore`. (AC: #2)
+          *   [ ] Create the `ai_service.py` file. (AC: #4)
+      *   **2. AI Service Implementation (`ai_service.py`):**
+          *   [ ] Implement a function `get_ai_suggestions(title: str) -> dict`. (AC: #4)
+          *   [ ] Inside the function, retrieve the `GEMINI_API_KEY` from environment variables. (AC: #2)
+          *   [ ] Configure and initialize the `google.generativeai` client. (AC: #1)
+          *   [ ] Construct a precise prompt for the Gemini model, instructing it to return ONLY a JSON object with "priority" and "label" keys. (AC: #1, #3)
+          *   [ ] Implement the API call to the Gemini model. (AC: #1)
+          *   [ ] Parse the response and return the `priority` and `label` as a dictionary. (AC: #3)
+      *   **3. Verification &amp; Testing:**
+          *   [ ] **Unit Test**: Create a unit test for `get_ai_suggestions` that mocks the `google.generativeai` client and verifies that the function correctly parses a simulated successful response. (AC: #3)
+          *   [ ] **Unit Test**: Create a unit test for `get_ai_suggestions` that simulates an API error and verifies the function handles it gracefully (e.g., raises an exception or returns a specific error state). (AC: #1, #3)
+          *   [ ] **Manual Test**: Run the function directly with a valid API key and a sample task title to confirm a successful API call and response. (AC: #1, #2, #3)
+    </tasks>
   </story>
 
-  <acceptanceCriteria>{{acceptance_criteria}}</acceptanceCriteria>
+  <acceptanceCriteria>
+    <ac id="AC1">Given a task description, when the backend service is called, it successfully sends the description to the Gemini API using the `google-genai` library.</ac>
+    <ac id="AC2">The backend service (`ai_service.py`) securely manages the `GEMINI_API_KEY` from environment variables and does not expose it to the client.</ac>
+    <ac id="AC3">The backend service can receive and parse a valid JSON response from the API containing `label` and `priority` keys.</ac>
+    <ac id="AC4">The `ai_service.py` module is created and contains a function (e.g., `get_ai_suggestions`) that encapsulates the Gemini API call logic.</ac>
+  </acceptanceCriteria>
 
   <artifacts>
-    <docs>{{docs_artifacts}}</docs>
-    <code>{{code_artifacts}}</code>
-    <dependencies>{{dependencies_artifacts}}</dependencies>
+    <docs>
+      <doc>
+        <path>docs/fase-2-planning/prd.md</path>
+        <title>Product Requirements Document</title>
+        <section>Functional Requirements</section>
+        <snippet>FR6: The system can integrate with Google Gemini API to analyze task descriptions.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-3-solutioning/architecture.md</path>
+        <title>Architecture</title>
+        <section>Decision Summary</section>
+        <snippet>AI Application Integration: Direct Gemini API calls from backend (google-genai lib), Version 1.52.0. Rationale: Securely handles API keys on the backend with a robust fallback strategy.</snippet>
+      </doc>
+      <doc>
+        <path>docs/fase-3-solutioning/architecture.md</path>
+        <title>Architecture</title>
+        <section>Project Structure</section>
+        <snippet>Illustrates the directory structure including `ai_service.py` # Module for Gemini API calls.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-2.md</path>
+        <title>Epic Technical Specification: AI-Powered Task Intelligence</title>
+        <section>Services and Modules</section>
+        <snippet>`ai_service.py` (AI Service Module): Responsibilities: Constructs prompts for the Google Gemini API, Makes secure calls to the Gemini API using the `google-genai` library, Parses Gemini API responses, Implements the rule-based fallback mechanism, Manages the Gemini API key securely.</snippet>
+      </doc>
+        <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-2.md</path>
+        <title>Epic Technical Specification: AI-Powered Task Intelligence</title>
+        <section>Workflows and Sequencing</section>
+        <snippet>AI Service (`ai_service.py`): Constructs a suitable prompt for the Google Gemini API based on the provided `title`. Attempts to call the Gemini API. If Gemini API call succeeds: Parses the JSON response to extract `priority` and `label`.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>ai_service.py</path>
+        <kind>New Python Module</kind>
+        <symbol>get_ai_suggestions</symbol>
+        <reason>This is the core function to be created for encapsulating the Gemini API call logic.</reason>
+      </artifact>
+      <artifact>
+        <path>requirements.txt</path>
+        <kind>Python Dependency Manifest</kind>
+        <reason>This file will be created or modified to include the `google-generativeai` dependency.</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <python>
+        <package name="Flask" version="3.1.2" />
+        <package name="Flask-SQLAlchemy" version="3.1.2" />
+        <package name="google-generativeai" version="Not specified" />
+      </python>
+      <nodejs>
+        <package name="@faker-js/faker" version="8.4.1" type="dev" />
+        <package name="@playwright/test" version="1.57.0" type="dev" />
+        <package name="@types/node" version="^24.10.1" type="dev" />
+        <package name="autoprefixer" version="^10.4.22" type="dev" />
+        <package name="postcss" version="^8.5.6" type="dev" />
+        <package name="tailwindcss" version="^4.1.17" type="dev" />
+      </nodejs>
+    </dependencies>
   </artifacts>
 
-  <constraints>{{constraints}}</constraints>
-  <interfaces>{{interfaces}}</interfaces>
+  <constraints>
+    <constraint>The Google Gemini API key must be managed securely on the backend in `ai_service.py` and not exposed to the client.</constraint>
+    <constraint>The implementation must use the `google-genai` Python library.</constraint>
+    <constraint>API communication must happen server-to-server (backend to Gemini).</constraint>
+    <constraint>The `ai_service.py` module must be created in the project root as specified in the architecture.</constraint>
+  </constraints>
+  <interfaces>
+    <interface>
+      <name>AI Suggestion Service</name>
+      <kind>Python Function</kind>
+      <signature>get_ai_suggestions(title: str) -> dict</signature>
+      <path>ai_service.py</path>
+    </interface>
+  </interfaces>
   <tests>
-    <standards>{{test_standards}}</standards>
-    <locations>{{test_locations}}</locations>
-    <ideas>{{test_ideas}}</ideas>
+    <standards>Unit tests are required for the new `ai_service.py` module. Tests should mock the external API call to ensure a fast, isolated, and deterministic test run. The tests must cover both successful responses and potential API error states.</standards>
+    <locations>
+      <location>tests/</location>
+    </locations>
+    <ideas>
+      <idea ac_id="AC4">Unit Test: Verify the function `get_ai_suggestions` exists in `ai_service.py`.</idea>
+      <idea ac_id="AC2">Unit Test: Verify that the `GEMINI_API_KEY` is loaded from environment variables and not hardcoded.</idea>
+      <idea ac_id="AC1">Unit Test: Mock the `google.generativeai` client and verify it is called with the correct parameters.</idea>
+      <idea ac_id="AC3">Unit Test: Mock a successful API response and verify the function correctly parses and returns the `label` and `priority`.</idea>
+       <idea ac_id="AC1">Unit Test: Mock a failed API response (e.g., exception) and verify the function handles it gracefully.</idea>
+    </ideas>
   </tests>
 </story-context>

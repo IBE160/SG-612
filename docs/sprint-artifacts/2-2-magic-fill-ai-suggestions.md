@@ -1,5 +1,7 @@
 # User Story: Story 2.2: "Magic Fill" AI Suggestions
 
+Status: ready-for-dev
+
 As a user, when creating or editing a task, I want to click a "Magic Fill" button to get AI-powered suggestions for the label and priority, so that I can organize tasks faster.
 
 ## Requirements Context
@@ -17,27 +19,34 @@ This story implements the core "Magic Fill" feature, which is central to the pro
 ## Tasks / Subtasks
 
 *   **1. Frontend Implementation (templates/index.html & custom JS):**
-    *   [ ] Add a "Magic Fill" button to the "Add Task" and "Edit Task" modals.
-    *   [ ] Implement a JavaScript function to handle the button click.
-    *   [ ] The function should trigger a `POST` request to the `/api/suggest` endpoint with the task title.
-    *   [ ] Implement UI logic to show a loading state on the button during the API call.
-    *   [ ] On successful response, populate the 'label' and 'priority' form fields with the returned data.
-    *   [ ] Handle API errors gracefully (e.g., show a toast notification).
+    *   [ ] Add a "Magic Fill" button to the "Add Task" and "Edit Task" modals. (AC: #1)
+    *   [ ] Implement a JavaScript function to handle the button click. (AC: #1)
+    *   [ ] The function should trigger a `POST` request to the `/api/suggest` endpoint with the task title. (AC: #1)
+    *   [ ] Implement UI logic to show a loading state on the button during the API call. (AC: #2)
+    *   [ ] On successful response, populate the 'label' and 'priority' form fields with the returned data. (AC: #3, #4)
+    *   [ ] Handle API errors gracefully (e.g., show a toast notification). (AC: #5)
 *   **2. Backend API Endpoint (app.py):**
-    *   [ ] Create a new Flask route `/api/suggest` that accepts `POST` requests.
-    *   [ ] In the route handler, extract the `title` from the incoming JSON request.
-    *   [ ] Call the `get_ai_suggestions(title)` function from the `ai_service` module.
-    *   [ ] Return the result from the `ai_service` as a JSON response.
+    *   [ ] Create a new Flask route `/api/suggest` that accepts `POST` requests. (AC: #1, #5)
+    *   [ ] In the route handler, extract the `title` from the incoming JSON request. (AC: #1)
+    *   [ ] Call the `get_ai_suggestions(title)` function from the `ai_service` module. (AC: #5)
+    *   [ ] Return the result from the `ai_service` as a JSON response. (AC: #3)
 *   **3. Verification & Testing:**
-    *   [ ] **E2E Test**: Write a test using Playwright to simulate a user clicking the "Magic Fill" button and verify that the form fields are populated with mock data.
-    *   [ ] **Integration Test**: Write a test for the `/api/suggest` endpoint that mocks the `ai_service.get_ai_suggestions` function to ensure the endpoint correctly proxies the request and response.
-    *   [ ] **Manual Test**: Manually test the full flow in a running application to confirm the frontend and backend are correctly integrated.
+    *   [ ] **E2E Test**: Write a test using Playwright to simulate a user clicking the "Magic Fill" button and verify that the form fields are populated with mock data. (AC: #1, #2, #3, #4)
+    *   [ ] **Integration Test**: Write a test for the `/api/suggest` endpoint that mocks the `ai_service.get_ai_suggestions` function to ensure the endpoint correctly proxies the request and response. (AC: #1, #3, #5)
+    *   [ ] **Manual Test**: Manually test the full flow in a running application to confirm the frontend and backend are correctly integrated. (AC: #1, #2, #3, #4, #5)
 
 ## Dev Notes
 
-- This story implements the **AI-Suggestion Flow (Magic Fill)** pattern. Refer to the Architecture and Tech Spec documents for the detailed data flow and component responsibilities.
-- The frontend should ensure that user input is not blocked while waiting for the AI suggestion.
-- Error handling is critical. If the `/api/suggest` endpoint fails, the user should be notified without disrupting their ability to fill out the form manually.
+### Architecture patterns and constraints
+This story implements the **AI-Suggestion Flow (Magic Fill)** pattern. This involves a new `/api/suggest` endpoint in `app.py` that acts as a gateway to the `ai_service.py` module. The frontend must not call the AI service directly. User input should remain unblocked during the API call, and the UI should clearly indicate the loading state.
+
+### Testing standards summary
+The primary testing focus is on Integration and End-to-End (E2E) tests. The integration test for the `/api/suggest` endpoint must mock the call to the `ai_service` to isolate the endpoint logic. The E2E test must cover the full user flow from clicking the "Magic Fill" button to seeing the populated suggestions in the form fields.
+
+### References
+- [Architecture: AI-Suggestion Flow](docs/fase-3-solutioning/architecture.md#pattern-ai-suggestion-flow-magic-fill)
+- [Tech Spec: Epic 2](docs/sprint-artifacts/tech-spec-epic-2.md)
+- [Product Requirements Document (PRD)](docs/fase-2-planning/prd.md)
 
 ## Project Structure Alignment
 
@@ -48,17 +57,10 @@ This story creates a new API endpoint and connects existing and new components:
 
 This aligns with the project's architecture by creating a clear separation of concerns between the frontend UI, the backend API gateway, and the dedicated AI service module.
 
-### References
-
-- [Architecture: AI-Suggestion Flow](docs/fase-3-solutioning/architecture.md#pattern-ai-suggestion-flow-magic-fill)
-- [Tech Spec: Epic 2](docs/sprint-artifacts/tech-spec-epic-2.md)
-- [Product Requirements Document (PRD)](docs/fase-2-planning/prd.md)
-
 ## Dev Agent Record
 
 ### Context Reference
-
-- docs/sprint-artifacts/2-2-magic-fill-ai-suggestions.context.xml
+- `docs/sprint-artifacts/2-2-magic-fill-ai-suggestions.context.xml`
 
 ### Agent Model Used
 

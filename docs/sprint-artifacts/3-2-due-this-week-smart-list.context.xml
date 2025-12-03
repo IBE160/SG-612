@@ -1,38 +1,44 @@
-<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+<story-context id="{bmad_folder}/bmm/workflows/4-implementation/story-context/template" v="1.0">
   <metadata>
     <epicId>3</epicId>
-    <storyId>2</storyId>
+    <storyId>3.2</storyId>
     <title>"Due This Week" Smart List</title>
     <status>drafted</status>
-    <generatedAt>mandag 1. desember 2025</generatedAt>
+    <generatedAt>2025-12-03</generatedAt>
     <generator>BMAD Story Context Workflow</generator>
     <sourceStoryPath>docs/sprint-artifacts/3-2-due-this-week-smart-list.md</sourceStoryPath>
   </metadata>
 
   <story>
-    <asA>a user</asA>
+    <asA>As a user</asA>
     <iWant>to easily access a "Due This Week" smart list from the dashboard</iWant>
-    <soThat>I can effectively plan and manage my upcoming tasks</soThat>
+    <soThat>so that I can effectively plan and manage my upcoming tasks</soThat>
     <tasks>
-*   **1. Backend Implementation:**
-    *   [ ] Modify existing `GET /api/tasks` Flask route in `app.py` to accept an optional `due_date_before` query parameter.
-    *   [ ] Implement logic in `app.py` to calculate the date 7 days from the current date.
-    *   [ ] Implement logic in `app.py` to filter tasks from the `Task` model where `due_date` is on or before the calculated date. (Source: `docs/fase-3-solutioning/architecture.md#Data-Models`)
-*   **2. Frontend Implementation:**
-    *   [ ] Add a "Due This Week" list item to the sidebar navigation in `templates/index.html` (or relevant template). (Source: `docs/fase-2-planning/ux-design-specification.md#Chosen-Design-Approach`)
-    *   [ ] Implement a JavaScript click handler for the "Due This Week" sidebar option that calculates the date 7 days from now and sends an API request to `GET /api/tasks?due_date_before=<calculated_date>`. (Source: `docs/sprint-artifacts/tech-spec-epic-3.md#Workflows-and-Sequencing`)
-    *   [ ] Update the main task list display based on the filtered response from the API.
-*   **3. Testing:**
-    *   [ ] **Unit Test**: Verify the date calculation logic (7 days from now) handles edge cases (month/year end, leap years) correctly.
-    *   [ ] **Unit Test**: Verify the database query logic correctly filters tasks by `due_date_before`.
-    *   [ ] **Integration Test**: Verify the `GET /api/tasks?due_date_before=<date>` endpoint returns only tasks due within the specified period.
-    *   [ ] **E2E Test**: Using Playwright, simulate a user clicking the "Due This Week" smart list in the sidebar and verify that only tasks due within the next 7 days are displayed on the dashboard. (Source: `docs/sprint-artifacts/tech-spec-epic-3.md#Test-Strategy-Summary`)
+      <task>
+        <title>1. Backend Implementation:</title>
+        <subtask>- Modify existing `GET /api/tasks` Flask route in `app.py` to accept an optional `due_date_before` query parameter. (AC: #2)</subtask>
+        <subtask>- Implement logic in `app.py` to calculate the date 7 days from the current date. (AC: #2)</subtask>
+        <subtask>- Implement logic in `app.py` to filter tasks from the `Task` model where `due_date` is on or before the calculated date. (AC: #2)</subtask>
+      </task>
+      <task>
+        <title>2. Frontend Implementation:</title>
+        <subtask>- Add a "Due This Week" list item to the sidebar navigation in `templates/index.html` (or relevant template). (AC: #1)</subtask>
+        <subtask>- Implement a JavaScript click handler for the "Due This Week" sidebar option that calculates the date 7 days from now and sends an API request to `GET /api/tasks?due_date_before=&lt;calculated_date&gt;`. (AC: #2)</subtask>
+        <subtask>- Update the main task list display based on the filtered response from the API. (AC: #2)</subtask>
+      </task>
+      <task>
+        <title>3. Testing:</title>
+        <subtask>- **Unit Test**: Verify the date calculation logic (7 days from now) handles edge cases (month/year end, leap years) correctly. (AC: #2)</subtask>
+        <subtask>- **Unit Test**: Verify the database query logic correctly filters tasks by `due_date_before`. (AC: #2)</subtask>
+        <subtask>- **Integration Test**: Verify the `GET /api/tasks?due_date_before=&lt;date&gt;` endpoint returns only tasks due within the specified period. (AC: #2)</subtask>
+        <subtask>- **E2E Test**: Using Playwright, simulate a user clicking the "Due This Week" smart list in the sidebar and verify that only tasks due within the next 7 days are displayed on the dashboard. (AC: #1, #2)</subtask>
+      </task>
     </tasks>
   </story>
 
   <acceptanceCriteria>
-1.  **Given** I am on the main dashboard, **when** I view the sidebar, **then** I see a "Due This Week" smart list option.
-2.  **When** I click the "Due This Week" smart list, **then** the main task view is filtered to show only tasks with a due date within the next 7 days.
+    <ac id="AC1">Given I am on the main dashboard, when I view the sidebar, then I see a "Due This Week" smart list option.</ac>
+    <ac id="AC2">When I click the "Due This Week" smart list, then the main task view is filtered to show only tasks with a due date within the next 7 days.</ac>
   </acceptanceCriteria>
 
   <artifacts>
@@ -44,58 +50,28 @@
         <snippet>FR13: The system can automatically generate "Due This Week" smart lists.</snippet>
       </doc>
       <doc>
-        <path>docs/sprint-artifacts/tech-spec-epic-3.md</path>
-        <title>Epic Technical Specification: Smart lists &amp; advanced filtering</title>
-        <section>Objectives and Scope</section>
-        <snippet>Automatic generation of "Due This Week" smart lists.</snippet>
+        <path>docs/fase-3-solutioning/architecture.md</path>
+        <title>Architecture</title>
+        <section>Data Models</section>
+        <snippet>Task Model: `due_date` | `Date` | `Nullable` | When the task is due.</snippet>
       </doc>
       <doc>
         <path>docs/sprint-artifacts/tech-spec-epic-3.md</path>
         <title>Epic Technical Specification: Smart lists &amp; advanced filtering</title>
         <section>APIs and Interfaces</section>
-        <snippet>GET /api/tasks: Retrieves a list of tasks, with options for filtering and sorting. Query Parameter: due_date_before: (Optional) Date - Filters tasks due before a specific date (e.g., for "Due This Week" smart list).</snippet>
+        <snippet>GET /api/tasks: Query Parameter: `due_date_before`: (Optional) Date - Filters tasks due before a specific date (e.g., for "Due This Week" smart list).</snippet>
       </doc>
       <doc>
         <path>docs/sprint-artifacts/tech-spec-epic-3.md</path>
         <title>Epic Technical Specification: Smart lists &amp; advanced filtering</title>
         <section>Workflows and Sequencing</section>
-        <snippet>User clicks on "Due This Week" smart list in the sidebar. Frontend calculates the date 7 days from now. Sends GET /api/tasks?due_date_before=&lt;calculated_date&gt; to the backend. Updates the UI to highlight "Due This Week" in the sidebar and displays tasks due within the week.</snippet>
+        <snippet>User clicks on "Due This Week" smart list... Frontend calculates the date 7 days from now. Sends GET /api/tasks?due_date_before=&lt;calculated_date&gt;.</snippet>
       </doc>
       <doc>
         <path>docs/sprint-artifacts/tech-spec-epic-3.md</path>
         <title>Epic Technical Specification: Smart lists &amp; advanced filtering</title>
         <section>Risks, Assumptions, Open Questions</section>
-        <snippet>Risk: Complex Date Logic for "Due This Week": Incorrect calculation of "Due This Week" range, especially across month/year boundaries or time zones, could lead to inaccurate smart list display. Mitigation: Thorough unit and integration testing of date calculation logic.</snippet>
-      </doc>
-      <doc>
-        <path>docs/sprint-artifacts/tech-spec-epic-3.md</path>
-        <title>Epic Technical Specification: Smart lists &amp; advanced filtering</title>
-        <section>Traceability Mapping</section>
-        <snippet>AC 3, 4 (Story 3.2) maps to Frontend, app.py (GET /api/tasks?due_date_before=...) for E2E Test: User clicks 'Due This Week' list, verifies filtered results.</snippet>
-      </doc>
-      <doc>
-        <path>docs/fase-3-solutioning/architecture.md</path>
-        <title>Architecture</title>
-        <section>Epic to Architecture Mapping</section>
-        <snippet>Epic 3: Smart Lists &amp; Advanced Filtering maps to app.py, templates/, instance/tasks.db.</snippet>
-      </doc>
-      <doc>
-        <path>docs/fase-3-solutioning/architecture.md</path>
-        <title>Architecture</title>
-        <section>Data Models</section>
-        <snippet>Task Model: due_date | Date | Nullable | When the task is due.</snippet>
-      </doc>
-      <doc>
-        <path>docs/fase-2-planning/ux-design-specification.md</path>
-        <title>ibe160 UX Design Specification</title>
-        <section>Design Direction</section>
-        <snippet>Layout: A two-column layout featuring: A permanent sidebar on the left for primary navigation and "Smart Lists" (e.g., High Priority, Due This Week).</snippet>
-      </doc>
-      <doc>
-        <path>docs/fase-2-planning/ux-design-specification.md</path>
-        <title>ibe160 UX Design Specification</title>
-        <section>Navigation Patterns</section>
-        <snippet>Active State: The active page or filter in the sidebar navigation will be clearly indicated with a solid background color and contrasting text.</snippet>
+        <snippet>Risk: Complex Date Logic for "Due This Week": Incorrect calculation of "Due This Week" range... Mitigation: Thorough unit and integration testing of date calculation logic.</snippet>
       </doc>
     </docs>
     <code>
@@ -106,83 +82,50 @@
         <reason>Endpoint to be extended for 'due_date_before' filtering and date calculation logic.</reason>
       </artifact>
       <artifact>
-        <path>instance/tasks.db</path>
-        <kind>SQLite Database</kind>
-        <symbol>Task table</symbol>
-        <reason>Data persistence layer, 'due_date' column relevant.</reason>
-      </artifact>
-      <artifact>
         <path>templates/index.html</path>
         <kind>Frontend Template</kind>
-        <reason>Needs modification to add sidebar navigation for "Due This Week" smart list and display filtered tasks.</reason>
+        <reason>Needs modification to add sidebar navigation for "Due This Week" smart list.</reason>
       </artifact>
     </code>
     <dependencies>
-      <dependency>
-        <ecosystem>Python</ecosystem>
-        <package>Flask</package>
-        <version>3.1.2</version>
-      </dependency>
-      <dependency>
-        <ecosystem>Python</ecosystem>
-        <package>Flask-SQLAlchemy</package>
-        <version>3.1.2</version>
-      </dependency>
-      <dependency>
-        <ecosystem>Python</ecosystem>
-        <package>datetime</package>
-        <version>Built-in</version>
-        <note>Critical for "Due This Week" date calculations.</note>
-      </dependency>
-      <dependency>
-        <ecosystem>Node.js</ecosystem>
-        <package>tailwindcss</package>
-        <version>4.1.17</version>
-      </dependency>
-      <dependency>
-        <ecosystem>Node.js</ecosystem>
-        <package>postcss</package>
-        <version>8.5.6</version>
-      </dependency>
-      <dependency>
-        <ecosystem>Node.js</ecosystem>
-        <package>autoprefixer</package>
-        <version>10.4.22</version>
-      </dependency>
+      <python>
+        <package name="Flask" version="3.1.2" />
+        <package name="Flask-SQLAlchemy" version="3.1.2" />
+      </python>
+      <nodejs>
+        <package name="@faker-js/faker" version="8.4.1" type="dev" />
+        <package name="@playwright/test" version="1.57.0" type="dev" />
+        <package name="@types/node" version="^24.10.1" type="dev" />
+        <package name="autoprefixer" version="^10.4.22" type="dev" />
+        <package name="postcss" version="^8.5.6" type="dev" />
+        <package name="tailwindcss" version="^4.1.17" type="dev" />
+      </nodejs>
     </dependencies>
   </artifacts>
 
   <constraints>
     <constraint>Backend implementation must use Python/Flask and Flask-SQLAlchemy for database interaction, including accurate date calculations for filtering.</constraint>
-    <constraint>Frontend UI must use TailwindCSS for styling and adhere to UX Design Specification regarding sidebar and task list display.</constraint>
     <constraint>Thorough unit and integration testing of date calculation logic is critical due to identified risk of "Complex Date Logic for 'Due This Week'".</constraint>
     <constraint>Consider adding a database index to the 'due_date' column in the Task table for performance optimization.</constraint>
-    <constraint>Ensure all API calls are authenticated as per existing Flask session-based authentication.</constraint>
   </constraints>
   <interfaces>
     <interface>
-      <name>GET /api/tasks (filter by due_date_before)</name>
+      <name>Task Management API (Filter by Due Date)</name>
       <kind>REST Endpoint</kind>
       <signature>GET /api/tasks?due_date_before=&lt;date&gt;</signature>
       <path>app.py</path>
     </interface>
   </interfaces>
   <tests>
-    <standards>
-      <standard>Unit Tests: `pytest` for core logic, especially date calculation and database query filtering.</standard>
-      <standard>Integration/API Tests: `pytest` for `GET /api/tasks?due_date_before=&lt;date&gt;` endpoint validation, including edge cases for dates.</standard>
-      <standard>End-to-End (E2E) Tests: Playwright for UI interaction and functional verification, particularly for accurate display of tasks due within 7 days.</standard>
-      <standard>Performance Testing: `k6` for API load testing (if applicable at later stage).</standard>
-    </standards>
+    <standards>The test strategy follows a pyramid approach: Unit Tests for core logic (especially date calculation and query filtering), Integration/API Tests for endpoint validation, and E2E Tests for UI interaction using Playwright.</standards>
     <locations>
       <location>tests/</location>
-      <location>tests/e2e/</location>
+      <location>playwright.config.ts</location>
     </locations>
     <ideas>
-      <idea ac-ref="1,2">E2E Test: Simulate user navigation to dashboard, click 'Due This Week' in sidebar, verify displayed tasks are only those due within the next 7 days, including tasks due today and at the end of the 7-day period.</idea>
-      <idea ac-ref="2">Integration Test: Call `GET /api/tasks?due_date_before=&lt;today+7days&gt;` and assert that the response contains only tasks with `due_date` on or before the calculated date, handling various date scenarios (e.g., month/year boundaries).</idea>
-      <idea ac-ref="2">Unit Test: Test the date calculation logic (7 days from now) for accuracy across different dates, timezones, and potential edge cases like leap years.</idea>
-      <idea ac-ref="2">Unit Test: Test the Flask-SQLAlchemy query logic in `app.py` for filtering by `due_date_before` in isolation.</idea>
+      <idea ac_id="AC1,AC2">E2E Test: Simulate user clicking 'Due This Week' and verify displayed tasks are only those due within the next 7 days.</idea>
+      <idea ac_id="AC2">Integration Test: Call `GET /api/tasks?due_date_before=&lt;today+7days&gt;` and assert that the response contains only tasks with `due_date` on or before the calculated date.</idea>
+      <idea ac_id="AC2">Unit Test: Test the date calculation logic (7 days from now) for accuracy across different dates and edge cases like month/year boundaries.</idea>
     </ideas>
   </tests>
 </story-context>
