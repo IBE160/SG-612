@@ -152,7 +152,7 @@ The AI service (`ai_service.py`) returns a dictionary with `priority` and `label
 *   **Python (3.14) / Flask (3.1.2)**:
     *   **Description**: Backend framework and language for handling API requests and business logic.
     *   **Dependency**: `google-genai` Python library for interacting with the Gemini API.
-*   **Frontend (HTML Templates / TailwindCSS 4.1.17)**:
+*   **Frontend (HTML Templates / TailwindCSS 3.4.16)**:
     *   **Description**: User interface for creating/editing tasks and triggering AI suggestions.
     *   **Integration Point**: Communicates with the Flask backend via REST API (`POST /api/suggest`).
 *   **SQLite (3.45)**:

@@ -22,7 +22,7 @@ This story is foundational to Epic 1: "Foundational Setup & Core Task Management
     *   [ ] Install Python dependencies: `Flask==3.1.2`, `Flask-SQLAlchemy==3.1.2`.
     *   [ ] Create `requirements.txt` based on installed Python packages.
     *   [ ] Initialize Node.js project (`npm init -y`).
-    *   [ ] Install Node.js dev dependencies: `tailwindcss@^4.1.17`, `postcss@^8.5.6`, `autoprefixer@^10.4.22`.
+    *   [ ] Install Node.js dev dependencies: `tailwindcss@^3.4.16`, `postcss@^8.5.6`, `autoprefixer@^10.4.22`.
     *   [ ] Initialize Tailwind CSS (`npx tailwindcss init -p`).
 *   **2. Project Structure Creation:**
     *   [ ] Create core directories: `instance/`, `static/`, `static/css/`, `static/dist/`, `templates/`.

@@ -20,7 +20,7 @@
     <subtask>- Install Python dependencies: `Flask==3.1.2`, `Flask-SQLAlchemy==3.1.2`.</subtask>
     <subtask>- Create `requirements.txt` based on installed Python packages.</subtask>
     <subtask>- Initialize Node.js project (`npm init -y`).</subtask>
-    <subtask>- Install Node.js dev dependencies: `tailwindcss@^4.1.17`, `postcss@^8.5.6`, `autoprefixer@^10.4.22`.</subtask>
+    <subtask>- Install Node.js dev dependencies: `tailwindcss@^3.4.16`, `postcss@^8.5.6`, `autoprefixer@^10.4.22`.</subtask>
     <subtask>- Initialize Tailwind CSS (`npx tailwindcss init -p`).</subtask>
   </task>
   <task>
@@ -87,7 +87,7 @@
         <path>docs/fase-3-solutioning/architecture.md</path>
         <title>Architecture</title>
         <section>Decision Summary</section>
-        <snippet>Language: Python 3.14, Backend Framework: Flask 3.1.2, ORM: Flask-SQLAlchemy 3.1.2, Frontend Styling: TailwindCSS 4.1.17, JS Runtime / Build Tooling: Node.js 24.11.1, Data Persistence: SQLite 3.45.</snippet>
+        <snippet>Language: Python 3.14, Backend Framework: Flask 3.1.2, ORM: Flask-SQLAlchemy 3.1.2, Frontend Styling: TailwindCSS 3.4.16, JS Runtime / Build Tooling: Node.js 24.11.1, Data Persistence: SQLite 3.45.</snippet>
       </doc>
       <doc>
         <path>docs/fase-3-solutioning/architecture.md</path>
@@ -105,7 +105,7 @@
         <path>docs/fase-3-solutioning/architecture.md</path>
         <title>Architecture</title>
         <section>Technology Stack Details - Core Technologies</section>
-        <snippet>Python 3.14 (Backend Language), Flask 3.1.2 (Backend Framework), Flask-SQLAlchemy 3.1.2 (ORM), Node.js 24.11.1 (JS Runtime / Build Tooling), TailwindCSS 4.1.17 (Frontend Styling), SQLite 3.45 (Data Persistence).</snippet>
+        <snippet>Python 3.14 (Backend Language), Flask 3.1.2 (Backend Framework), Flask-SQLAlchemy 3.1.2 (ORM), Node.js 24.11.1 (JS Runtime / Build Tooling), TailwindCSS 3.4.16 (Frontend Styling), SQLite 3.45 (Data Persistence).</snippet>
       </doc>
       <doc>
         <path>docs/fase-3-solutioning/architecture.md</path>
@@ -147,7 +147,7 @@
         <path>docs/sprint-artifacts/tech-spec-epic-1.md</path>
         <title>Epic Technical Specification: Foundational Setup &amp; Core Task Management</title>
         <section>Dependencies and Integrations</section>
-        <snippet>Frontend / Build: `tailwindcss`: `^4.1.17`, `postcss`: `^8.5.6`, `autoprefixer`: `^10.4.22`. Backend: `Flask`: The core backend framework. `Flask-SQLAlchemy`: ORM for database interaction.</snippet>
+        <snippet>Frontend / Build: `tailwindcss`: `^3.4.16`, `postcss`: `^8.5.6`, `autoprefixer`: `^10.4.22`. Backend: `Flask`: The core backend framework. `Flask-SQLAlchemy`: ORM for database interaction.</snippet>
       </doc>
       <doc>
         <path>docs/sprint-artifacts/tech-spec-epic-1.md</path>
@@ -178,7 +178,7 @@
     <dependencies>
       <python>
         <package name="Flask" version="3.1.2" />
-        <package name="Flask-SQLAlchemy" version="3.1.2" />
+        <package name="Flask-SQLAlchemy" version="3.1.1" />
       </python>
       <nodejs>
         <package name="@faker-js/faker" version="8.4.1" type="dev" />
@@ -186,7 +186,7 @@
         <package name="@types/node" version="^24.10.1" type="dev" />
         <package name="autoprefixer" version="^10.4.22" type="dev" />
         <package name="postcss" version="^8.5.6" type="dev" />
-        <package name="tailwindcss" version="^4.1.17" type="dev" />
+        <package name="tailwindcss" version="^3.4.16" type="dev" />
       </nodejs>
     </dependencies>
   </artifacts>
@@ -194,8 +194,8 @@
   <constraints>
     <constraint>Python virtual environment setup (AC2).</constraint>
     <constraint>SQLite database in `instance/tasks.db` (AC5).</constraint>
-    <constraint>Specific Flask (3.1.2) and Flask-SQLAlchemy (3.1.2) versions (AC2).</constraint>
-    <constraint>Specific TailwindCSS (^4.1.17), PostCSS (^8.5.6), Autoprefixer (^10.4.22) versions (AC3).</constraint>
+    <constraint>Specific Flask (3.1.2) and Flask-SQLAlchemy (3.1.1) versions (AC2).</constraint>
+    <constraint>Specific TailwindCSS (^3.4.16), PostCSS (^8.5.6), Autoprefixer (^10.4.22) versions (AC3).</constraint>
     <constraint>`.gitignore` configuration for `venv/`, `__pycache__/`, `instance/*.db`, `node_modules/`, `static/dist/`, `.env`, `.env.local` (AC6).</constraint>
     <constraint>`tailwind.config.js` configuration for `primary` color (#607AFB), `display` font family (Sora), and `borderRadius` values (AC3).</constraint>
     <constraint>`Task` model fields and types (AC4).</constraint>

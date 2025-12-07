@@ -1,31 +1,86 @@
-import unittest
-import os
-import sys
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+import pytest
 from app import app, db, Task
 
-class TaskModelCase(unittest.TestCase):
-    def setUp(self):
-        basedir = os.path.abspath(os.path.dirname(__file__))
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'test.db')
-        app.config['TESTING'] = True
-        self.app = app.test_client()
-        with app.app_context():
-            db.create_all()
+@pytest.fixture
+def client():
+    app.config['TESTING'] = True
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:' # Use in-memory SQLite for tests
+    with app.app_context():
+        db.create_all()
+        yield app.test_client()
+        db.session.remove()
+        db.drop_all()
 
-    def tearDown(self):
-        with app.app_context():
-            db.session.remove()
-            db.drop_all()
+def test_task_model_fields(client):
 
-    def test_task_model(self):
-        with app.app_context():
-            task = Task(title='Test Task')
-            db.session.add(task)
-            db.session.commit()
-            self.assertEqual(task.title, 'Test Task')
-            self.assertEqual(task.is_done, False)
-            self.assertEqual(task.priority, 'Medium')
+    with app.app_context():
 
-if __name__ == '__main__':
-    unittest.main()
+        # Test default values
+
+        task = Task(title="Test Task")
+
+        db.session.add(task)
+
+        db.session.commit()
+
+        retrieved_task = Task.query.filter_by(title="Test Task").first()
+
+
+
+        assert retrieved_task.title == "Test Task"
+
+        assert retrieved_task.notes is None
+
+        assert retrieved_task.due_date is None
+
+        assert retrieved_task.priority == "Medium"
+
+        assert retrieved_task.label is None
+
+        assert retrieved_task.is_done is False
+
+        assert retrieved_task.created_at is not None
+
+
+
+        # Test setting all fields
+
+        from datetime import date
+
+        task_full = Task(
+
+            title="Full Task",
+
+            notes="Some notes",
+
+            due_date=date(2025, 12, 31),
+
+            priority="High",
+
+            label="Work",
+
+            is_done=True
+
+        )
+
+        db.session.add(task_full)
+
+        db.session.commit()
+
+        retrieved_task_full = Task.query.filter_by(title="Full Task").first()
+
+
+
+        assert retrieved_task_full.title == "Full Task"
+
+        assert retrieved_task_full.notes == "Some notes"
+
+        assert retrieved_task_full.due_date == date(2025, 12, 31)
+
+        assert retrieved_task_full.priority == "High"
+
+        assert retrieved_task_full.label == "Work"
+
+        assert retrieved_task_full.is_done is True
+
+        assert retrieved_task_full.created_at is not None

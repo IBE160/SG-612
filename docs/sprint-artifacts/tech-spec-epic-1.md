@@ -97,7 +97,7 @@ This epic will establish the foundational REST API for task management.
 ## Dependencies and Integrations
 
 ### Frontend / Build
-*   **`tailwindcss`**: `^4.1.17` - For utility-first CSS styling.
+*   **`tailwindcss`**: `^3.4.16` - For utility-first CSS styling.
 *   **`postcss`**: `^8.5.6` - For transforming CSS with plugins.
 *   **`autoprefixer`**: `^10.4.22` - For adding vendor prefixes to CSS.
 
