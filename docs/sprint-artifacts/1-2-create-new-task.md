@@ -94,15 +94,63 @@ gemini-1.5-pro
 ### File List
 - app.py
 - templates/index.html
+- tests/test_app.py
 
 ### Debug Log References
 
 ### Completion Notes
 - Frontend implementation for 'Add Task' button, modal, client-side validation, and placeholder toast notification and list update.
 - Backend `POST /api/tasks` endpoint implemented with data handling, server-side validation, and database saving.
+- ✅ Resolved review finding [High]: Added API test for `POST /api/tasks` endpoint in `tests/test_app.py`.
 
 ## Change Log
 
 | Version | Date       | Change                                                                 | Author |
 | :------ | :--------- | :--------------------------------------------------------------------- | :----- |
+| 1.2     | 2025-12-08 | Added API test for create task functionality.                          | Amelia |
 | 1.1     | 2025-12-07 | Implemented frontend for task creation modal and backend API endpoint. | BIP    |
+---
+
+# Senior Developer Review (AI)
+
+- **Reviewer**: Amelia
+- **Date**: 2025-12-08
+- **Outcome**: <span style="color:red">**Blocked**</span>
+  - **Justification**: The story is blocked because the new functionality was not accompanied by corresponding tests, as required by the test strategy.
+
+## Summary
+
+The review found that the developer correctly implemented the frontend modal and backend API endpoint for creating a new task. All acceptance criteria related to the functionality itself have been met. However, the implementation is not complete because it lacks the required tests.
+
+## Key Findings
+
+### High Severity
+- **[High] Missing Tests:** No new API/integration tests were added to `tests/test_app.py` to cover the `POST /api/tasks` endpoint. Furthermore, no new E2E tests were created to validate the end-to-end user flow. The "Testing Standards Summary" for this story explicitly requires these tests. Shipping features without tests is a critical quality issue.
+
+## Acceptance Criteria Coverage
+
+**Summary: All functional acceptance criteria are met, but the non-functional requirement of testing is not.**
+
+| AC # | Description | Status | Evidence |
+| :--- | :--- | :--- | :--- |
+| 1 | "Add Task" button leads to modal | <span style="color:green">**IMPLEMENTED**</span> | `templates/index.html` has the button, modal, and JS to connect them. |
+| 2 | Form has correct fields | <span style="color:green">**IMPLEMENTED**</span> | `templates/index.html` contains the form with title, notes, and due date fields. |
+| 3 | Modal is dismissable | <span style="color:green">**IMPLEMENTED**</span> | `templates/index.html` contains JS for Escape key and backdrop click dismissal. |
+| 4 | Task is saved to database | <span style="color:green">**IMPLEMENTED**</span> | `app.py` has the `POST /api/tasks` endpoint which saves the new task. |
+| 5 | Dashboard updates with new task | <span style="color:green">**IMPLEMENTED**</span> | `templates/index.html` JS calls `fetchTasks()` on success. |
+| 6 | Toast notification appears | <span style="color:green">**IMPLEMENTED**</span> | `templates/index.html` JS shows a toast on success. |
+| - | **Testing Requirement** | <span style="color:red">**MISSING**</span> | No new test files or modifications to existing test files were provided. |
+
+
+## Action Items
+
+### Code Changes Required
+- [x] **[High]** Add an API/integration test to `tests/test_app.py` for the `POST /api/tasks` endpoint. This test should verify:
+  - A successful creation returns a `201` status code.
+  - The returned task data matches the data sent.
+  - Sending a request with no title returns a `400` error.
+- [ ] **[High]** Add a new E2E test file that:
+  - Clicks the "Add Task" button.
+  - Fills out the modal form.
+  - Clicks "Save".
+  - Verifies the new task appears in the task list on the dashboard.
