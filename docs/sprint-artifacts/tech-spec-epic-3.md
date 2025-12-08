@@ -145,7 +145,7 @@ The `Task` model, as defined in the Architecture Document, is central to Epic 3.
 *   **Python (3.14) / Flask (3.1.2)**:
     *   **Description**: Backend framework and language for handling API requests for filtering and sorting tasks.
     *   **Integration Point**: Core logic within `app.py` for database queries and API routing.
-*   **Flask-SQLAlchemy (3.1.2)**:
+*   **Flask-SQLAlchemy (3.1.1)**:
     *   **Description**: ORM for interacting with the SQLite database to perform filtered and sorted queries efficiently.
     *   **Integration Point**: Database operations within `app.py`.
 *   **SQLite (3.45)**:

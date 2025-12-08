@@ -90,7 +90,7 @@
     <dependencies>
       <python>
         <package name="Flask" version="3.1.2" />
-        <package name="Flask-SQLAlchemy" version="3.1.2" />
+        <package name="Flask-SQLAlchemy" version="3.1.1" />
       </python>
       <nodejs>
         <package name="@faker-js/faker" version="8.4.1" type="dev" />

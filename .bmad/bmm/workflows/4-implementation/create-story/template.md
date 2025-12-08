@@ -19,7 +19,7 @@ This story is foundational to Epic 1: "Foundational Setup & Core Task Management
 
 *   **1. Project Initialization:**
     *   [ ] Initialize Python virtual environment.
-    *   [ ] Install Python dependencies: `Flask==3.1.2`, `Flask-SQLAlchemy==3.1.2`.
+    *   [ ] Install Python dependencies: `Flask==3.1.2`, `Flask-SQLAlchemy==3.1.1`.
     *   [ ] Create `requirements.txt` based on installed Python packages.
     *   [ ] Initialize Node.js project (`npm init -y`).
     *   [ ] Install Node.js dev dependencies: `tailwindcss@^3.4.16`, `postcss@^8.5.6`, `autoprefixer@^10.4.22`.

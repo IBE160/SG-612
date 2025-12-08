@@ -17,7 +17,7 @@
   <task>
     <title>1. Project Initialization:</title>
     <subtask>- Initialize Python virtual environment.</subtask>
-    <subtask>- Install Python dependencies: `Flask==3.1.2`, `Flask-SQLAlchemy==3.1.2`.</subtask>
+    <subtask>- Install Python dependencies: `Flask==3.1.2`, `Flask-SQLAlchemy==3.1.1`.</subtask>
     <subtask>- Create `requirements.txt` based on installed Python packages.</subtask>
     <subtask>- Initialize Node.js project (`npm init -y`).</subtask>
     <subtask>- Install Node.js dev dependencies: `tailwindcss@^3.4.16`, `postcss@^8.5.6`, `autoprefixer@^10.4.22`.</subtask>
@@ -87,7 +87,7 @@
         <path>docs/fase-3-solutioning/architecture.md</path>
         <title>Architecture</title>
         <section>Decision Summary</section>
-        <snippet>Language: Python 3.14, Backend Framework: Flask 3.1.2, ORM: Flask-SQLAlchemy 3.1.2, Frontend Styling: TailwindCSS 3.4.16, JS Runtime / Build Tooling: Node.js 24.11.1, Data Persistence: SQLite 3.45.</snippet>
+        <snippet>Language: Python 3.14, Backend Framework: Flask 3.1.2, ORM: Flask-SQLAlchemy 3.1.1, Frontend Styling: TailwindCSS 3.4.16, JS Runtime / Build Tooling: Node.js 24.11.1, Data Persistence: SQLite 3.45.</snippet>
       </doc>
       <doc>
         <path>docs/fase-3-solutioning/architecture.md</path>
@@ -105,7 +105,7 @@
         <path>docs/fase-3-solutioning/architecture.md</path>
         <title>Architecture</title>
         <section>Technology Stack Details - Core Technologies</section>
-        <snippet>Python 3.14 (Backend Language), Flask 3.1.2 (Backend Framework), Flask-SQLAlchemy 3.1.2 (ORM), Node.js 24.11.1 (JS Runtime / Build Tooling), TailwindCSS 3.4.16 (Frontend Styling), SQLite 3.45 (Data Persistence).</snippet>
+        <snippet>Python 3.14 (Backend Language), Flask 3.1.2 (Backend Framework), Flask-SQLAlchemy 3.1.1 (ORM), Node.js 24.11.1 (JS Runtime / Build Tooling), TailwindCSS 3.4.16 (Frontend Styling), SQLite 3.45 (Data Persistence).</snippet>
       </doc>
       <doc>
         <path>docs/fase-3-solutioning/architecture.md</path>
