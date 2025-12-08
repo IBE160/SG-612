@@ -1,6 +1,6 @@
 # User Story: Story 2.1: Gemini API Integration
 
-Status: in-progress
+Status: review
 
 As a developer, I want to integrate the Google Gemini API with the backend, so that the application can send task descriptions for analysis.
 
@@ -29,9 +29,9 @@ This story is the first step in implementing Epic 2: "AI-Powered Task Intelligen
     *   [x] Implement the API call to the Gemini model. (AC: #1)
     *   [x] Parse the response and return the `priority` and `label` as a dictionary. (AC: #3)
 *   **3. Verification & Testing:**
-    *   [ ] **Unit Test**: Create a unit test for `get_ai_suggestions` that mocks the `google.generativeai` client and verifies that the function correctly parses a simulated successful response. (AC: #3)
-    *   [ ] **Unit Test**: Create a unit test for `get_ai_suggestions` that simulates an API error and verifies the function handles it gracefully (e.g., raises an exception or returns a specific error state). (AC: #1, #3)
-    *   [ ] **Manual Test**: Run the function directly with a valid API key and a sample task title to confirm a successful API call and response. (AC: #1, #2, #3)
+    *   [x] **Unit Test**: Create a unit test for `get_ai_suggestions` that mocks the `google.generativeai` client and verifies that the function correctly parses a simulated successful response. (AC: #3)
+    *   [x] **Unit Test**: Create a unit test for `get_ai_suggestions` that simulates an API error and verifies the function handles it gracefully (e.g., raises an exception or returns a specific error state). (AC: #1, #3)
+    *   [x] **Manual Test**: Run the function directly with a valid API key and a sample task title to confirm a successful API call and response. (AC: #1, #2, #3)
 
 ## Dev Notes
 
@@ -70,12 +70,26 @@ This aligns with the project's modular approach of separating concerns, with AI-
 
 {{agent_model_name_version}}
 
+### File List
+- ai_service.py
+- requirements.txt
+- .env.example
+- tests/test_ai_service.py
+
 ### Debug Log References
 
-### Completion Notes List
+### Completion Notes
+- Added `google-generativeai` to `requirements.txt` and installed dependencies.
+- Confirmed `GEMINI_API_KEY` in `.env.example` and `.env` in `.gitignore`.
+- Created `ai_service.py` with `get_ai_suggestions` function to integrate with Gemini API, including secure API key management and response parsing.
+- Implemented unit tests (`tests/test_ai_service.py`) for `get_ai_suggestions` covering success, API errors, malformed responses, and missing API keys. All tests passed.
+- Environment compatibility issue with `google.protobuf` resolved by user.
 
-### File List
+## Change Log
 
+| Version | Date       | Change                                                                 | Author |
+| :------ | :--------- | :--------------------------------------------------------------------- | :----- |
+| 1.2     | 2025-12-07 | Implemented and tested Gemini API integration.                         | BIP    |
 - ai_service.py
 
 - requirements.txt

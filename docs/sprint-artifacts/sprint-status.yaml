@@ -47,7 +47,7 @@ development_status:
   epic-1-retrospective: optional
 
   epic-2: contexted
-  2-1-gemini-api-integration: in-progress
+  2-1-gemini-api-integration: review
   2-2-magic-fill-ai-suggestions: review
   2-3-rule-based-fallback-mechanism: review
   epic-2-retrospective: optional
