@@ -83,16 +83,30 @@ def create_task():
 def get_tasks():
     priority_filter = request.args.get('priority')
     due_date_before_str = request.args.get('due_date_before')
+    due_date_within_days_str = request.args.get('due_date_within_days') # New parameter
     label_filter = request.args.get('label')
     sort_by = request.args.get('sort_by')
-    order = request.args.get('order', 'asc') # Default to ascending
+    order = request.args.get('order', 'asc')
 
     tasks_query = Task.query
 
     if priority_filter == 'High':
         tasks_query = tasks_query.filter_by(priority='High')
     
-    if due_date_before_str:
+    # Handle due_date_within_days
+    if due_date_within_days_str:
+        try:
+            due_date_within_days = int(due_date_within_days_str)
+            if due_date_within_days < 0:
+                return jsonify({"error": "due_date_within_days must be non-negative"}), 400
+            
+            # Calculate the date 'due_date_within_days' from today
+            target_date = date.today() + timedelta(days=due_date_within_days)
+            tasks_query = tasks_query.filter(Task.due_date <= target_date)
+        except ValueError:
+            return jsonify({"error": "Invalid due_date_within_days format. Must be an integer."}), 400
+
+    elif due_date_before_str: # Only process due_date_before if due_date_within_days is not present
         try:
             due_date_before = datetime.strptime(due_date_before_str, '%Y-%m-%d').date()
             tasks_query = tasks_query.filter(Task.due_date <= due_date_before)
@@ -104,18 +118,16 @@ def get_tasks():
 
     if sort_by:
         if sort_by == 'priority':
-            # Assuming 'High' > 'Medium' > 'Low' for sorting purposes
-            # We can use a custom order_by clause for this
             if order == 'desc':
                 tasks_query = tasks_query.order_by(
                     db.case(
                         (Task.priority == 'High', 1),
                         (Task.priority == 'Medium', 2),
                         (Task.priority == 'Low', 3),
-                        else_=4 # For any other priority values
-                    ).asc() # Use asc here because 1 is highest priority
+                        else_=4
+                    ).asc()
                 )
-            else: # asc
+            else:
                 tasks_query = tasks_query.order_by(
                     db.case(
                         (Task.priority == 'Low', 1),
@@ -129,16 +141,14 @@ def get_tasks():
                 tasks_query = tasks_query.order_by(Task.due_date.desc())
             else:
                 tasks_query = tasks_query.order_by(Task.due_date.asc())
-        elif sort_by == 'created_at': # Default sort
+        elif sort_by == 'created_at':
             if order == 'desc':
                 tasks_query = tasks_query.order_by(Task.created_at.desc())
             else:
                 tasks_query = tasks_query.order_by(Task.created_at.asc())
         else:
-            # Default sort if sort_by is invalid or not provided
             tasks_query = tasks_query.order_by(Task.created_at.desc())
     else:
-        # Default sort if no sort_by is provided
         tasks_query = tasks_query.order_by(Task.created_at.desc())
 
     tasks = tasks_query.all()

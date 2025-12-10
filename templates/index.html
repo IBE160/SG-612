@@ -193,7 +193,7 @@
         let currentTasks = [];
 
         // Function to fetch tasks from the backend
-        async function fetchTasks(priorityFilter = null, dueDateBeforeFilter = null) {
+        async function fetchTasks(priorityFilter = null, dueDateBeforeFilter = null, dueDateWithinDays = null) {
             try {
                 let url = '/api/tasks';
                 const params = new URLSearchParams();
@@ -202,6 +202,9 @@
                 }
                 if (dueDateBeforeFilter) {
                     params.append('due_date_before', dueDateBeforeFilter);
+                }
+                if (dueDateWithinDays) {
+                    params.append('due_date_within_days', dueDateWithinDays);
                 }
                 if (params.toString()) {
                     url += `?${params.toString()}`;
@@ -435,17 +438,7 @@
         highPriorityBtn.addEventListener('click', () => fetchTasks('High'));
         
         dueThisWeekBtn.addEventListener('click', () => {
-            const today = new Date();
-            const sevenDaysFromNow = new Date(today);
-            sevenDaysFromNow.setDate(today.getDate() + 7);
-            
-            // Format date to YYYY-MM-DD for API
-            const year = sevenDaysFromNow.getFullYear();
-            const month = String(sevenDaysFromNow.getMonth() + 1).padStart(2, '0');
-            const day = String(sevenDaysFromNow.getDate()).padStart(2, '0');
-            const formattedDate = `${year}-${month}-${day}`;
-
-            fetchTasks(null, formattedDate);
+            fetchTasks(null, null, 7);
         });
 
         addTaskBtn.addEventListener('click', () => {

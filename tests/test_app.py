@@ -224,3 +224,137 @@ def test_get_tasks_filter_by_priority(client):
         assert len(medium_tasks) == 1
         assert medium_tasks[0]['title'] == 'Medium Priority Task'
         assert medium_tasks[0]['priority'] == 'Medium'
+
+# Test for filtering tasks by due_date_within_days
+def test_get_tasks_filter_by_due_date_within_days(client):
+    with app.app_context():
+        # Mock today's date to control test environment
+        with patch('app.date') as mock_date:
+            mock_date.today.return_value = date(2025, 12, 10)
+            mock_date.side_effect = lambda *args, **kw: date(*args, **kw) # Allow other date operations
+
+            # Add tasks with various due dates relative to mock_date.today()
+            db.session.add(Task(title="Due today", due_date=date(2025, 12, 10)))
+            db.session.add(Task(title="Due in 3 days", due_date=date(2025, 12, 13)))
+            db.session.add(Task(title="Due in 7 days", due_date=date(2025, 12, 17)))
+            db.session.add(Task(title="Due in 8 days", due_date=date(2025, 12, 18)))
+            db.session.add(Task(title="Due in the past", due_date=date(2025, 12, 9)))
+            db.session.commit()
+
+            # Test due_date_within_days=0 (due today or in past)
+            response_0_days = client.get('/api/tasks?due_date_within_days=0')
+            assert response_0_days.status_code == 200
+            tasks_0_days = response_0_days.get_json()
+            assert len(tasks_0_days) == 2
+            assert any(t['title'] == "Due today" for t in tasks_0_days)
+            assert any(t['title'] == "Due in the past" for t in tasks_0_days)
+
+
+            # Test due_date_within_days=7 (due within next 7 days, including today)
+            response_7_days = client.get('/api/tasks?due_date_within_days=7')
+            assert response_7_days.status_code == 200
+            tasks_7_days = response_7_days.get_json()
+            assert len(tasks_7_days) == 4
+            assert any(t['title'] == "Due today" for t in tasks_7_days)
+            assert any(t['title'] == "Due in 3 days" for t in tasks_7_days)
+            assert any(t['title'] == "Due in 7 days" for t in tasks_7_days)
+            assert any(t['title'] == "Due in the past" for t in tasks_7_days)
+            assert not any(t['title'] == "Due in 8 days" for t in tasks_7_days)
+
+            # Test invalid input for due_date_within_days
+            response_invalid_str = client.get('/api/tasks?due_date_within_days=abc')
+            assert response_invalid_str.status_code == 400
+            assert "Invalid due_date_within_days format" in response_invalid_str.get_json()['error']
+
+            response_negative_days = client.get('/api/tasks?due_date_within_days=-1')
+            assert response_negative_days.status_code == 400
+            assert "due_date_within_days must be non-negative" in response_negative_days.get_json()['error']
+
+            # Test precedence: due_date_within_days should override due_date_before_str
+            response_precedence = client.get('/api/tasks?due_date_within_days=3&due_date_before=2025-12-31')
+            assert response_precedence.status_code == 200
+            tasks_precedence = response_precedence.get_json()
+            assert len(tasks_precedence) == 3 # Due today, in 3 days, in the past
+            assert not any(t['title'] == "Due in 7 days" for t in tasks_precedence)
+
+# Test for filtering tasks by label
+def test_get_tasks_filter_by_label(client):
+    with app.app_context():
+        db.session.add(Task(title="Work Task", label="Work"))
+        db.session.add(Task(title="Personal Task", label="Personal"))
+        db.session.add(Task(title="Another Work Task", label="Work"))
+        db.session.commit()
+
+        response = client.get('/api/tasks?label=Work')
+        assert response.status_code == 200
+        tasks = response.get_json()
+        assert len(tasks) == 2
+        assert all(t['label'] == 'Work' for t in tasks)
+
+        response_none = client.get('/api/tasks?label=NonExistent')
+        assert response_none.status_code == 200
+        assert len(response_none.get_json()) == 0
+
+# Test for sorting tasks by priority
+def test_get_tasks_sort_by_priority(client):
+    with app.app_context():
+        db.session.add(Task(title="Low Prio", priority="Low"))
+        db.session.add(Task(title="High Prio", priority="High"))
+        db.session.add(Task(title="Medium Prio", priority="Medium"))
+        db.session.commit()
+
+        response_desc = client.get('/api/tasks?sort_by=priority&order=desc')
+        assert response_desc.status_code == 200
+        tasks_desc = response_desc.get_json()
+        assert tasks_desc[0]['priority'] == 'High'
+        assert tasks_desc[1]['priority'] == 'Medium'
+        assert tasks_desc[2]['priority'] == 'Low'
+
+        response_asc = client.get('/api/tasks?sort_by=priority&order=asc')
+        assert response_asc.status_code == 200
+        tasks_asc = response_asc.get_json()
+        assert tasks_asc[0]['priority'] == 'Low'
+        assert tasks_asc[1]['priority'] == 'Medium'
+        assert tasks_asc[2]['priority'] == 'High'
+
+# Test for sorting tasks by due date
+def test_get_tasks_sort_by_due_date(client):
+    with app.app_context():
+        db.session.add(Task(title="Due Dec 31", due_date=date(2025, 12, 31)))
+        db.session.add(Task(title="Due Dec 25", due_date=date(2025, 12, 25)))
+        db.session.add(Task(title="Due Jan 1", due_date=date(2026, 1, 1)))
+        db.session.commit()
+
+        response_asc = client.get('/api/tasks?sort_by=due_date&order=asc')
+        assert response_asc.status_code == 200
+        tasks_asc = response_asc.get_json()
+        assert tasks_asc[0]['title'] == 'Due Dec 25'
+        assert tasks_asc[1]['title'] == 'Due Dec 31'
+        assert tasks_asc[2]['title'] == 'Due Jan 1'
+
+        response_desc = client.get('/api/tasks?sort_by=due_date&order=desc')
+        assert response_desc.status_code == 200
+        tasks_desc = response_desc.get_json()
+        assert tasks_desc[0]['title'] == 'Due Jan 1'
+        assert tasks_desc[1]['title'] == 'Due Dec 31'
+        assert tasks_desc[2]['title'] == 'Due Dec 25'
+
+# Test default sort order if sort_by is invalid or not provided
+def test_get_tasks_default_sort(client):
+    with app.app_context():
+        db.session.add(Task(title="Task C", created_at=datetime(2025, 1, 3)))
+        db.session.add(Task(title="Task A", created_at=datetime(2025, 1, 1)))
+        db.session.add(Task(title="Task B", created_at=datetime(2025, 1, 2)))
+        db.session.commit()
+
+        response_invalid_sort = client.get('/api/tasks?sort_by=invalid')
+        assert response_invalid_sort.status_code == 200
+        tasks_invalid_sort = response_invalid_sort.get_json()
+        assert tasks_invalid_sort[0]['title'] == 'Task C' # Default is created_at desc
+        assert tasks_invalid_sort[1]['title'] == 'Task B'
+        assert tasks_invalid_sort[2]['title'] == 'Task A'
+
+        response_no_sort = client.get('/api/tasks') # No sort_by parameter
+        assert response_no_sort.status_code == 200
+        tasks_no_sort = response_no_sort.get_json()
+        assert tasks_no_sort[0]['title'] == 'Task C' # Default is created_at desc
