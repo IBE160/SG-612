@@ -3,6 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, date, timedelta # Import date and timedelta for calculations
 import os
 
+# Import the get_ai_suggestions function
+from ai_service import get_ai_suggestions
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(app.instance_path, 'tasks.db')}"
 # Ensure the instance folder exists
@@ -42,6 +45,8 @@ def create_task():
     title = data.get('title')
     notes = data.get('notes')
     due_date_str = data.get('due_date')
+    priority = data.get('priority', 'Medium') # Default to 'Medium' if not provided
+    label = data.get('label')
 
     if not title or not title.strip():
         return jsonify({"error": "Title is required"}), 400
@@ -53,7 +58,13 @@ def create_task():
         except ValueError:
             return jsonify({"error": "Invalid date format. Use YYYY-MM-DD"}), 400
 
-    new_task = Task(title=title, notes=notes, due_date=due_date)
+    new_task = Task(
+        title=title, 
+        notes=notes, 
+        due_date=due_date,
+        priority=priority,
+        label=label
+    )
     db.session.add(new_task)
     db.session.commit()
 
@@ -153,31 +164,33 @@ def update_task(task_id):
     
     data = request.get_json()
 
-    title = data.get('title')
-    notes = data.get('notes')
-    due_date_str = data.get('due_date')
-    priority = data.get('priority')
-    label = data.get('label')
-    is_done = data.get('is_done')
+    if 'title' in data:
+        title = data.get('title')
+        if not title or not title.strip():
+            return jsonify({"error": "Title cannot be empty"}), 400
+        task.title = title
 
-    if not title or not title.strip():
-        return jsonify({"error": "Title is required"}), 400
+    if 'notes' in data:
+        task.notes = data.get('notes')
 
-    task.title = title
-    task.notes = notes
-    task.priority = priority
-    task.label = label
+    if 'priority' in data:
+        task.priority = data.get('priority')
+
+    if 'label' in data:
+        task.label = data.get('label')
     
-    if is_done is not None:
-        task.is_done = bool(is_done)
+    if 'is_done' in data:
+        task.is_done = bool(data.get('is_done'))
 
-    if due_date_str:
-        try:
-            task.due_date = datetime.strptime(due_date_str, '%Y-%m-%d').date()
-        except ValueError:
-            return jsonify({"error": "Invalid date format. Use YYYY-MM-DD"}), 400
-    else:
-        task.due_date = None
+    if 'due_date' in data:
+        due_date_str = data.get('due_date')
+        if due_date_str:
+            try:
+                task.due_date = datetime.strptime(due_date_str, '%Y-%m-%d').date()
+            except ValueError:
+                return jsonify({"error": "Invalid date format. Use YYYY-MM-DD"}), 400
+        else:
+            task.due_date = None
 
     db.session.commit()
 
@@ -207,29 +220,19 @@ def suggest():
     data = request.get_json()
     title = data.get('title')
 
-    # Due to blocking TypeError in ai_service, this is a mock response.
-    # In a working environment, this would call:
-    # suggestions = get_ai_suggestions(title)
-    # from ai_service import get_ai_suggestions
-    # For now, we simulate a fallback being used.
+    if not title or not title.strip():
+        return jsonify({"error": "Title is required for suggestions"}), 400
 
-    print(f"Mock AI suggestion with fallback for title: {title}")
-    
-    suggestions = {}
-    fallback_used = True # Always true for this mock
-
-    # Rule-based fallback logic (from ACs of story 2.3)
-    if "urgent" in title.lower() or "now" in title.lower():
-        suggestions = {"priority": "High", "label": "Urgent"}
-    elif "meeting" in title.lower() or "report" in title.lower():
-        suggestions = {"priority": "Medium", "label": "Work"}
-    elif "groceries" in title.lower() or "shop" in title.lower():
-        suggestions = {"priority": "Low", "label": "Shopping"}
-    else:
-        suggestions = {"priority": "Low", "label": "Other"} # Default fallback
-
-    suggestions['fallback'] = fallback_used
-    return jsonify(suggestions), 200
+    try:
+        suggestions = get_ai_suggestions(title)
+        # The ai_service.py already handles fallbacks internally if Gemini API fails
+        return jsonify(suggestions), 200
+    except ValueError as e: # Catch ValueErrors from ai_service (e.g., missing API key)
+        return jsonify({"error": str(e)}), 500
+    except Exception as e:
+        # Generic error handling for unexpected issues from ai_service
+        print(f"Error getting AI suggestions: {e}")
+        return jsonify({"error": "Failed to get AI suggestions due to an internal error."}), 500
 
 
 if __name__ == '__main__':

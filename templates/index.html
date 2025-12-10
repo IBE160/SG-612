@@ -190,6 +190,8 @@
         const allTasksBtn = document.getElementById('allTasksBtn');
         const highPriorityBtn = document.getElementById('highPriorityBtn');
 
+        let currentTasks = [];
+
         // Function to fetch tasks from the backend
         async function fetchTasks(priorityFilter = null, dueDateBeforeFilter = null) {
             try {
@@ -209,6 +211,7 @@
                     throw new Error('Failed to fetch tasks');
                 }
                 const tasks = await response.json();
+                currentTasks = tasks; // Cache tasks locally
                 renderTasks(tasks);
             } catch (error) {
                 console.error('Error fetching tasks:', error);
@@ -329,23 +332,22 @@
             }
         }
 
-        // Function to fetch a single task by ID
-        async function fetchTaskById(id) {
-            const response = await fetch(`/api/tasks/${id}`);
-            if (!response.ok) {
-                throw new Error('Failed to fetch task');
-            }
-            return await response.json();
+        // Function to fetch a single task by ID from the local cache
+        function getTaskById(id) {
+            return currentTasks.find(task => task.id == id);
         }
 
         // Open Edit Task Modal
-        async function openEditModal(taskId) {
+        function openEditModal(taskId) {
             try {
-                const task = await fetchTaskById(taskId);
+                const task = getTaskById(taskId);
+                if (!task) {
+                    throw new Error('Task not found in local cache');
+                }
                 editTaskIdInput.value = task.id;
                 editTaskTitleInput.value = task.title;
                 editTaskNotesInput.value = task.notes || '';
-                editTaskDueDateInput.value = task.due_date || ''; // Format to YYYY-MM-DD for input[type="date"]
+                editTaskDueDateInput.value = task.due_date || '';
                 editTaskPriorityInput.value = task.priority || 'Medium';
                 editTaskLabelInput.value = task.label || '';
 
