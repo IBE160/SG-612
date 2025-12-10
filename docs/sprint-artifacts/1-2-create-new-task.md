@@ -139,8 +139,7 @@ The review found that the developer correctly implemented the frontend modal and
 | 4 | Task is saved to database | <span style="color:green">**IMPLEMENTED**</span> | `app.py` has the `POST /api/tasks` endpoint which saves the new task. |
 | 5 | Dashboard updates with new task | <span style="color:green">**IMPLEMENTED**</span> | `templates/index.html` JS calls `fetchTasks()` on success. |
 | 6 | Toast notification appears | <span style="color:green">**IMPLEMENTED**</span> | `templates/index.html` JS shows a toast on success. |
-| - | **Testing Requirement** | <span style="color:red">**MISSING**</span> | No new test files or modifications to existing test files were provided. |
-
+| - | **Testing Requirement** | <span style="color:green">**IMPLEMENTED**</span> | API/Integration test implemented in `tests/test_app.py`. E2E tests are still pending. |
 
 ## Action Items
 
@@ -148,7 +147,7 @@ The review found that the developer correctly implemented the frontend modal and
 - [x] **[High]** Add an API/integration test to `tests/test_app.py` for the `POST /api/tasks` endpoint. This test should verify:
   - A successful creation returns a `201` status code.
   - The returned task data matches the data sent.
-  - Sending a request with no title returns a `400` error.
+  - Sending a request with no title returns a `400` error. (Done)
 - [ ] **[High]** Add a new E2E test file that:
   - Clicks the "Add Task" button.
   - Fills out the modal form.

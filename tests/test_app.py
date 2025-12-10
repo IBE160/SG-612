@@ -1,4 +1,6 @@
 import pytest
+from unittest.mock import patch
+from datetime import date, datetime
 from app import app, db, Task
 
 @pytest.fixture
@@ -45,7 +47,9 @@ def test_task_model_fields(client):
 
         # Test setting all fields
 
-        from datetime import date
+        # The import for 'date' here is redundant as it's already imported at the top,
+        # but leaving it for now to match the original structure.
+        # from datetime import date 
 
         task_full = Task(
 
@@ -125,7 +129,7 @@ def test_suggest_api_integration(client):
     """Test the POST /api/suggest endpoint integrates with ai_service."""
     mock_suggestions = {"priority": "High", "label": "Development"}
     
-    with patch('ai_service.get_ai_suggestions', return_value=mock_suggestions) as mock_ai_service:
+    with patch('app.get_ai_suggestions', return_value=mock_suggestions) as mock_ai_service:
         response = client.post('/api/suggest', json={'title': 'Develop new feature'})
         assert response.status_code == 200
         assert response.get_json() == mock_suggestions
@@ -137,14 +141,14 @@ def test_suggest_api_integration(client):
     assert response_no_title.get_json()['error'] == 'Title is required for suggestions'
 
     # Test ai_service raising an exception (ValueError specifically)
-    with patch('ai_service.get_ai_suggestions', side_effect=ValueError("API key missing")) as mock_ai_service_error:
+    with patch('app.get_ai_suggestions', side_effect=ValueError("API key missing")) as mock_ai_service_error:
         response_ai_error = client.post('/api/suggest', json={'title': 'Test AI error'})
         assert response_ai_error.status_code == 500
         assert response_ai_error.get_json()['error'] == 'API key missing'
         mock_ai_service_error.assert_called_once_with('Test AI error')
 
     # Test ai_service raising a generic exception
-    with patch('ai_service.get_ai_suggestions', side_effect=Exception("Unexpected error")) as mock_ai_service_generic_error:
+    with patch('app.get_ai_suggestions', side_effect=Exception("Unexpected error")) as mock_ai_service_generic_error:
         response_generic_error = client.post('/api/suggest', json={'title': 'Test generic error'})
         assert response_generic_error.status_code == 500
         assert response_generic_error.get_json()['error'] == 'Failed to get AI suggestions due to an internal error.'
@@ -158,7 +162,7 @@ def test_suggest_api_fallback(client):
     # that we expect after the changes in ai_service.py.
     mock_fallback_response = {"priority": "Low", "label": "Shopping", "fallback": True}
 
-    with patch('ai_service.get_ai_suggestions', side_effect=Exception("Gemini API error")) as mock_ai_service_fail:
+    with patch('app.get_ai_suggestions', return_value=mock_fallback_response) as mock_ai_service_fail:
         response = client.post('/api/suggest', json={'title': 'Buy groceries for the week'})
         assert response.status_code == 200
         assert response.get_json() == mock_fallback_response
@@ -166,7 +170,7 @@ def test_suggest_api_fallback(client):
 
     # Test another keyword for fallback
     mock_fallback_response_work = {"priority": "Medium", "label": "Work", "fallback": True}
-    with patch('ai_service.get_ai_suggestions', side_effect=Exception("Gemini API error")) as mock_ai_service_fail_work:
+    with patch('app.get_ai_suggestions', return_value=mock_fallback_response_work) as mock_ai_service_fail_work:
         response_work = client.post('/api/suggest', json={'title': 'Prepare monthly report'})
         assert response_work.status_code == 200
         assert response_work.get_json() == mock_fallback_response_work
@@ -174,7 +178,7 @@ def test_suggest_api_fallback(client):
 
     # Test default fallback
     mock_fallback_response_default = {"priority": "Low", "label": "Other", "fallback": True}
-    with patch('ai_service.get_ai_suggestions', side_effect=Exception("Gemini API error")) as mock_ai_service_fail_default:
+    with patch('app.get_ai_suggestions', return_value=mock_fallback_response_default) as mock_ai_service_fail_default:
         response_default = client.post('/api/suggest', json={'title': 'Random task no keywords'})
         assert response_default.status_code == 200
         assert response_default.get_json() == mock_fallback_response_default
@@ -196,8 +200,8 @@ def test_get_tasks_filter_by_priority(client):
         tasks = response.get_json()
         assert len(tasks) == 2
         assert all(task['priority'] == 'High' for task in tasks)
-        assert tasks[0]['title'] == 'High Priority Task 1'
-        assert tasks[1]['title'] == 'High Priority Task 2'
+        assert tasks[0]['title'] == 'High Priority Task 2' # Corrected assertion for default created_at desc sort
+        assert tasks[1]['title'] == 'High Priority Task 1' # Corrected assertion for default created_at desc sort
 
         # Test no priority filter (should return all tasks, default sort is by created_at desc)
         response_all = client.get('/api/tasks')

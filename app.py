@@ -90,8 +90,13 @@ def get_tasks():
 
     tasks_query = Task.query
 
-    if priority_filter == 'High':
-        tasks_query = tasks_query.filter_by(priority='High')
+    valid_priorities = ['High', 'Medium', 'Low']
+    if priority_filter:
+        if priority_filter in valid_priorities:
+            tasks_query = tasks_query.filter_by(priority=priority_filter)
+        else:
+            # If an invalid priority is requested, return an empty set of tasks
+            tasks_query = tasks_query.filter(Task.priority == "InvalidPriorityFilter") 
     
     # Handle due_date_within_days
     if due_date_within_days_str:
