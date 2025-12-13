@@ -30,8 +30,8 @@ This establishes the base architecture with these decisions:
 | -------------------------- | ------------------------------------------------------- | -------- | ----------------- | ------------- | -------------------------------------------------------------------------------- |
 | Language                   | Python                                                  | 3.14     | 2025-11-30        | All           | Latest stable version, ensures access to modern features and security updates.     |
 | Backend Framework          | Flask                                                   | 3.1.2    | 2025-11-30        | All           | Minimalist, mature, and well-suited for REST APIs.                               |
-| ORM                        | Flask-SQLAlchemy                                        | 3.1.2    | 2025-11-30        | 1, 3          | Integrates SQLAlchemy with Flask, simplifying database operations.               |
-| Frontend Styling           | TailwindCSS                                             | 4.1.17   | 2025-11-30        | All           | Utility-first CSS framework for rapid UI development.                            |
+| ORM                        | Flask-SQLAlchemy                                        | 3.1.1    | 2025-11-30        | 1, 3          | Integrates SQLAlchemy with Flask, simplifying database operations.               |
+| Frontend Styling           | TailwindCSS                                             | 3.4.16   | 2025-11-30        | All           | Utility-first CSS framework for rapid UI development.                            |
 | JS Runtime / Build Tooling | Node.js                                                 | 24.11.1  | 2025-11-30        | All           | Required for frontend asset compilation (TailwindCSS). Using LTS for stability.  |
 | Data Persistence           | SQLite                                                  | 3.45     | (Bundled)         | 1, 2, 3       | Simple, file-based, serverless, and perfect for a single-user MVP.               |
 | API Pattern                | REST API                                                | (N/A)    | (N/A)             | 2, 3          | Standard, well-understood pattern for web apps and a core strength of Flask.     |
@@ -85,9 +85,9 @@ This establishes the base architecture with these decisions:
 | ------------------- | ------- | ------------------------------- |
 | Python              | 3.14    | Backend Language                |
 | Flask               | 3.1.2   | Backend Framework               |
-| Flask-SQLAlchemy    | 3.1.2   | ORM (Object-Relational Mapper)  |
+| Flask-SQLAlchemy    | 3.1.1   | ORM (Object-Relational Mapper)  |
 | Node.js             | 24.11.1 | JS Runtime / Build Tooling      |
-| TailwindCSS         | 4.1.17  | Frontend Styling                |
+| TailwindCSS         | 3.4.16  | Frontend Styling                |
 | SQLite              | 3.45    | Data Persistence                |
 | Google Gemini API   | v1.52.0 | AI Integration                  |
 | Render              | (N/A)   | Deployment Platform             |

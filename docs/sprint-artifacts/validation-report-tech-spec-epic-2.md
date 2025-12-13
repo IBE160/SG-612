@@ -32,7 +32,7 @@ Evidence: "### APIs and Interfaces" section, which details `POST /api/suggest` w
 Evidence: "## Non-Functional Requirements" section, which has dedicated sub-sections for Performance, Security, Reliability, and Observability.
 
 ✓ Dependencies/integrations enumerated with versions where known
-Evidence: "## Dependencies and Integrations" section, listing Google Gemini API (v1.52.0), Python (3.14), Flask (3.1.2), TailwindCSS (4.1.17), SQLite (3.45), and Node.js (24.11.1).
+Evidence: "## Dependencies and Integrations" section, listing Google Gemini API (v1.52.0), Python (3.14), Flask (3.1.2), TailwindCSS (3.4.16), SQLite (3.45), and Node.js (24.11.1).
 
 ✓ Acceptance criteria are atomic and testable
 Evidence: "## Acceptance Criteria (Authoritative)" section, listing 11 atomic and testable criteria across Stories 2.1, 2.2, and 2.3.

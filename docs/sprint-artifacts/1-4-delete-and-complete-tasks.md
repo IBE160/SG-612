@@ -1,6 +1,6 @@
 # User Story: Story 1.4: Delete and Complete Tasks
 
-Status: ready-for-dev
+Status: done
 
 As a user, I want to delete tasks I no longer need and mark tasks as complete, so that I can manage my task list effectively.
 
@@ -21,18 +21,18 @@ This story implements the "Delete" and "Update" (for completion) functionality f
 ## Tasks / Subtasks
 
 *   **1. Frontend Implementation (Delete Tasks):**
-    *   [ ] Implement a confirmation dialog when the delete icon on a `Task Card` is clicked.
-    *   [ ] On confirmation, send a `DELETE /api/tasks/<id>` request to the backend.
-    *   [ ] On successful deletion, remove the task from the dashboard UI.
+    *   [x] Implement a confirmation dialog when the delete icon on a `Task Card` is clicked.
+    *   [x] On confirmation, send a `DELETE /api/tasks/<id>` request to the backend.
+    *   [x] On successful deletion, remove the task from the dashboard UI.
 *   **2. Frontend Implementation (Complete Tasks):**
-    *   [ ] Implement the checkbox on the `Task Card`.
-    *   [ ] On checkbox click, send a `PUT /api/tasks/<id>` request with `is_done: true`.
-    *   [ ] On successful update, apply visual distinction (strikethrough, muted color) to the completed task on the UI.
+    *   [x] Implement the checkbox on the `Task Card`.
+    *   [x] On checkbox click, send a `PUT /api/tasks/<id>` request with `is_done: true`.
+    *   [x] On successful update, apply visual distinction (strikethrough, muted color) to the completed task on the UI.
 *   **3. Backend API Endpoint:**
-    *   [ ] Create `DELETE /api/tasks/<id>` endpoint in `app.py`.
-    *   [ ] Delete the `Task` object from the database using `Flask-SQLAlchemy`.
-    *   [ ] Return `204 No Content` on successful deletion.
-    *   [ ] Modify `PUT /api/tasks/<id>` endpoint to handle `is_done` field updates.
+    *   [x] Create `DELETE /api/tasks/<id>` endpoint in `app.py`.
+    *   [x] Delete the `Task` object from the database using `Flask-SQLAlchemy`.
+    *   [x] Return `204 No Content` on successful deletion.
+    *   [x] Modify `PUT /api/tasks/<id>` endpoint to handle `is_done` field updates.
 
 ## Dev Notes
 
@@ -76,8 +76,71 @@ This story aligns with the established Flask project structure by extending `app
 
 gemini-1.5-pro
 
+### File List
+- app.py
+- templates/index.html
+
 ### Debug Log References
 
-### Completion Notes List
+### Completion Notes
+- Implemented `DELETE /api/tasks/<id>` endpoint in `app.py` to delete tasks from the database.
+- Modified `PUT /api/tasks/<id>` in `app.py` to handle `is_done` field updates for task completion.
+- Modified `templates/index.html` to include JavaScript logic for:
+    - Confirmation dialog and API call for task deletion.
+    - Checkbox interaction to toggle `is_done` status via `PUT` request.
+    - Visual distinction for completed tasks (strikethrough/muted color).
 
-### File List
+## Change Log
+
+| Version | Date       | Change                                                                 | Author |
+| :------ | :--------- | :--------------------------------------------------------------------- | :----- |
+| 1.1     | 2025-12-07 | Implemented delete and complete functionalities for tasks.             | BIP    |
+
+---
+
+### **Senior Developer Review (AI)**
+
+*   **Reviewer**: BIP
+*   **Date**: 2025-12-10
+*   **Outcome**: APPROVE
+
+**Summary**
+
+The "Delete and Complete Tasks" functionality is fully implemented and verified. Both the delete operation with confirmation and the task completion toggle, including visual distinction, are working as per the acceptance criteria. The backend endpoints and frontend interactions are correctly implemented.
+
+**Key Findings**
+
+*   **None.** All acceptance criteria and tasks have been correctly implemented.
+
+**Acceptance Criteria Coverage**
+
+| AC# | Description | Status | Evidence |
+| :-- | :--- | :--- | :--- |
+| 1 | Delete task with confirmation | IMPLEMENTED | `templates/index.html:deleteConfirmed`, `app.py:delete_task` |
+| 2 | Mark task complete with visual distinction | IMPLEMENTED | `templates/index.html:toggleTaskCompletion`, `templates/index.html:renderTasks`, `app.py:update_task` |
+
+**Summary**: 2 of 2 acceptance criteria fully implemented and reachable.
+
+**Task Completion Validation**
+
+| Task | Marked As | Verified As | Evidence |
+| :--- | :--- | :--- | :--- |
+| 1.1: Implement confirmation dialog for delete | [x] | VERIFIED COMPLETE | `templates/index.html:deleteConfirmed` |
+| 1.2: Send DELETE request on confirmation | [x] | VERIFIED COMPLETE | `templates/index.html:deleteConfirmed` |
+| 1.3: Remove task from UI on success | [x] | VERIFIED COMPLETE | `templates/index.html:deleteConfirmed` |
+| 2.1: Implement checkbox on Task Card | [x] | VERIFIED COMPLETE | `templates/index.html:renderTasks` |
+| 2.2: Send PUT request with is_done: true on click | [x] | VERIFIED COMPLETE | `templates/index.html:toggleTaskCompletion` |
+| 2.3: Apply visual distinction on UI | [x] | VERIFIED COMPLETE | `templates/index.html:renderTasks` |
+| 3.1: Create DELETE /api/tasks/\<id> endpoint | [x] | VERIFIED COMPLETE | `app.py:delete_task` |
+| 3.2: Delete Task object from DB | [x] | VERIFIED COMPLETE | `app.py:delete_task` |
+| 3.3: Return 204 No Content | [x] | VERIFIED COMPLETE | `app.py:delete_task` |
+| 3.4: Modify PUT /api/tasks/\<id> to handle is_done | [x] | VERIFIED COMPLETE | `app.py:update_task` |
+
+**Summary**: 10 of 10 completed tasks verified. No tasks were falsely marked as complete.
+
+**Action Items**
+
+**Advisory Notes:**
+*   `Note:` No critical or high-priority action items. Consider adding specific API tests for error handling scenarios (e.g., attempting to delete a non-existent task) for increased robustness.
+
+---

@@ -1,107 +1,102 @@
 import os
-import json
 import google.generativeai as genai
-from dotenv import load_dotenv
+import json
 
-# Last inn miljøvariabler (finner GEMINI_API_KEY i .env-filen)
-load_dotenv()
+def get_ai_suggestions(title: str) -> dict:
+    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+    if not GEMINI_API_KEY:
+        # Fallback if API key is not set, as Gemini API won't work
+        # This is considered a fallback scenario
+        print("GEMINI_API_KEY not found. Using rule-based fallback.")
+        return _rule_based_fallback(title)
 
-def configure_genai():
-    """Konfigurerer Google Gemini API med nøkkelen fra .env."""
-    api_key = os.getenv("GEMINI_API_KEY")
-    if not api_key:
-        print("Advarsel: GEMINI_API_KEY ble ikke funnet. Fallback-logikk vil bli brukt.")
-        return False
-    
-    try:
-        genai.configure(api_key=api_key)
-        return True
-    except Exception as e:
-        print(f"Feil under konfigurering av Gemini API: {e}")
-        return False
 
-# Konfigurer API-en når modulen lastes
-is_genai_configured = configure_genai()
-model = genai.GenerativeModel('gemini-1.5-flash') if is_genai_configured else None
+    genai.configure(api_key=GEMINI_API_KEY)
 
-def get_ai_suggestions(task_title: str) -> dict:
-    """
-    Får AI-genererte forslag for en oppgavetittel.
-    Returnerer en dictionary med 'label' og 'priority'.
-    Bruker fallback-logikk ved feil.
-    """
-    if not is_genai_configured or not model:
-        print("Bruker fallback-logikk fordi AI-tjenesten ikke er konfigurert.")
-        return _fallback_logic(task_title)
+    # For text-only input, use the gemini-pro model
+    model = genai.GenerativeModel('gemini-pro')
 
-    # System-prompt som instruerer AI-en til å returnere en JSON-struktur
     prompt = f"""
-    Analyze the following task and return a clean JSON object with a suggested 'label' and 'priority'.
-    Valid labels: School, Work, Home, Health, Finance, Shopping, Other.
-    Valid priorities: Low, Medium, High.
+    Analyze the following task title and suggest a 'priority' (Low, Medium, High) and a 'label' (e.g., Work, Personal, Shopping, Study, Home, Health, Finance, Other).
+    Return the response as a JSON object with keys "priority" and "label".
+    Only return the JSON object, do not include any other text or formatting.
 
-    Do not add any commentary or markdown formatting like ```json. Only return the raw JSON object.
-
-    Task: "{task_title}"
+    Task Title: "{title}"
     """
-    
+
     try:
         response = model.generate_content(prompt)
-        # Renser svaret for å hente ut kun JSON-delen
-        cleaned_response = response.text.strip().replace("```json", "").replace("```", "").strip()
-        suggestions = json.loads(cleaned_response)
+        # Assuming the model returns a JSON string in its text response
+        json_response = json.loads(response.text)
         
-        # Valider at vi fikk det vi forventet
-        if 'label' in suggestions and 'priority' in suggestions:
-            return suggestions
-        else:
-            print("AI-svar manglet forventede nøkler. Bruker fallback.")
-            return _fallback_logic(task_title)
-
+        priority = json_response.get("priority", "Medium")
+        label = json_response.get("label", "Other")
+        
+        return {"priority": priority, "label": label, "fallback": False} # Indicate not a fallback
     except Exception as e:
-        print(f"En feil oppstod under kall til Gemini API: {e}. Bruker fallback-logikk.")
-        return _fallback_logic(task_title)
+        print(f"Error calling Gemini API or parsing response: {e}. Using rule-based fallback.")
+        return _rule_based_fallback(title)
 
-def _fallback_logic(task_title: str) -> dict:
+def _rule_based_fallback(title: str) -> dict:
     """
-    Fallback-logikk som beskrevet i prosjektforslaget.
-    Bruker enkel nøkkelord-matching.
+    Implements rule-based fallback logic for AI suggestions.
     """
-    task_lower = task_title.lower()
-    if 'buy' in task_lower or 'shop' in task_lower or 'grocery' in task_lower:
-        label = "Shopping"
-    elif 'work' in task_lower or 'meeting' in task_lower or 'report' in task_lower:
-        label = "Work"
-    elif 'school' in task_lower or 'exam' in task_lower or 'homework' in task_lower or 'study' in task_lower:
-        label = "School"
+    title_lower = title.lower()
+    
+    fallback_suggestions = {}
+
+    # Keyword matching for priority and label
+    if "urgent" in title_lower or "now" in title_lower or "critical" in title_lower:
+        fallback_suggestions["priority"] = "High"
+        fallback_suggestions["label"] = "Urgent"
+    elif "meeting" in title_lower or "report" in title_lower or "work" in title_lower:
+        fallback_suggestions["priority"] = "Medium"
+        fallback_suggestions["label"] = "Work"
+    elif "groceries" in title_lower or "shop" in title_lower or "buy" in title_lower:
+        fallback_suggestions["priority"] = "Low"
+        fallback_suggestions["label"] = "Shopping"
+    elif "study" in title_lower or "read" in title_lower or "learn" in title_lower:
+        fallback_suggestions["priority"] = "Medium"
+        fallback_suggestions["label"] = "Study"
+    elif "home" in title_lower or "clean" in title_lower or "chores" in title_lower:
+        fallback_suggestions["priority"] = "Low"
+        fallback_suggestions["label"] = "Home"
+    elif "health" in title_lower or "doctor" in title_lower or "exercise" in title_lower:
+        fallback_suggestions["priority"] = "Medium"
+        fallback_suggestions["label"] = "Health"
+    elif "finance" in title_lower or "bill" in title_lower or "pay" in title_lower:
+        fallback_suggestions["priority"] = "High" # Financial tasks often high priority
+        fallback_suggestions["label"] = "Finance"
     else:
-        label = "Other"
+        # Default fallback if no keywords match
+        fallback_suggestions["priority"] = "Low"
+        fallback_suggestions["label"] = "Other"
     
-    priority = "Low"
+    fallback_suggestions["fallback"] = True # Indicate that fallback was used
+    return fallback_suggestions
+
+if __name__ == '__main__':
+    # Example usage (requires GEMINI_API_KEY to be set in environment)
+    # You can set it like: $env:GEMINI_API_KEY="YOUR_API_KEY"
+    print("Testing ai_service.py...")
     
-    return {"label": label, "priority": priority}
+    # Test with a sample task title
+    sample_title_1 = "Prepare presentation for Monday meeting"
+    suggestions_1 = get_ai_suggestions(sample_title_1)
+    print(f"Suggestions for '{sample_title_1}': {suggestions_1}")
 
-# --- Testblokk ---
-# Denne koden kjører kun når du kjører 'python ai_service.py' direkte.
-# Den lar oss teste at alt fungerer som det skal.
-if __name__ == "__main__":
-    print("--- Starter test av ai_service.py ---")
-    
-    # Test 1: En typisk oppgave
-    print("\nTest 1: 'Study for math exam tomorrow'")
-    suggestions1 = get_ai_suggestions("Study for math exam tomorrow")
-    print(f"Forslag: {suggestions1}")
+    sample_title_2 = "Buy groceries: milk, eggs, bread"
+    suggestions_2 = get_ai_suggestions(sample_title_2)
+    print(f"Suggestions for '{sample_title_2}': {suggestions_2}")
 
-    # Test 2: En annen oppgave som bør utløse fallback-nøkkelord
-    print("\nTest 2: 'Buy milk and bread'")
-    suggestions2 = get_ai_suggestions("Buy milk and bread")
-    print(f"Forslag: {suggestions2}")
+    sample_title_3 = "Fix bug in login module"
+    suggestions_3 = get_ai_suggestions(sample_title_3)
+    print(f"Suggestions for '{sample_title_3}': {suggestions_3}")
 
-    # Test 3: En generell oppgave uten klare nøkkelord
-    print("\nTest 3: 'Call mom'")
-    suggestions3 = get_ai_suggestions("Call mom")
-    print(f"Forslag: {suggestions3}")
+    sample_title_4 = "Urgent call with client"
+    suggestions_4 = get_ai_suggestions(sample_title_4)
+    print(f"Suggestions for '{sample_title_4}': {suggestions_4}")
 
-    # For å teste feil-scenarioet, kan du midlertidig endre API-nøkkelen i .env til noe ugyldig.
-    
-    print("\n--- Testen er ferdig ---")
+    sample_title_5 = "Default task title"
+    suggestions_5 = get_ai_suggestions(sample_title_5)
+    print(f"Suggestions for '{sample_title_5}': {suggestions_5}")

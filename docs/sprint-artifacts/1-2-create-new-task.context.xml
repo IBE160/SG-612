@@ -176,7 +176,7 @@
     <dependencies>
       <python>
         <package name="Flask" version="3.1.2" />
-        <package name="Flask-SQLAlchemy" version="3.1.2" />
+        <package name="Flask-SQLAlchemy" version="3.1.1" />
       </python>
       <nodejs>
         <package name="@faker-js/faker" version="8.4.1" type="dev" />
@@ -184,7 +184,7 @@
         <package name="@types/node" version="^24.10.1" type="dev" />
         <package name="autoprefixer" version="^10.4.22" type="dev" />
         <package name="postcss" version="^8.5.6" type="dev" />
-        <package name="tailwindcss" version="^4.1.17" type="dev" />
+        <package name="tailwindcss" version="^3.4.16" type="dev" />
       </nodejs>
     </dependencies>
   </artifacts>

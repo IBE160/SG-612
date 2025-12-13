@@ -1,6 +1,6 @@
 # User Story: Story 1.3: View and Update Tasks
 
-Status: ready-for-dev
+Status: done
 
 As a user, I want to view the details of my tasks and update them, so that I can keep my task list accurate.
 
@@ -22,22 +22,22 @@ This story implements the "Read" and "Update" functionality for tasks as defined
 ## Tasks / Subtasks
 
 *   **1. Frontend Implementation (View Tasks):**
-    *   [ ] On dashboard load, fetch all tasks by calling `GET /api/tasks`.
-    *   [ ] Implement the "Spacious & Focused List" layout using TailwindCSS.
-    *   [ ] Create the `Task Card` component to display individual tasks.
-    *   [ ] Each `Task Card` should display `title`, `due_date`, `label` (badge), and `priority` (badge).
-    *   [ ] Implement hover effect to show edit and delete icons on the `Task Card`.
+    *   [x] On dashboard load, fetch all tasks by calling `GET /api/tasks`.
+    *   [x] Implement the "Spacious & Focused List" layout using TailwindCSS.
+    *   [x] Create the `Task Card` component to display individual tasks.
+    *   [x] Each `Task Card` should display `title`, `due_date`, `label` (badge), and `priority` (badge).
+    *   [x] Implement hover effect to show edit and delete icons on the `Task Card`.
 *   **2. Frontend Implementation (Update Tasks):**
-    *   [ ] Clicking a `Task Card` opens an "Edit Task" modal.
-    *   [ ] Pre-fill the modal form with the selected task's data.
-    *   [ ] On form submission, send a `PUT /api/tasks/<id>` request with the updated data.
-    *   [ ] On successful update, close the modal and refresh the task list on the dashboard.
+    *   [x] Clicking a `Task Card` opens an "Edit Task" modal.
+    *   [x] Pre-fill the modal form with the selected task's data.
+    *   [x] On form submission, send a `PUT /api/tasks/<id>` request with the updated data.
+    *   [x] On successful update, close the modal and refresh the task list on the dashboard.
 *   **3. Backend API Endpoint:**
-    *   [ ] Create `GET /api/tasks` endpoint in `app.py` to retrieve all tasks.
-    *   [ ] Create `PUT /api/tasks/<id>` endpoint in `app.py` to update a specific task.
-    *   [ ] Handle incoming JSON request body for task updates.
-    *   [ ] Update the `Task` object in the database using `Flask-SQLAlchemy`.
-    *   [ ] Return the updated task object.
+    *   [x] Create `GET /api/tasks` endpoint in `app.py` to retrieve all tasks.
+    *   [x] Create `PUT /api/tasks/<id>` endpoint in `app.py` to update a specific task.
+    *   [x] Handle incoming JSON request body for task updates.
+    *   [x] Update the `Task` object in the database using `Flask-SQLAlchemy`.
+    *   [x] Return the updated task object.
 
 ## Dev Notes
 
@@ -81,8 +81,80 @@ This story aligns with the established Flask project structure by extending `app
 
 gemini-1.5-pro
 
+### File List
+- app.py
+- templates/index.html
+
 ### Debug Log References
 
-### Completion Notes List
+### Completion Notes
+- Implemented `GET /api/tasks` endpoint in `app.py` to retrieve all tasks.
+- Implemented `PUT /api/tasks/<id>` endpoint in `app.py` to update a specific task, including handling JSON request body, updating the Task object, and returning the updated object.
+- Modified `templates/index.html` to fetch and render tasks on page load.
+- Implemented `Task Card` component with `title`, `due_date`, `label`, `priority`, and hover effects for edit/delete icons.
+- Implemented "Edit Task" modal in `templates/index.html` with logic for opening, pre-filling, submitting updates, and refreshing the task list.
 
-### File List
+## Change Log
+
+| Version | Date       | Change                                                                 | Author |
+| :------ | :--------- | :--------------------------------------------------------------------- | :----- |
+| 1.1     | 2025-12-07 | Implemented view and update functionalities for tasks.                 | BIP    |
+
+---
+
+| 1.1     | 2025-12-07 | Implemented view and update functionalities for tasks.                 | BIP    |
+
+---
+
+### **Senior Developer Review (AI)**
+
+*   **Reviewer**: BIP
+*   **Date**: 2025-12-10
+*   **Outcome**: APPROVE
+
+**Summary**
+
+All critical issues previously identified have been resolved. The "View and Update Tasks" functionality is now fully implemented and verified against all acceptance criteria and subtasks. The frontend edit modal logic is corrected, the backend `update_task` endpoint handles partial updates correctly, and the `create_task` endpoint now accepts priority and label.
+
+**Key Findings**
+
+*   **None.** All previously identified high and medium severity issues have been resolved.
+
+**Acceptance Criteria Coverage**
+
+| AC# | Description | Status | Evidence |
+| :-- | :--- | :--- | :--- |
+| 1 | View task list with all details | IMPLEMENTED | `app.py:get_tasks`, `templates/index.html:renderTasks` |
+| 2 | Click task to open pre-filled modal | IMPLEMENTED | `templates/index.html:getTaskById`, `templates/index.html:openEditModal` |
+| 3 | Modify fields in edit modal | IMPLEMENTED | `templates/index.html:editTaskModal` |
+| 4 | Save changes to update task | IMPLEMENTED | `app.py:update_task`, `templates/index.html:editTaskForm` |
+
+**Summary**: 4 of 4 acceptance criteria fully implemented and reachable.
+
+**Task Completion Validation**
+
+| Task | Marked As | Verified As | Evidence |
+| :--- | :--- | :--- | :--- |
+| 1.1: Fetch tasks on load | [x] | VERIFIED COMPLETE | `index.html` |
+| 1.2: Implement spacious list | [x] | VERIFIED COMPLETE | `index.html` |
+| 1.3: Create Task Card component | [x] | VERIFIED COMPLETE | `index.html` |
+| 1.4: Display task details | [x] | VERIFIED COMPLETE | `index.html` |
+| 1.5: Implement hover effect | [x] | VERIFIED COMPLETE | `index.html` |
+| 2.1: Clicking card opens modal | [x] | VERIFIED COMPLETE | `index.html:openEditModal` |
+| 2.2: Pre-fill modal with data | [x] | VERIFIED COMPLETE | `index.html:openEditModal` |
+| 2.3: Send PUT request on submit | [x] | VERIFIED COMPLETE | `index.html` |
+| 2.4: Close modal and refresh list | [x] | VERIFIED COMPLETE | `index.html` |
+| 3.1: Create GET /api/tasks | [x] | VERIFIED COMPLETE | `app.py` |
+| 3.2: Create PUT /api/tasks/\<id> | [x] | VERIFIED COMPLETE | `app.py` |
+| 3.3: Handle JSON request body | [x] | VERIFIED COMPLETE | `app.py` |
+| 3.4: Update Task object in DB | [x] | VERIFIED COMPLETE | `app.py` |
+| 3.5: Return updated task object | [x] | VERIFIED COMPLETE | `app.py` |
+
+**Summary**: 13 of 13 completed tasks verified. No tasks were falsely marked as complete.
+
+**Action Items**
+
+**Advisory Notes:**
+*   `Note:` Consider adding specific API tests for invalid date formats and other edge cases for robustness.
+
+---

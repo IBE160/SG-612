@@ -4,13 +4,14 @@
   "description": "Repository for SG-612 - IBE160 Programmering med KI.",
   "main": "index.js",
   "directories": {
-    "doc": "docs"
+    "doc": "docs",
+    "test": "tests"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "test:e2e": "playwright test",
-    "build:css": "tailwindcss -i ./static/css/input.css -o ./static/dist/output.css --watch"
-    ,"lint": "echo \"No linting configured yet\""
+    "build:css": "tailwindcss -i ./static/css/input.css -o ./static/dist/output.css --watch",
+    "lint": "echo \"No linting configured yet\""
   },
   "repository": {
     "type": "git",
@@ -26,9 +27,28 @@
   "devDependencies": {
     "@faker-js/faker": "8.4.1",
     "@playwright/test": "1.57.0",
-    "@types/node": "^24.10.1",
-    "autoprefixer": "^10.4.22",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.17"
+    "@types/node": "^20.10.0",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.16"
+  },
+  "dependencies": {
+    "date-fns": "^3.6.0",
+    "baseline-browser-mapping": "^2.8.32",
+    "browserslist": "^4.28.0",
+    "caniuse-lite": "^1.0.30001757",
+    "electron-to-chromium": "^1.5.262",
+    "escalade": "^3.2.0",
+    "fraction.js": "^5.3.4",
+    "nanoid": "^3.3.11",
+    "node-releases": "^2.0.27",
+    "normalize-range": "^0.1.2",
+    "picocolors": "^1.1.1",
+    "playwright": "^1.57.0",
+    "playwright-core": "^1.57.0",
+    "postcss-value-parser": "^4.2.0",
+    "source-map-js": "^1.2.1",
+    "undici-types": "^7.16.0",
+    "update-browserslist-db": "^1.1.4"
   }
 }
