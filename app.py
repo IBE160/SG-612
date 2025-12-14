@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime, date, timedelta # Import date and timedelta for calculations
+from datetime import datetime, date, timedelta, timezone # Import date and timedelta for calculations
 import os
 
 # Import the get_ai_suggestions function
@@ -24,7 +24,7 @@ class Task(db.Model):
     priority = db.Column(db.String(20), nullable=False, default='Medium')
     label = db.Column(db.String(50), nullable=True)
     is_done = db.Column(db.Boolean, nullable=False, default=False)
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, nullable=False, default=lambda: datetime.now(timezone.utc))
 
     def __repr__(self):
         return f"Task('{self.title}', '{self.due_date}', '{self.priority}')"
@@ -68,7 +68,7 @@ def create_task():
     db.session.add(new_task)
     db.session.commit()
 
-    return jsonify({
+    return jsonify({"data": {
         "id": new_task.id,
         "title": new_task.title,
         "notes": new_task.notes,
@@ -77,7 +77,7 @@ def create_task():
         "label": new_task.label,
         "is_done": new_task.is_done,
         "created_at": new_task.created_at.isoformat()
-    }), 201
+    }}), 201
 
 @app.route('/api/tasks', methods=['GET'])
 def get_tasks():
