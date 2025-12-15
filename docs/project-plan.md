@@ -58,19 +58,19 @@
 ## Fase 3
 
 - [x] Implementation
-  - [x] /run-agent-task sm *sprint-planning {prompt / user-input-file}
+  - [x] /run-agent-task sm *sprint-planning 
     - [x] File: sprint-artifacts/sprint-status.yaml
   - foreach epic in sprint planning:
-    - [x] /run-agent-task sm create-epic-tech-context {prompt / user-input-file}
+    - [x] /run-agent-task sm create-epic-tech-context 
       - [x] File: sprint-artifacts/tech-spec-epic-1.md
       - [x] File: sprint-artifacts/tech-spec-epic-2.md
       - [x] File: sprint-artifacts/tech-spec-epic-3.md
-    - [x] /run-agent-task sm validate-epic-tech-context {prompt / user-input-file}
+    - [x] /run-agent-task sm validate-epic-tech-context 
       - [x] File: sprint-artifacts/validation-report-tech-spec-epic-1.md
       - [x] File: sprint-artifacts/validation-report-tech-spec-epic-2.md
       - [x] File: sprint-artifacts/validation-report-tech-spec-epic-3.md
     - foreach story in epic:
-      - [x] /run-agent-task sm *create-story {prompt / user-input-file}
+      - [x] /run-agent-task sm *create-story 
         - [x] File: sprint-artifacts/1-1-project-foundation-database-setup.md
         - [x] File: sprint-artifacts/1-2-create-new-task.md
         - [x] File: sprint-artifacts/1-3-view-and-update-tasks.md
@@ -81,7 +81,7 @@
         - [x] File: sprint-artifacts/3-1-high-priority-smart-list.md
         - [x] File: sprint-artifacts/3-2-due-this-week-smart-list.md
         - [x] File: sprint-artifacts/3-3-manual-filtering-and-sorting.md
-      - [x] /run-agent-task sm *validate-create-story {prompt / user-input-file}
+      - [x] /run-agent-task sm *validate-create-story 
         - [x] File: sprint-artifacts/validation-report-1-1-project-foundation-database-setup.md
         - [x] File: sprint-artifacts/validation-report-1-2-create-new-task.md
         - [x] File: sprint-artifacts/validation-report-1-3-view-and-update-tasks.md
@@ -92,7 +92,7 @@
         - [x] File: sprint-artifacts/validation-report-3-1-high-priority-smart-list.md
         - [x] File: sprint-artifacts/validation-report-3-2-due-this-week-smart-list.md
         - [x] File: sprint-artifacts/validation-report-3-3-manual-filtering-and-sorting.md
-      - [x] /run-agent-task sm *create-story-context {prompt / user-input-file}
+      - [x] /run-agent-task sm *create-story-context 
         - [x] File: sprint-artifacts/1-1-project-foundation-database-setup.context.xml
         - [x] File: sprint-artifacts/1-2-create-new-task.context.xml
         - [x] File: sprint-artifacts/1-3-view-and-update-tasks.context.xml
@@ -103,7 +103,7 @@
         - [x] File: sprint-artifacts/3-1-high-priority-smart-list.context.xml
         - [x] File: sprint-artifacts/3-2-due-this-week-smart-list.context.xml
         - [x] File: sprint-artifacts/3-3-manual-filtering-and-sorting.context.xml
-      - [x] /run-agent-task sm *validate-story-context {prompt / user-input-file}
+      - [x] /run-agent-task sm *validate-story-context 
         - [x] File: sprint-artifacts/validation-report-1-1-project-foundation-database-setup.context.md
         - [x] File: sprint-artifacts/validation-report-1-2-create-new-task.context.md
         - [x] File: sprint-artifacts/validation-report-1-3-view-and-update-tasks.context.md
@@ -114,13 +114,21 @@
         - [x] File: sprint-artifacts/validation-report-3-1-high-priority-smart-list.context.md
         - [x] File: sprint-artifacts/validation-report-3-2-due-this-week-smart-list.context.md
         - [x] File: sprint-artifacts/validation-report-3-3-manual-filtering-and-sorting.context.md
-      - [x] /run-agent-task sm *story-ready-for-dev {prompt / user-input-file}
+      - [x] /run-agent-task sm *story-ready-for-dev 
       while code-review != approved:
-        - [x] /run-agent-task dev *develop-story {prompt / user-input-file}
-        - [x] /run-agent-task dev *code-review {prompt / user-input-file}
-      - [x] /run-agent-task dev *story-done {prompt / user-input-file}
-      - [ ] /run-agent-task sm *test-review {prompt / user-input-file}
-    - [ ] /run-agent-task sm *epic-retrospective {prompt / user-input-file}
+        - [x] /run-agent-task dev *develop-story 
+        - [x] /run-agent-task dev *code-review 
+      - [x] /run-agent-task dev *story-done 
+      - [x] /run-agent-task sm *test-review 
+        - [x] File: test-review/test-review-create-task.md
+        - [x] File: test-review/test-review-example.md
+        - [x] File: test-review/test-review-magic-fill.md
+        - [x] File: test-review/test-review-smart-lists.md
+        - [x] File: test-review/test-review-test-app.md
+    - [x] /run-agent-task sm *epic-retrospective 
+      - [x] File: sprint-artifacts/epic-1-retro-2025-12-14.md
+      - [x] File: sprint-artifacts/epic-2-retro-2025-12-14.md
+      - [x] File: sprint-artifacts/epic-3-retro-2025-12-14.md
 
 
 
